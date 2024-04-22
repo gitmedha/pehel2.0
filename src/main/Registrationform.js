@@ -3,6 +3,7 @@ import TextField from './TextField';
 import DateField from './DateField';
 import CategoryField from './CategoryField';
 import GenderField from './GenderField';
+import MultiTextField from './MultiTextField';
 
 
 const RegistrationForm = () => {
@@ -29,6 +30,12 @@ const RegistrationForm = () => {
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <GenderField nameOfLabel={"Gender"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <TextField value={inputValue} onChange={handleInputChange} nameOfLabel={"Address"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <MultiTextField value={inputValue} onChange={handleInputChange} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
       </div>
     </div>
   );

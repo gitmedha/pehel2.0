@@ -61,6 +61,9 @@
 .fz-16{
   font-size: 20px;
 }
+.fz-12{
+  font-size: 14px;
+}
 .fields-display{
   display: grid;
 }
@@ -80,6 +83,9 @@
 }
 .category-fields{
   width: 550px !important;
+}
+.form-check-input:focus {
+  box-shadow: none !important;
 }
 
 @media only screen and (max-width: 768px) {
