@@ -4,6 +4,9 @@ import DateField from './DateField';
 import CategoryField from './CategoryField';
 import GenderField from './GenderField';
 import MultiTextField from './MultiTextField';
+import FamilyIncome from './FamiilyIncome';
+import Program from './Programs';
+
 
 
 const RegistrationForm = () => {
@@ -36,6 +39,9 @@ const RegistrationForm = () => {
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <MultiTextField value={inputValue} onChange={handleInputChange} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true}/>
       </div>
     </div>
   );
