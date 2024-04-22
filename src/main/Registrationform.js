@@ -9,10 +9,15 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
-      <h2 className='d-flex'>Input Text Field Example</h2>
-      <TextField value={inputValue} onChange={handleInputChange}/>
-      <p>Input value: {inputValue}</p>
+    <div className='p-5'>
+      <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <TextField value={inputValue} onChange={handleInputChange} nameOfLabel={"Name"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <TextField value={inputValue} onChange={handleInputChange} nameOfLabel={"Father's / Mother's Name"} isMandatory={true}/>
+      </div>
+
     </div>
   );
 };
