@@ -1,7 +1,6 @@
 import React from 'react';
 
 const TextField = ({ value, onChange, nameOfLabel, isMandatory }) => {
-  console.log(nameOfLabel, "Name");
   return (
     <div className="form-group py-2">
       <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
