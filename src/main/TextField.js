@@ -1,13 +1,14 @@
 import React from 'react';
 
-const TextField = ({ value, onChange }) => {
+const TextField = ({ value, onChange, nameOfLabel, isMandatory }) => {
+  console.log(nameOfLabel, "Name");
   return (
-    <input
-      type="text"
-      value={value}
-      onChange={onChange}
-      placeholder="Enter text..."
-    />
+    <div className="form-group py-2">
+      <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
+      <span className='mandatory-class'>{isMandatory? "*": ""}</span>
+      </label>
+      <input type="text" className="form-control"/>
+    </div>
   );
 };
 
