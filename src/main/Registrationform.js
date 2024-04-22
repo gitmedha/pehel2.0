@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import TextField from './TextField';
 import DateField from './DateField';
+import CategoryField from './CategoryField';
+
 
 const RegistrationForm = () => {
   const [inputValue, setInputValue] = useState('');
@@ -20,6 +22,9 @@ const RegistrationForm = () => {
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <DateField nameOfLabel={"Date of Birth"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <CategoryField nameOfLabel={"Category"} isMandatory={true}/>
       </div>
     </div>
   );

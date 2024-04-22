@@ -78,9 +78,15 @@
 .mandatory-class{
   color: #FF0000;
 }
+.category-fields{
+  width: 550px !important;
+}
 
 @media only screen and (max-width: 768px) {
   .form-control {
+    width: 100% !important;
+  }
+  .category-fields{
     width: 100% !important;
   }
 }
