@@ -17,6 +17,7 @@ const RegistrationForm = () => {
       <div className='d-lg-flex justify-content-lg-center'>
         <TextField value={inputValue} onChange={handleInputChange} nameOfLabel={"Father's / Mother's Name"} isMandatory={true}/>
       </div>
+
     </div>
   );
 };
