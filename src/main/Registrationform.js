@@ -43,6 +43,9 @@ const RegistrationForm = () => {
       <div className='d-lg-flex justify-content-lg-center'>
         <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true}/>
       </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <Program nameOfLabel={"Programs"} isMandatory={true}/>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 node_modules/
 .eslintcache/
 
-# Ignore .default-development directory within node_modules/.cache
-node_modules/.cache/.default-development/
+# Ignore default-development directory within node_modules/.cache
+node_modules/.cache/default-development/
