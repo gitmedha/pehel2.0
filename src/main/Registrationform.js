@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import TextField from './TextField';
 import DateField from './DateField';
+import CategoryField from './CategoryField';
+import GenderField from './GenderField';
+import MultiTextField from './MultiTextField';
+import FamilyIncome from './FamiilyIncome';
+import Program from './Programs';
+
+
 
 const RegistrationForm = () => {
   const [inputValue, setInputValue] = useState('');
@@ -20,6 +27,24 @@ const RegistrationForm = () => {
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <DateField nameOfLabel={"Date of Birth"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <CategoryField nameOfLabel={"Category"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <GenderField nameOfLabel={"Gender"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <TextField value={inputValue} onChange={handleInputChange} nameOfLabel={"Address"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <MultiTextField value={inputValue} onChange={handleInputChange} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <Program nameOfLabel={"Programs"} isMandatory={true}/>
       </div>
     </div>
   );
