@@ -6,6 +6,7 @@ import GenderField from './GenderField';
 import MultiTextField from './MultiTextField';
 import FamilyIncome from './FamiilyIncome';
 import Program from './Programs';
+import axiosConfig from '../axios/axiosConfig';
 
 
 
@@ -15,6 +16,22 @@ const RegistrationForm = () => {
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
+
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
+  const onButtonClicked =(e) =>{
+    e.preventDefault();
+    axiosConfig.post('/students/sendEmail', {
+      firstName: 'Fred',
+      lastName: 'Flintstone'
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   return (
     <div className='p-5'>
@@ -46,6 +63,8 @@ const RegistrationForm = () => {
       <div className='d-lg-flex justify-content-lg-center'>
         <Program nameOfLabel={"Programs"} isMandatory={true}/>
       </div>
+
+      <button onClick={onButtonClicked}>Submit</button>
     </div>
   );
 };
