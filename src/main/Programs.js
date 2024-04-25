@@ -27,7 +27,6 @@ const Program = ({ value, onChange, nameOfLabel, isMandatory }) => {
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
                 <label class="form-check-label" for="inlineRadio2">YouthScape</label>
             </div>
-            <button>Submit</button>
         </div>
     </div>
   );
