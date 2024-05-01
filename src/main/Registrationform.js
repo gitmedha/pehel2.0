@@ -17,6 +17,7 @@ const RegistrationForm = () => {
   const [name, setName] = useState('');
   const [parentName, setParentName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+  const [category, setCategory] =useState('');
 
 
   const onNameEntered = (value) => {
@@ -29,6 +30,10 @@ const RegistrationForm = () => {
 
   const onDateOfBirthEntered =(value) =>{
     setDateOfBirth(value);
+  }
+
+  const onSelectingCategory =(value) =>{
+    setCategory(value)
   }
 
   const onButtonClicked =(e) =>{
@@ -58,7 +63,7 @@ const RegistrationForm = () => {
         <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <CategoryField nameOfLabel={"Category"} isMandatory={true}/>
+        <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <GenderField nameOfLabel={"Gender"} isMandatory={true}/>

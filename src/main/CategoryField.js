@@ -1,31 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
+import axiosConfig from '../axios/axiosConfig';
+import axios from 'axios';
 
-const CategoryField = ({ value, onChange, nameOfLabel, isMandatory }) => {
-  return (
-    <div className="form-group py-2 category-fields">
-        <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
-        <span className='mandatory-class'>{isMandatory? "*": ""}</span>
-        </label>
-        <div className='mt-1'>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
-                <label class="form-check-label" for="inlineRadio1">GEN</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">OBC</label>
-            </div>
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">SC</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">ST</label>
+const CategoryField = ({ value, onCategorySelect, nameOfLabel, isMandatory }) => {
+    const [categoryData, setCategoryData] = useState([]);
+
+    useEffect(() => {
+        axiosConfig.get('/api/picklist-field-configs?table=students&field=category')
+        .then(response => {
+            if(response){
+            setCategoryData(response.data[0].values);
+            }
+        })
+    }, []);
+
+    const onCategoryChange =(event)=>{
+        onCategoryChange(event.target.value);
+    }
+
+    return (
+        <div className="form-group py-2 category-fields">
+            <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
+            <span className='mandatory-class'>{isMandatory? "*": ""}</span>
+            </label>
+            <div className='mt-1'>
+                {categoryData.map(category => (
+                    <div key={category.key} className="form-check form-check-inline">
+                        <input
+                            className="form-check-input"
+                            type="radio"
+                            name="inlineRadioOptions"
+                            id={`inlineRadio${category.key}`}
+                            value={category.value}
+                            onChange={(e) => {onCategoryChange(e)}}
+                        />
+                        <label className="form-check-label" htmlFor={`inlineRadio${category.key}`}>
+                            {category.value}
+                        </label>
+                    </div>
+                ))}
             </div>
         </div>
-    </div>
-  );
+    );
 };
 
 export default CategoryField;
