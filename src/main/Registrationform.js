@@ -81,23 +81,34 @@ const RegistrationForm = () => {
           <EmailField value={inputValue} onChange={handleInputChange} nameOfLabel={"Email"} isMandatory={true}/>
         </div>
         <div className='px-2'>
-          <EmailField value={inputValue} onChange={handleInputChange} nameOfLabel={"Alternate Email"} isMandatory={false}/>
+          <EmailField value={inputValue} onChange={handleInputChange} nameOfLabel={"Confirm Email"} isMandatory={false}/>
         </div>
       </div>
-      <div className='d-lg-flex justify-content-lg-center'>
+      <div className='d-lg-flex justify-content-lg-center educational-institution'>
         <SelectField value={inputValue} onChange={handleInputChange} nameOfLabel={"Educational Institution"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
-        <div className='px-2'>
-          <SelectField/>
+        <div className='px-2 educational-institution'>
+          <SelectField nameOfSecondaryLabel ={"Course Level"}/>
         </div>
-        <div className='px-2'>
-          <SelectField/>
+        <div className='px-2 educational-institution'>
+          <SelectField nameOfSecondaryLabel={"Year of Study"}/>
         </div>
       </div>
-
       <div className='d-lg-flex justify-content-lg-center'>
-        <Program nameOfLabel={"Programs"} isMandatory={true}/>
+        <SelectField value={inputValue} onChange={handleInputChange} nameOfSecondaryLabel={"Educational Institution"} />
+      </div>
+
+      <div className='d-lg-flex justify-content-lg-center '>
+        <SelectField value={inputValue} onChange={handleInputChange} nameOfLabel={"Course Name"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <Program nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <div className='px-2 educational-institution'>
+          <SelectField nameOfLabel ={"How did you hear about us?"} isMandatory={true}/>
+        </div>
       </div>
       <br></br>
       {/* <DonationForm/> */}

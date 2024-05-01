@@ -83,6 +83,12 @@
     width: 265px !important;
   }
 }
+.educational-institution{
+  height: 80px;
+}
+.disclaimer{
+  font-size: 14px;
+}
 .mandatory-class{
   color: #FF0000;
 }
