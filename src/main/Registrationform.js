@@ -18,6 +18,7 @@ const RegistrationForm = () => {
   const [parentName, setParentName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [category, setCategory] =useState('');
+  const [gender, setGender] = useState('');
 
 
   const onNameEntered = (value) => {
@@ -33,7 +34,11 @@ const RegistrationForm = () => {
   }
 
   const onSelectingCategory =(value) =>{
-    setCategory(value)
+    setCategory(value);
+  }
+
+  const onSelectingGender =(value) =>{
+    setGender(value);
   }
 
   const onButtonClicked =(e) =>{
@@ -49,7 +54,7 @@ const RegistrationForm = () => {
       console.log(error);
     });
   }
-  console.log(dateOfBirth, "state");
+
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -66,7 +71,7 @@ const RegistrationForm = () => {
         <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <GenderField nameOfLabel={"Gender"} isMandatory={true}/>
+        <GenderField onGenderSelect={onSelectingGender} nameOfLabel={"Gender"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <TextField  onChange={onNameEntered} nameOfLabel={"Address"} isMandatory={true}/>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect }  from 'react';
 import axiosConfig from '../axios/axiosConfig';
-import axios from 'axios';
 
 const CategoryField = ({ value, onCategorySelect, nameOfLabel, isMandatory }) => {
     const [categoryData, setCategoryData] = useState([]);
@@ -15,7 +14,7 @@ const CategoryField = ({ value, onCategorySelect, nameOfLabel, isMandatory }) =>
     }, []);
 
     const onCategoryChange =(event)=>{
-        onCategoryChange(event.target.value);
+        onCategorySelect(event.target.value);
     }
 
     return (

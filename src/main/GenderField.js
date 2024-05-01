@@ -1,31 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axiosConfig from '../axios/axiosConfig';
 
-const GenderField = ({ value, onChange, nameOfLabel, isMandatory }) => {
-  return (
-    <div className="form-group py-2 category-fields">
-        <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
-        <span className='mandatory-class'>{isMandatory? "*": ""}</span>
-        </label>
-        <div className='mt-1'>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
-                <label class="form-check-label" for="inlineRadio1">Male</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">Female</label>
-            </div>
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">Non Binary</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">Prefer Not To Say</label>
+const GenderField = ({ value, onGenderSelect, nameOfLabel, isMandatory }) => {
+
+    const [genderData, setGenderData] = useState([]);
+
+    useEffect(() => {
+        axiosConfig.get('/api/picklist-field-configs?table=students&field=gender')
+        .then(response => {
+            if(response){
+            setGenderData(response.data[0].values);
+            }
+        })
+    }, []);
+
+    const onGenderChange =(event)=>{
+       onGenderSelect(event.target.value);
+    }
+
+    return (
+        <div className="form-group py-2 category-fields">
+            <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
+            <span className='mandatory-class'>{isMandatory? "*": ""}</span>
+            </label>
+            <div className='mt-1'>
+                {genderData.map(gender => (
+                        <div key={gender.key} className="form-check form-check-inline">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="inlineRadioOptions"
+                                id={`inlineRadio${gender.key}`}
+                                value={gender.value}
+                                onChange={(e) => {onGenderChange(e)}}
+                            />
+                            <label className="form-check-label" htmlFor={`inlineRadio${gender.key}`}>
+                                {gender.value}
+                            </label>
+                        </div>
+                ))}
             </div>
         </div>
-    </div>
-  );
+    );
 };
 
 export default GenderField;
