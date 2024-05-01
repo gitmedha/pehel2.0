@@ -78,6 +78,11 @@
   width: 550px !important;
   height: 44px !important;
 }
+.phone-number{
+  .form-control{
+    width: 265px !important;
+  }
+}
 .mandatory-class{
   color: #FF0000;
 }

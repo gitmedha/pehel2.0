@@ -9,8 +9,8 @@ import Program from './Programs';
 import NumberField from './NumberField';
 import axiosConfig from '../axios/axiosConfig';
 import DonationForm from './DonationForm';
-
-
+import EmailField from './EmailField';
+import SelectField from './SelectField';
 
 const RegistrationForm = () => {
   const [inputValue, setInputValue] = useState('');
@@ -68,11 +68,39 @@ const RegistrationForm = () => {
       <div className='d-lg-flex justify-content-lg-center'>
         <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Family Annual Income Amount"} isMandatory={true}/>
       </div>
+      <div className='d-lg-flex justify-content-lg-center phone-number'>
+        <div className='px-2'>
+          <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Phone Number"} isMandatory={true}/>
+        </div>
+        <div className='px-2'>
+          <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Alternate Phone Number"} isMandatory={false}/>
+        </div>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center phone-number'>
+        <div className='px-2'>
+          <EmailField value={inputValue} onChange={handleInputChange} nameOfLabel={"Email"} isMandatory={true}/>
+        </div>
+        <div className='px-2'>
+          <EmailField value={inputValue} onChange={handleInputChange} nameOfLabel={"Alternate Email"} isMandatory={false}/>
+        </div>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <SelectField value={inputValue} onChange={handleInputChange} nameOfLabel={"Educational Institution"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center phone-number'>
+        <div className='px-2'>
+          <SelectField/>
+        </div>
+        <div className='px-2'>
+          <SelectField/>
+        </div>
+      </div>
+
       <div className='d-lg-flex justify-content-lg-center'>
         <Program nameOfLabel={"Programs"} isMandatory={true}/>
       </div>
       <br></br>
-      <DonationForm iNGOId ={iNGOId} />
+      {/* <DonationForm/> */}
       <button onClick={onButtonClicked}>Submit</button>
     </div>
   );
