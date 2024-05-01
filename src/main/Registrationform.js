@@ -6,18 +6,20 @@ import GenderField from './GenderField';
 import MultiTextField from './MultiTextField';
 import FamilyIncome from './FamiilyIncome';
 import Program from './Programs';
+import NumberField from './NumberField';
 import axiosConfig from '../axios/axiosConfig';
+import DonationForm from './DonationForm';
 
 
 
 const RegistrationForm = () => {
   const [inputValue, setInputValue] = useState('');
+  const [iNGOId, setiNGOId] = useState('12');
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
   const onButtonClicked =(e) =>{
     e.preventDefault();
@@ -58,12 +60,19 @@ const RegistrationForm = () => {
         <MultiTextField value={inputValue} onChange={handleInputChange} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
+        <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
         <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true}/>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Family Annual Income Amount"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <Program nameOfLabel={"Programs"} isMandatory={true}/>
       </div>
-
+      <br></br>
+      <DonationForm iNGOId ={iNGOId} />
       <button onClick={onButtonClicked}>Submit</button>
     </div>
   );
