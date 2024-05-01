@@ -11,15 +11,14 @@ import axiosConfig from '../axios/axiosConfig';
 import DonationForm from './DonationForm';
 import EmailField from './EmailField';
 import SelectField from './SelectField';
+import ConsentSection from './ConsentSection';
 
 const RegistrationForm = () => {
   const [inputValue, setInputValue] = useState('');
-  const [iNGOId, setiNGOId] = useState('12');
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
-
 
   const onButtonClicked =(e) =>{
     e.preventDefault();
@@ -109,6 +108,9 @@ const RegistrationForm = () => {
         <div className='px-2 educational-institution'>
           <SelectField nameOfLabel ={"How did you hear about us?"} isMandatory={true}/>
         </div>
+      </div>
+      <div className='d-lg-flex justify-content-lg-center'>
+        <ConsentSection/>
       </div>
       <br></br>
       {/* <DonationForm/> */}
