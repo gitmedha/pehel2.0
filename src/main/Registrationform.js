@@ -14,11 +14,22 @@ import SelectField from './SelectField';
 import ConsentSection from './ConsentSection';
 
 const RegistrationForm = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [name, setName] = useState('');
+  const [parentName, setParentName] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+
+  const onNameEntered = (value) => {
+    setName(value);
   };
+
+  const onParentNameEntered =(value) =>{
+    setParentName(value);
+  }
+
+  const onDateOfBirthEntered =(value) =>{
+    setDateOfBirth(value);
+  }
 
   const onButtonClicked =(e) =>{
     e.preventDefault();
@@ -33,18 +44,18 @@ const RegistrationForm = () => {
       console.log(error);
     });
   }
-
+  console.log(dateOfBirth, "state");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField value={inputValue} onChange={handleInputChange} nameOfLabel={"Name"} isMandatory={true}/>
+        <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField value={inputValue} onChange={handleInputChange} nameOfLabel={"Father's / Mother's Name"} isMandatory={true}/>
+        <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <DateField nameOfLabel={"Date of Birth"} isMandatory={true}/>
+        <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <CategoryField nameOfLabel={"Category"} isMandatory={true}/>
@@ -53,38 +64,38 @@ const RegistrationForm = () => {
         <GenderField nameOfLabel={"Gender"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField value={inputValue} onChange={handleInputChange} nameOfLabel={"Address"} isMandatory={true}/>
+        <TextField  onChange={onNameEntered} nameOfLabel={"Address"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <MultiTextField value={inputValue} onChange={handleInputChange} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
+        <MultiTextField  onChange={onNameEntered} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
+        <NumberField  onChange={onNameEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Family Annual Income Amount"} isMandatory={true}/>
+        <NumberField  onChange={onNameEntered} nameOfLabel={"Family Annual Income Amount"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
         <div className='px-2'>
-          <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Phone Number"} isMandatory={true}/>
+          <NumberField  onChange={onNameEntered} nameOfLabel={"Phone Number"} isMandatory={true}/>
         </div>
         <div className='px-2'>
-          <NumberField value={inputValue} onChange={handleInputChange} nameOfLabel={"Alternate Phone Number"} isMandatory={false}/>
+          <NumberField  onChange={onNameEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false}/>
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
         <div className='px-2'>
-          <EmailField value={inputValue} onChange={handleInputChange} nameOfLabel={"Email"} isMandatory={true}/>
+          <EmailField   nameOfLabel={"Email"} isMandatory={true}/>
         </div>
         <div className='px-2'>
-          <EmailField value={inputValue} onChange={handleInputChange} nameOfLabel={"Confirm Email"} isMandatory={false}/>
+          <EmailField   nameOfLabel={"Confirm Email"} isMandatory={false}/>
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center educational-institution'>
-        <SelectField value={inputValue} onChange={handleInputChange} nameOfLabel={"Educational Institution"} isMandatory={true}/>
+        <SelectField   nameOfLabel={"Educational Institution"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
         <div className='px-2 educational-institution'>
@@ -95,11 +106,11 @@ const RegistrationForm = () => {
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <SelectField value={inputValue} onChange={handleInputChange} nameOfSecondaryLabel={"Educational Institution"} />
+        <SelectField   nameOfSecondaryLabel={"Educational Institution"} />
       </div>
 
       <div className='d-lg-flex justify-content-lg-center '>
-        <SelectField value={inputValue} onChange={handleInputChange} nameOfLabel={"Course Name"} isMandatory={true}/>
+        <SelectField   nameOfLabel={"Course Name"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <Program nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true}/>
