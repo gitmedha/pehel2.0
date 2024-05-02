@@ -16,6 +16,7 @@ import StateField from './StateField';
 import CourseLevelField from './CourseLevelField';
 import CourseStudyYear from './YearOfStudyField';
 import CourseCompletionYear from './YearOfCompletionField';
+import CourseName from './CourseNameField';
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -37,6 +38,7 @@ const RegistrationForm = () => {
   const [courseLevel, setCourseLevel] = useState('');
   const [courseStudyYear, setCourseStudyYear] = useState('');
   const [courseCompletionYear, setcourseCompletionYear] = useState('');
+  const [course, setCourse] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -111,6 +113,10 @@ const RegistrationForm = () => {
     setcourseCompletionYear(value);
   }
 
+  const onCourseNameSelection =(value) => {
+    setCourse(value);
+  }
+
   const onButtonClicked =(e) =>{
     e.preventDefault();
     axiosConfig.post('/students/sendEmail', {
@@ -124,6 +130,8 @@ const RegistrationForm = () => {
       console.log(error);
     });
   }
+
+  console.log(course, "course");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -194,10 +202,10 @@ const RegistrationForm = () => {
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <CourseCompletionYear  onSelection={onCourseCompletionYearSelection}  nameOfSecondaryLabel={"Year of Course Completion"} />
+        <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} />
       </div>
       <div className='d-lg-flex justify-content-lg-center '>
-        <SelectField   nameOfLabel={"Course Name"} isMandatory={true}/>
+        <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <Program nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true}/>
