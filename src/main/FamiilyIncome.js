@@ -1,35 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axiosConfig from '../axios/axiosConfig';
 
-const FamilyIncome = ({ value, onChange, nameOfLabel, isMandatory }) => {
-  return (
-    <div className="form-group py-2 category-fields">
-        <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
-        <span className='mandatory-class'>{isMandatory? "*": ""}</span>
-        </label>
-        <div className='mt-1'>
-            <div class="form-check form-check-inline mt-1 mb-1">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
-                <label class="form-check-label" for="inlineRadio1">&lt;₹25,000</label>
-            </div>
-            <div class="form-check form-check-inline mt-1 mb-1">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">₹25,000 - ₹50,000</label>
-            </div>
-                <div class="form-check form-check-inline mt-1 mb-1">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2"> ₹50,000 - ₹1,00,000</label>
-            </div>
-            <div class="form-check form-check-inline mt-1 mb-1">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">₹1,00,000 - ₹2,50,000</label>
-            </div>
-            <div class="form-check form-check-inline mt-1 mb-1">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                <label class="form-check-label" for="inlineRadio2">&lt;₹2,50,000</label>
+const FamilyIncome = ({ value, onRangeSelect, nameOfLabel, isMandatory }) => {
+    const[incomeLevel, setIncomeLevel] = useState([]);
+
+    useEffect(() => {
+        axiosConfig.get('/api/picklist-field-configs?table=students&field=income_level')
+        .then(response => {
+            if(response){
+            setIncomeLevel(response.data[0].values);
+            }
+        })
+    }, []);
+
+    const onIncomeSelect =(e) =>{
+        onRangeSelect(e.target.value);
+    }
+
+    return (
+        <div className="form-group py-2 category-fields">
+            <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
+            <span className='mandatory-class'>{isMandatory? "*": ""}</span>
+            </label>
+            <div className='mt-1'>
+            {incomeLevel.map(income => (
+                <div key={income.key} className="form-check form-check-inline mt-1">
+                    <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id={`inlineRadio${income.key}`}
+                        value={income.value}
+                        onChange={(e) => {onIncomeSelect(e)}}
+                    />
+                    <label className="form-check-label" htmlFor={`inlineRadio${income.key}`}>
+                        {income.value}
+                    </label>
+                </div>
+            ))}
             </div>
         </div>
-    </div>
-  );
+    );
 };
 
 export default FamilyIncome;
