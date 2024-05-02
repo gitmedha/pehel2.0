@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from './TextField';
 import DateField from './DateField';
 import CategoryField from './CategoryField';
@@ -12,6 +12,7 @@ import DonationForm from './DonationForm';
 import EmailField from './EmailField';
 import SelectField from './SelectField';
 import ConsentSection from './ConsentSection';
+import StateField from './StateField';
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -22,6 +23,7 @@ const RegistrationForm = () => {
   const [primaryAddress, setPrimaryAddress] = useState('');
   const [secondaryAddress, setSecondaryAddress] =useState('');
   const [address, setAddress] = useState('');
+  const [studentState, setStudentState] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -57,9 +59,10 @@ const RegistrationForm = () => {
   }
 
 
+
+
   const onButtonClicked =(e) =>{
     e.preventDefault();
-    onAddingAddress();
     axiosConfig.post('/students/sendEmail', {
       firstName: 'Fred',
       lastName: 'Flintstone'
@@ -96,6 +99,15 @@ const RegistrationForm = () => {
       <div className='d-lg-flex justify-content-lg-center'>
         <MultiTextField  onTextEntered={onAddingSecondaryAddress} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
       </div>
+      <div className='d-lg-flex justify-content-lg-center phone-number'>
+        <div className='px-2 educational-institution'>
+          <StateField nameOfSecondaryLabel ={"State/Province/Region"}/>
+        </div>
+        <div className='px-2 educational-institution'>
+          <SelectField nameOfSecondaryLabel={"City"}/>
+        </div>
+      </div>
+      <br></br>
       <div className='d-lg-flex justify-content-lg-center'>
         <NumberField  onChange={onNameEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
       </div>
@@ -135,7 +147,6 @@ const RegistrationForm = () => {
       <div className='d-lg-flex justify-content-lg-center'>
         <SelectField   nameOfSecondaryLabel={"Educational Institution"} />
       </div>
-
       <div className='d-lg-flex justify-content-lg-center '>
         <SelectField   nameOfLabel={"Course Name"} isMandatory={true}/>
       </div>
