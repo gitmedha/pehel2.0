@@ -39,6 +39,7 @@ const RegistrationForm = () => {
   const [courseStudyYear, setCourseStudyYear] = useState('');
   const [courseCompletionYear, setcourseCompletionYear] = useState('');
   const [course, setCourse] = useState('');
+  const [program, setProgram] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -117,6 +118,10 @@ const RegistrationForm = () => {
     setCourse(value);
   }
 
+  const onProgramSelected = (value) => {
+    setProgram(value);
+  }
+
   const onButtonClicked =(e) =>{
     e.preventDefault();
     axiosConfig.post('/students/sendEmail', {
@@ -131,7 +136,6 @@ const RegistrationForm = () => {
     });
   }
 
-  console.log(course, "course");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -208,7 +212,7 @@ const RegistrationForm = () => {
         <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <Program nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true}/>
+        <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <div className='px-2 educational-institution'>
