@@ -19,7 +19,8 @@ const RegistrationForm = () => {
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [category, setCategory] =useState('');
   const [gender, setGender] = useState('');
-
+  const [primaryAddress, setPrimaryAddress] = useState('');
+  const [secondaryAddress, setSecondaryAddress] =useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -39,6 +40,14 @@ const RegistrationForm = () => {
 
   const onSelectingGender =(value) =>{
     setGender(value);
+  }
+
+  const onAddingPrimaryAddress =(value) => {
+    setPrimaryAddress(value);
+  }
+
+  const onAddingSecondaryAddress =(value) =>{
+    setSecondaryAddress(value);
   }
 
   const onButtonClicked =(e) =>{
@@ -74,10 +83,10 @@ const RegistrationForm = () => {
         <GenderField onGenderSelect={onSelectingGender} nameOfLabel={"Gender"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onChange={onNameEntered} nameOfLabel={"Address"} isMandatory={true}/>
+        <TextField  onTextEntered={onAddingPrimaryAddress} nameOfLabel={"Address"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <MultiTextField  onChange={onNameEntered} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
+        <MultiTextField  onTextEntered={onAddingSecondaryAddress} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <NumberField  onChange={onNameEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
