@@ -17,6 +17,7 @@ import CourseLevelField from './CourseLevelField';
 import CourseStudyYear from './YearOfStudyField';
 import CourseCompletionYear from './YearOfCompletionField';
 import CourseName from './CourseNameField';
+import AboutUsField from './AboutUsField';
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -40,6 +41,7 @@ const RegistrationForm = () => {
   const [courseCompletionYear, setcourseCompletionYear] = useState('');
   const [course, setCourse] = useState('');
   const [program, setProgram] = useState('');
+  const [aboutUs, setAboutUs] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -120,6 +122,10 @@ const RegistrationForm = () => {
 
   const onProgramSelected = (value) => {
     setProgram(value);
+  }
+
+  const onAboutUsSelect =(value) =>{
+    setAboutUs(value);
   }
 
   const onButtonClicked =(e) =>{
@@ -216,7 +222,7 @@ const RegistrationForm = () => {
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <div className='px-2 educational-institution'>
-          <SelectField nameOfLabel ={"How did you hear about us?"} isMandatory={true}/>
+          <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true}/>
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
