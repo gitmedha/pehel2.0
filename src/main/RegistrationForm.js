@@ -24,6 +24,11 @@ const RegistrationForm = () => {
   const [secondaryAddress, setSecondaryAddress] =useState('');
   const [address, setAddress] = useState('');
   const [studentState, setStudentState] = useState('');
+  const [aadharNumber, setAadharNumber] = useState('');
+  const[phoneNumber, setPhoneNumber] = useState('');
+  const[alternatePhoneNumber, setAlternatePhoneNumber] = useState('');
+  const [familyIncome, setFamilyIncome] = useState('');
+  const [selectedFamilyIncome, setSelectedFamilyIncome] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -58,8 +63,25 @@ const RegistrationForm = () => {
     setAddress(clubbedAddress);
   }
 
+  const onAadharEntered =(value) =>{
+    setAadharNumber(value);
+  }
 
+  const onPhoneNumberEntered =(value) => {
+    setPhoneNumber(value);
+  }
 
+  const onAlternatePhoneNumberEntered =(value) => {
+    setAlternatePhoneNumber(value);
+  }
+
+  const onAddingFamilyIncome = (value) => {
+    setFamilyIncome(value);
+  }
+
+  const onSelectingFamilyIncome = (value) =>{
+    setSelectedFamilyIncome(value);
+  }
 
   const onButtonClicked =(e) =>{
     e.preventDefault();
@@ -109,20 +131,20 @@ const RegistrationForm = () => {
       </div>
       <br></br>
       <div className='d-lg-flex justify-content-lg-center'>
-        <NumberField  onChange={onNameEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
+        <NumberField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true}/>
+        <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} />
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <NumberField  onChange={onNameEntered} nameOfLabel={"Family Annual Income Amount"} isMandatory={true}/>
+        <NumberField  onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
         <div className='px-2'>
-          <NumberField  onChange={onNameEntered} nameOfLabel={"Phone Number"} isMandatory={true}/>
+          <NumberField  onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true}/>
         </div>
         <div className='px-2'>
-          <NumberField  onChange={onNameEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false}/>
+          <NumberField  onNumberChange={onAlternatePhoneNumberEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false}/>
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
