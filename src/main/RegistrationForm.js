@@ -21,6 +21,7 @@ const RegistrationForm = () => {
   const [gender, setGender] = useState('');
   const [primaryAddress, setPrimaryAddress] = useState('');
   const [secondaryAddress, setSecondaryAddress] =useState('');
+  const [address, setAddress] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -46,12 +47,19 @@ const RegistrationForm = () => {
     setPrimaryAddress(value);
   }
 
-  const onAddingSecondaryAddress =(value) =>{
+  const onAddingSecondaryAddress =(value) => {
     setSecondaryAddress(value);
   }
 
+  const onAddingAddress = () => {
+    let clubbedAddress = primaryAddress+ "," +secondaryAddress;
+    setAddress(clubbedAddress);
+  }
+
+
   const onButtonClicked =(e) =>{
     e.preventDefault();
+    onAddingAddress();
     axiosConfig.post('/students/sendEmail', {
       firstName: 'Fred',
       lastName: 'Flintstone'
