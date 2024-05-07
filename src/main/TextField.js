@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TextField = ({onTextEntered, nameOfLabel, isMandatory }) => {
+const TextField = ({onTextEntered, nameOfLabel, isMandatory, error }) => {
   const onTextChange =(e) =>{
     onTextEntered(e.target.value);
   }
@@ -10,6 +10,7 @@ const TextField = ({onTextEntered, nameOfLabel, isMandatory }) => {
       <span className='mandatory-class'>{isMandatory? "*": ""}</span>
       </label>
       <input type="text" className="form-control" onChange={(e)=>{onTextChange(e)}}/>
+      {error === true ? <div>Hello</div>:<div></div>}
     </div>
   );
 };

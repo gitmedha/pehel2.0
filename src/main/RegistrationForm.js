@@ -42,6 +42,7 @@ const RegistrationForm = () => {
   const [course, setCourse] = useState('');
   const [program, setProgram] = useState('');
   const [aboutUs, setAboutUs] = useState('');
+  const [error, setError] = useState(false)
 
   const onNameEntered = (value) => {
     setName(value);
@@ -128,25 +129,72 @@ const RegistrationForm = () => {
     setAboutUs(value);
   }
 
-  const onButtonClicked =(e) =>{
-    e.preventDefault();
-    axiosConfig.post('/students/sendEmail', {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const onValidateForm = () =>{
+    if (name === ""){
+      console.log("hello");
+    }
   }
+
+  const onButtonClicked = (e) => {
+    e.preventDefault();
+    onValidateForm();
+    if(error === false) {
+    axiosConfig.post('/api/students/createFromWebhook', {
+        "full_name": "Jyoti",
+        "parent_or_guardian_name": "rashmi",
+        "date_of_birth": "2003-7-14",
+        "pin_code": "122003",
+        "category": "GEN",
+        "gender": "Female",
+        "income_level": "Less than INR 25k",
+        "family_annual_income": "15000",
+        "institution_id": "118",
+        "discount_code": null,
+        "fee_transaction_id": "",
+        "program_id": "23",
+        "course_type": "Engineering/Technical",
+        "course_level": "Doctorate",
+        "year_of_course_completion": "2022",
+        "course_year": "Third",
+        "city": "Anantnag",
+        "payuMoneyId": "",
+        "phone": "8765432104",
+        "state": "Jammu & Kashmir",
+        "amount": 0,
+        "email": "srivastavajyoti510@gmail.com",
+        "address": "Gurgaon ",
+        "aadhar_number": "",
+        "area": null,
+        "course_name_in_current_sis": "B.ED",
+        "course_name_other": "",
+        "how_did_you_hear_about_us": "Campus / Teachers",
+        "how_did_you_hear_about_us_other": "",
+        "alternate_mobile": ""
+      })
+      .then(function (response) {
+        console.log(response);
+        if (response && response.status === 200) {
+          // axiosConfig.post('/students/sendEmail')
+          //   .then(function (secondResponse) {
+          //     console.log(secondResponse);
+          //   })
+          //   .catch(function (secondError) {
+          //     console.log(secondError);
+          //   });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+  }
+
 
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true}/>
+        <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} error={error} />
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true}/>
