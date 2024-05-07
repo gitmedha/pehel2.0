@@ -42,6 +42,7 @@ const RegistrationForm = () => {
   const [course, setCourse] = useState('');
   const [program, setProgram] = useState('');
   const [aboutUs, setAboutUs] = useState('');
+  const [error, setError] = useState(false)
 
   const onNameEntered = (value) => {
     setName(value);
@@ -129,14 +130,17 @@ const RegistrationForm = () => {
   }
 
   const onValidateForm = () =>{
-
+    if (name === ""){
+      console.log("hello");
+    }
   }
 
-  const onButtonClicked =(e) =>{
+  const onButtonClicked = (e) => {
     e.preventDefault();
     onValidateForm();
+    if(error === false) {
     axiosConfig.post('/api/students/createFromWebhook', {
-        "full_name": "jyoti srivastava",
+        "full_name": "Jyoti",
         "parent_or_guardian_name": "rashmi",
         "date_of_birth": "2003-7-14",
         "pin_code": "122003",
@@ -166,20 +170,31 @@ const RegistrationForm = () => {
         "how_did_you_hear_about_us": "Campus / Teachers",
         "how_did_you_hear_about_us_other": "",
         "alternate_mobile": ""
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      })
+      .then(function (response) {
+        console.log(response);
+        if (response && response.status === 200) {
+          // axiosConfig.post('/students/sendEmail')
+          //   .then(function (secondResponse) {
+          //     console.log(secondResponse);
+          //   })
+          //   .catch(function (secondError) {
+          //     console.log(secondError);
+          //   });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   }
+
 
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true}/>
+        <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} error={error} />
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true}/>
