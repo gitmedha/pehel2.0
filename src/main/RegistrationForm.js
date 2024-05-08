@@ -290,7 +290,7 @@ const RegistrationForm = () => {
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
         <div className='px-2'>
-          <NumberField  onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true} hasError= {phoneNumberError} errorMessage= {"Please neter Phone Number"}/>
+          <NumberField  onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true} hasError= {phoneNumberError} errorMessage= {"Please enter Phone Number"}/>
         </div>
         <div className='px-2'>
           <NumberField  onNumberChange={onAlternatePhoneNumberEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false} />

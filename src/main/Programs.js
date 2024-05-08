@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const Program = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondLabel,nameOfThirdLabel }) => {
+const Program = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondLabel,nameOfThirdLabel, hasError, errorMessage }) => {
 
     const [programList, setProgramList] = useState([]);
 
@@ -49,6 +49,7 @@ const Program = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondLab
                     <label className="form-check-label" for="inlineRadio1">Pehli Udaan</label>
                 </div>
             </div>
+            {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
             <div className='disclaimer lato-light mt-4'>Please select either Program or Workshop you want to opt for. For more details about our program, please visit our Pehel desk or Career Centre on your campus.</div>
         </div>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmailField = ({ value, onTextEntered, nameOfLabel, isMandatory }) => {
+const EmailField = ({ value, onTextEntered, nameOfLabel, isMandatory, hasError, errorMessage }) => {
 
   const onEmailEntered =(e) => {
     onTextEntered(e.target.value);
@@ -11,6 +11,7 @@ const EmailField = ({ value, onTextEntered, nameOfLabel, isMandatory }) => {
       <span className='mandatory-class'>{isMandatory? "*": ""}</span>
       </label>
       <input type="email" className="form-control" onChange={(e)=>{onEmailEntered(e)}}/>
+      {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
   );
 };

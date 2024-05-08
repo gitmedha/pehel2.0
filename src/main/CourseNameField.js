@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel }) => {
+const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel, hasError, errorMessage }) => {
     const [CourseNameList, setCourseNameList] = useState([]);
 
     useEffect(() => {
@@ -38,6 +38,7 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
                 ))}
             </select>
             <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
+            {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
     );
 };

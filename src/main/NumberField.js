@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NumberField = ({ value, onNumberChange, nameOfLabel, isMandatory }) => {
+const NumberField = ({ value, onNumberChange, nameOfLabel, isMandatory, hasError, errorMessage }) => {
   const onNumberEntered = (e) =>{
     onNumberChange(e.target.value)
   }
@@ -10,6 +10,7 @@ const NumberField = ({ value, onNumberChange, nameOfLabel, isMandatory }) => {
       <span className='mandatory-class'>{isMandatory? "*": ""}</span>
       </label>
       <input type="number" className="form-control" onChange = {(e) =>onNumberEntered(e)}/>
+      {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const CourseLevelField = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel }) => {
+const CourseLevelField = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel, hasError, errorMessage  }) => {
     const [courseLevelList, setCourseLevelList] = useState([]);
 
     useEffect(() => {
@@ -38,6 +38,7 @@ const CourseLevelField = ({ value, onSelection, nameOfLabel, isMandatory, nameOf
                 ))}
             </select>
             <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
+            {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
     );
 };
