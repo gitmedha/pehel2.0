@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DateField = ({onDateEntered ,nameOfLabel, isMandatory }) => {
+const DateField = ({onDateEntered ,nameOfLabel, isMandatory, hasError, errorMessage }) => {
 
   const dateEntered = (event) => {
     onDateEntered(event.target.value);
@@ -11,7 +11,8 @@ const DateField = ({onDateEntered ,nameOfLabel, isMandatory }) => {
         <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
         <span className='mandatory-class'>{isMandatory? "*": ""}</span>
         </label>
-        <input type="date" className="form-control" onChange={(e)=>{dateEntered(e)}}/>
+        <input type="date" className={hasError === true ? "form-control input-error":"form-control"} onChange={(e)=>{dateEntered(e)}}/>
+        {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
 
   );

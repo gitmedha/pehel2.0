@@ -35,14 +35,33 @@ const RegistrationForm = () => {
   const [familyIncome, setFamilyIncome] = useState('');
   const [selectedFamilyIncome, setSelectedFamilyIncome] = useState('');
   const [email, setEmail] = useState('');
-  const [confimedEmail, setConfirmedEmail] = useState('');
+  const [confirmedEmail, setConfirmedEmail] = useState('');
   const [courseLevel, setCourseLevel] = useState('');
   const [courseStudyYear, setCourseStudyYear] = useState('');
   const [courseCompletionYear, setcourseCompletionYear] = useState('');
   const [course, setCourse] = useState('');
   const [program, setProgram] = useState('');
   const [aboutUs, setAboutUs] = useState('');
-  const [error, setError] = useState(false)
+  const [nameError, setNameError] = useState(false);
+  const [parentNameError, setParentNameError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [dateOfBirthError, setDateOfBirthError] = useState(false);
+  const [categoryError, setCategoryError] = useState(false);
+  const [genderError, setGenderError] = useState(false);
+  const [stateError, setStateError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [selectedFamilyIncomeError, setSelectedFamilyIncomeError] = useState(false);
+  const [familyIncomeError, setFamilyIncomeError] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [confirmEmailError, setConfirmEmailError] = useState(false);
+  const [institutionError, setInstitutionError] = useState(false);
+  const [courseLevelError, setCourseLevelError] = useState(false);
+  const [courseStudyYearError, setCourseStudyYearError] = useState(false);
+  const [courseCompletionYearError, setcourseCompletionYearError] = useState(false);
+  const [courseError, setCourseError] = useState(false);
+  const [programError, setProgramError] = useState(false);
+  const [aboutUsError, setAboutUsError] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -129,87 +148,124 @@ const RegistrationForm = () => {
     setAboutUs(value);
   }
 
-  const onValidateForm = () =>{
-    if (name === ""){
+  const onValidateForm = () => {
+    const fields = {
+      name: { value: name, setError: setNameError },
+      parentName: { value: parentName, setError: setParentNameError },
+      address: { value: address, setError: setAddressError },
+      dateOfBirth: {value: dateOfBirth, setError: setDateOfBirthError},
+      category: {value: category, setError: setCategoryError},
+      gender: {value: gender, setError: setGenderError},
+      state: {value: studentState, setError: setStateError },
+      phoneNumber: {value: phoneNumber, setError: setPhoneNumberError},
+      email: {value: email, setError: setEmailError},
+      confirmedEmail: {value: confirmedEmail, setError: setConfirmEmailError},
+      familyIncome: {value: familyIncome , setError: setFamilyIncomeError},
+      selectedFamilyIncome: {value: selectedFamilyIncome, setError: setSelectedFamilyIncomeError},
+      courseLevel: {value: courseLevel, setError: setCourseLevelError},
+      courseCompletionYear: {value: courseCompletionYear, setError: setcourseCompletionYearError},
+      courseStudyYear: {value: courseStudyYear, setError: setCourseStudyYearError},
+      course: {value: course, setError: setCourseError},
+      program: {value: program, setError: setProgramError},
+      aboutUs: {value: aboutUs, setError: setAboutUsError}
+    };
+
+    let isValid = true;
+
+    Object.keys(fields).forEach(fieldName => {
+      const { value, setError } = fields[fieldName];
+      if (value === "") {
+        setError(true);
+        isValid = false;
+      } else {
+        setError(false);
+      }
+    });
+
+    return isValid;
+  };
+
+
+
+  const onButtonClicked = (e) => {
+    e.preventDefault();
+    if(onValidateForm() === false){
       console.log("hello");
     }
   }
 
-  const onButtonClicked = (e) => {
-    e.preventDefault();
-    onValidateForm();
-    if(error === false) {
+  const creatStudents = () =>{
     axiosConfig.post('/api/students/createFromWebhook', {
-        "full_name": "Jyoti",
-        "parent_or_guardian_name": "rashmi",
-        "date_of_birth": "2003-7-14",
-        "pin_code": "122003",
-        "category": "GEN",
-        "gender": "Female",
-        "income_level": "Less than INR 25k",
-        "family_annual_income": "15000",
-        "institution_id": "118",
-        "discount_code": null,
-        "fee_transaction_id": "",
-        "program_id": "23",
-        "course_type": "Engineering/Technical",
-        "course_level": "Doctorate",
-        "year_of_course_completion": "2022",
-        "course_year": "Third",
-        "city": "Anantnag",
-        "payuMoneyId": "",
-        "phone": "8765432104",
-        "state": "Jammu & Kashmir",
-        "amount": 0,
-        "email": "srivastavajyoti510@gmail.com",
-        "address": "Gurgaon ",
-        "aadhar_number": "",
-        "area": null,
-        "course_name_in_current_sis": "B.ED",
-        "course_name_other": "",
-        "how_did_you_hear_about_us": "Campus / Teachers",
-        "how_did_you_hear_about_us_other": "",
-        "alternate_mobile": ""
-      })
-      .then(function (response) {
-        console.log(response);
-        if (response && response.status === 200) {
-          // axiosConfig.post('/students/sendEmail')
-          //   .then(function (secondResponse) {
-          //     console.log(secondResponse);
-          //   })
-          //   .catch(function (secondError) {
-          //     console.log(secondError);
-          //   });
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    }
+      "full_name": "Jyoti",
+      "parent_or_guardian_name": "rashmi",
+      "date_of_birth": "2003-7-14",
+      "pin_code": "122003",
+      "category": "GEN",
+      "gender": "Female",
+      "income_level": "Less than INR 25k",
+      "family_annual_income": "15000",
+      "institution_id": "118",
+      "discount_code": null,
+      "fee_transaction_id": "",
+      "program_id": "23",
+      "course_type": "Engineering/Technical",
+      "course_level": "Doctorate",
+      "year_of_course_completion": "2022",
+      "course_year": "Third",
+      "city": "Anantnag",
+      "payuMoneyId": "",
+      "phone": "8765432104",
+      "state": "Jammu & Kashmir",
+      "amount": 0,
+      "email": "srivastavajyoti510@gmail.com",
+      "address": "Gurgaon ",
+      "aadhar_number": "",
+      "area": null,
+      "course_name_in_current_sis": "B.ED",
+      "course_name_other": "",
+      "how_did_you_hear_about_us": "Campus / Teachers",
+      "how_did_you_hear_about_us_other": "",
+      "alternate_mobile": ""
+    })
+    .then(function (response) {
+      console.log(response);
+      if (response && response.status === 200) {
+        // axiosConfig.post('/students/sendEmail')
+        //   .then(function (secondResponse) {
+        //     console.log(secondResponse);
+        //   })
+        //   .catch(function (secondError) {
+        //     console.log(secondError);
+        //   });
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+   });
   }
+
 
 
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} error={error} />
+        <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} errorMessage ={"Please enter Name"} hasError = {nameError} />
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true}/>
+        <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true} errorMessage ={"Please enter Parent/Guardian's name"} hasError = {parentNameError}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true}/>
+        <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true} errorMessage={"Please enter Address"} hasError = {dateOfBirthError}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true}/>
+        <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true} errorMessage = {"Please select Category"} hasError = {categoryError}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <GenderField onGenderSelect={onSelectingGender} nameOfLabel={"Gender"} isMandatory={true}/>
+        <GenderField onGenderSelect={onSelectingGender} nameOfLabel={"Gender"} isMandatory={true} errorMessage = {"Please select Gender"} hasError = {genderError}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onTextEntered={onAddingPrimaryAddress} nameOfLabel={"Address"} isMandatory={true}/>
+        <TextField  onTextEntered={onAddingPrimaryAddress} nameOfLabel={"Address"} isMandatory={true} errorMessage={"Please enter address"} hasError={addressError}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <MultiTextField  onTextEntered={onAddingSecondaryAddress} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
@@ -227,25 +283,25 @@ const RegistrationForm = () => {
         <NumberField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} />
+        <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} hasError={selectedFamilyIncomeError} errorMessage={"Please select Family Income"} />
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <NumberField  onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true}/>
+        <NumberField  onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true} hasError= {familyIncomeError} errorMessage ={"Please enter Family Income"}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
         <div className='px-2'>
-          <NumberField  onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true}/>
+          <NumberField  onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true} hasError= {phoneNumberError} errorMessage= {"Please neter Phone Number"}/>
         </div>
         <div className='px-2'>
-          <NumberField  onNumberChange={onAlternatePhoneNumberEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false}/>
+          <NumberField  onNumberChange={onAlternatePhoneNumberEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false} />
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
         <div className='px-2'>
-          <EmailField onTextEntered={onEnteringEmail} nameOfLabel={"Email"} isMandatory={true}/>
+          <EmailField onTextEntered={onEnteringEmail} nameOfLabel={"Email"} isMandatory={true} hasError= {emailError} errorMessage ={"Please enter Email"}/>
         </div>
         <div className='px-2'>
-          <EmailField onTextEntered={onEnteringConfirmationEmail} nameOfLabel={"Confirm Email"} isMandatory={false}/>
+          <EmailField onTextEntered={onEnteringConfirmationEmail} nameOfLabel={"Confirm Email"} isMandatory={false} hasError={confirmEmailError} errorMessage={"Please confirm email"}/>
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center educational-institution'>
@@ -253,24 +309,24 @@ const RegistrationForm = () => {
       </div>
       <div className='d-lg-flex justify-content-lg-center phone-number'>
         <div className='px-2 educational-institution'>
-          <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"}/>
+          <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} errorMessage ={"Please enter Course Level"}/>
         </div>
         <div className='px-2 educational-institution'>
-          <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"}/>
+          <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} errorMessage ={"Please enter Year Of Study"}/>
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} />
+        <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
       </div>
       <div className='d-lg-flex justify-content-lg-center '>
-        <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true}/>
+        <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course"}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
-        <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true}/>
+        <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true} hasError={programError} errorMessage = {"Please select Program or Workshop"}/>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>
         <div className='px-2 educational-institution'>
-          <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true}/>
+          <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true} hasError={aboutUsError} errorMessage= {"Please enter this value"}/>
         </div>
       </div>
       <div className='d-lg-flex justify-content-lg-center'>

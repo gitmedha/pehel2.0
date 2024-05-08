@@ -109,3 +109,9 @@ input[type=number]::-webkit-inner-spin-button {
     width: 100% !important;
   }
 }
+.error-message{
+  color: #FF0000;
+}
+.input-error{
+  border: 1px solid #FF0000 !important;
+}
