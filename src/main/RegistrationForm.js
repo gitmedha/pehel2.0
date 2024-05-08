@@ -182,7 +182,6 @@ const RegistrationForm = () => {
         isValid = true;
       }
     });
-
     return isValid;
   };
 
@@ -190,7 +189,6 @@ const RegistrationForm = () => {
 
   const onButtonClicked = (e) => {
     e.preventDefault();
-    console.log(onValidateForm(), "formValidation");
     if(onValidateForm() === true){
       creatStudents();
     }
