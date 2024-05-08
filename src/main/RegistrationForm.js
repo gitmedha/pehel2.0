@@ -152,7 +152,7 @@ const RegistrationForm = () => {
     const fields = {
       name: { value: name, setError: setNameError },
       parentName: { value: parentName, setError: setParentNameError },
-      address: { value: address, setError: setAddressError },
+      address: { value: primaryAddress, setError: setAddressError },
       dateOfBirth: {value: dateOfBirth, setError: setDateOfBirthError},
       category: {value: category, setError: setCategoryError},
       gender: {value: gender, setError: setGenderError},
@@ -179,6 +179,7 @@ const RegistrationForm = () => {
         isValid = false;
       } else {
         setError(false);
+        isValid = true;
       }
     });
 
@@ -189,41 +190,42 @@ const RegistrationForm = () => {
 
   const onButtonClicked = (e) => {
     e.preventDefault();
-    if(onValidateForm() === false){
-      console.log("hello");
+    console.log(onValidateForm(), "formValidation");
+    if(onValidateForm() === true){
+      creatStudents();
     }
   }
 
   const creatStudents = () =>{
     axiosConfig.post('/api/students/createFromWebhook', {
-      "full_name": "Jyoti",
-      "parent_or_guardian_name": "rashmi",
-      "date_of_birth": "2003-7-14",
+      "full_name": name,
+      "parent_or_guardian_name": parentName,
+      "date_of_birth": dateOfBirth,
       "pin_code": "122003",
-      "category": "GEN",
-      "gender": "Female",
-      "income_level": "Less than INR 25k",
-      "family_annual_income": "15000",
+      "category": category,
+      "gender": gender,
+      "income_level": selectedFamilyIncome,
+      "family_annual_income": familyIncome,
       "institution_id": "118",
       "discount_code": null,
       "fee_transaction_id": "",
       "program_id": "23",
-      "course_type": "Engineering/Technical",
-      "course_level": "Doctorate",
-      "year_of_course_completion": "2022",
-      "course_year": "Third",
+      "course_type": course,
+      "course_level": courseLevel,
+      "year_of_course_completion": courseCompletionYear,
+      "course_year": courseStudyYear,
       "city": "Anantnag",
       "payuMoneyId": "",
-      "phone": "8765432104",
+      "phone": phoneNumber,
       "state": "Jammu & Kashmir",
       "amount": 0,
-      "email": "srivastavajyoti510@gmail.com",
-      "address": "Gurgaon ",
+      "email": email,
+      "address": address,
       "aadhar_number": "",
       "area": null,
       "course_name_in_current_sis": "B.ED",
       "course_name_other": "",
-      "how_did_you_hear_about_us": "Campus / Teachers",
+      "how_did_you_hear_about_us": aboutUs,
       "how_did_you_hear_about_us_other": "",
       "alternate_mobile": ""
     })
@@ -334,7 +336,9 @@ const RegistrationForm = () => {
       </div>
       <br></br>
       {/* <DonationForm/> */}
-      <button onClick={onButtonClicked}>Submit</button>
+      <div className='d-lg-flex justify-content-lg-center'>
+      <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked}>Submit</button>
+      </div>
     </div>
   );
 };
