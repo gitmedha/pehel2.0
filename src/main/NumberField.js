@@ -9,7 +9,7 @@ const NumberField = ({ value, onNumberChange, nameOfLabel, isMandatory, hasError
       <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
       <span className='mandatory-class'>{isMandatory? "*": ""}</span>
       </label>
-      <input type="number" className="form-control" onChange = {(e) =>onNumberEntered(e)}/>
+      <input type="number" className={hasError === true ? "form-control input-error":"form-control"} onChange = {(e) =>onNumberEntered(e)}/>
       {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
   );

@@ -10,7 +10,7 @@ const EmailField = ({ value, onTextEntered, nameOfLabel, isMandatory, hasError, 
       <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
       <span className='mandatory-class'>{isMandatory? "*": ""}</span>
       </label>
-      <input type="email" className="form-control" onChange={(e)=>{onEmailEntered(e)}}/>
+      <input type="email" className={hasError === true ? "form-control input-error":"form-control"} onChange={(e)=>{onEmailEntered(e)}}/>
       {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
   );

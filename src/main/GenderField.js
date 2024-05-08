@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const GenderField = ({ value, onGenderSelect, nameOfLabel, isMandatory }) => {
+const GenderField = ({ value, onGenderSelect, nameOfLabel, isMandatory, hasError, errorMessage }) => {
 
     const [genderData, setGenderData] = useState([]);
 
@@ -25,21 +25,22 @@ const GenderField = ({ value, onGenderSelect, nameOfLabel, isMandatory }) => {
             </label>
             <div className='mt-1'>
                 {genderData.map(gender => (
-                        <div key={gender.key} className="form-check form-check-inline">
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name="inlineRadioOptions"
-                                id={`inlineRadio${gender.key}`}
-                                value={gender.value}
-                                onChange={(e) => {onGenderChange(e)}}
-                            />
-                            <label className="form-check-label" htmlFor={`inlineRadio${gender.key}`}>
-                                {gender.value}
-                            </label>
-                        </div>
+                    <div key={gender.key} className="form-check form-check-inline">
+                        <input
+                            className="form-check-input"
+                            type="radio"
+                            name="inlineRadioOptions"
+                            id={`inlineRadio${gender.key}`}
+                            value={gender.value}
+                            onChange={(e) => {onGenderChange(e)}}
+                        />
+                        <label className="form-check-label" htmlFor={`inlineRadio${gender.key}`}>
+                            {gender.value}
+                        </label>
+                    </div>
                 ))}
             </div>
+            {hasError === true ? <div className='error-message mt-1'> {errorMessage} </div>:<div></div>}
         </div>
     );
 };

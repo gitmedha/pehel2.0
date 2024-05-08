@@ -27,7 +27,7 @@ const CourseCompletionYear = ({ value, onSelection, nameOfLabel, isMandatory, na
                 <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
             </label>
             <select
-                className="form-control"
+                className={hasError === true ? "form-control input-error":"form-control"}
                 aria-label="Default select example"
                 // value={selectedState}
                 onChange={(e) => {handleCourseCompletionYearSelection(e)}}

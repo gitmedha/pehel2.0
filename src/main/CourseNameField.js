@@ -27,7 +27,7 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
                 <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
             </label>
             <select
-                className="form-control"
+                className={hasError === true ? "form-control input-error":"form-control"}
                 aria-label="Default select example"
                 // value={selectedState}
                 onChange={(e) => {handleCourseNameSelection(e)}}
