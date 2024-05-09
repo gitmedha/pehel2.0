@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const CourseCompletionYear = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel }) => {
+const CourseCompletionYear = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel, hasError, errorMessage }) => {
     const [courseCompletionYearList, setCourseCompletionYearList] = useState([]);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const CourseCompletionYear = ({ value, onSelection, nameOfLabel, isMandatory, na
                 <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
             </label>
             <select
-                className="form-control"
+                className={hasError === true ? "form-control input-error":"form-control"}
                 aria-label="Default select example"
                 // value={selectedState}
                 onChange={(e) => {handleCourseCompletionYearSelection(e)}}
@@ -38,6 +38,7 @@ const CourseCompletionYear = ({ value, onSelection, nameOfLabel, isMandatory, na
                 ))}
             </select>
             <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
+            {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
     );
 };

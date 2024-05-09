@@ -76,7 +76,7 @@
   }
 }
 .educational-institution{
-  height: 80px;
+  height: 100px;
 }
 .disclaimer{
   font-size: 14px;
@@ -101,6 +101,9 @@ input[type=number]::-webkit-inner-spin-button {
 .link{
   color: blue;
 }
+.submit-button{
+  font-size: 20px;
+}
 @media only screen and (max-width: 768px) {
   .form-control {
     width: 100% !important;
@@ -108,4 +111,10 @@ input[type=number]::-webkit-inner-spin-button {
   .category-fields{
     width: 100% !important;
   }
+}
+.error-message{
+  color: #FF0000;
+}
+.input-error{
+  border: 1px solid #FF0000 !important;
 }

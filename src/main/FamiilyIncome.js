@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const FamilyIncome = ({ value, onRangeSelect, nameOfLabel, isMandatory }) => {
+const FamilyIncome = ({ value, onRangeSelect, nameOfLabel, isMandatory, hasError, errorMessage }) => {
     const[incomeLevel, setIncomeLevel] = useState([]);
 
     useEffect(() => {
@@ -39,6 +39,7 @@ const FamilyIncome = ({ value, onRangeSelect, nameOfLabel, isMandatory }) => {
                 </div>
             ))}
             </div>
+            {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
     );
 };

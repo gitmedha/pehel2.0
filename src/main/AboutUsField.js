@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const AboutUsField = ({ value, onAboutUsSelect, nameOfLabel, isMandatory }) => {
+const AboutUsField = ({ value, onAboutUsSelect, nameOfLabel, isMandatory, hasError, errorMessage }) => {
 
     const [aboutUsData, setaboutUsData] = useState([]);
 
@@ -25,7 +25,7 @@ const AboutUsField = ({ value, onAboutUsSelect, nameOfLabel, isMandatory }) => {
             <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
         </label>
         <select
-            className="form-control"
+            className={hasError === true ? "form-control input-error" : "form-control"}
             aria-label="Default select example"
             // value={selectedState}
             onChange={(e) => {onAboutUsChange(e)}}
@@ -35,6 +35,7 @@ const AboutUsField = ({ value, onAboutUsSelect, nameOfLabel, isMandatory }) => {
                 <option key={index} value={course.value}>{course.value}</option>
             ))}
         </select>
+        {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
     );
 };

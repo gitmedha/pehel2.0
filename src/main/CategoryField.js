@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const CategoryField = ({ value, onCategorySelect, nameOfLabel, isMandatory }) => {
+const CategoryField = ({ value, onCategorySelect, nameOfLabel, isMandatory, errorMessage, hasError }) => {
     const [categoryData, setCategoryData] = useState([]);
 
     useEffect(() => {
@@ -39,6 +39,7 @@ const CategoryField = ({ value, onCategorySelect, nameOfLabel, isMandatory }) =>
                     </div>
                 ))}
             </div>
+            {hasError === true ? <div className='error-message mt-1'> {errorMessage} </div>:<div></div>}
         </div>
     );
 };
