@@ -20,6 +20,8 @@ import CourseCompletionYear from './YearOfCompletionField';
 import CourseName from './CourseNameField';
 import AboutUsField from './AboutUsField';
 import CityField from './CityField';
+import PlanAfterCourse from './PlanAfterCourseField';
+
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -68,6 +70,7 @@ const RegistrationForm = () => {
   const [stateList, setStateList] = useState([]);
   const [district, setDistrict] = useState('');
   const [city, setCity] = useState('');
+  const [planAfterCourse, setPlanAfterCourse] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -170,6 +173,10 @@ const RegistrationForm = () => {
 
   const onSelectingCity = (value) => {
     setCity(value);
+  }
+
+  const onSelectionPlanAfterCourse = (value) => {
+    setPlanAfterCourse(value)
   }
 
   const onValidateForm = () => {
@@ -281,7 +288,8 @@ const RegistrationForm = () => {
       console.log(error);
    });
   }
-  console.log(city, "citye....");
+
+  console.log(planAfterCourse, "plan");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -360,6 +368,9 @@ const RegistrationForm = () => {
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
           <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center '>
           <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course"}/>
