@@ -62,6 +62,7 @@ const RegistrationForm = () => {
   const [courseError, setCourseError] = useState(false);
   const [programError, setProgramError] = useState(false);
   const [aboutUsError, setAboutUsError] = useState(false);
+  const [studentData, setStudentData] = useState({});
 
   const onNameEntered = (value) => {
     setName(value);
@@ -92,8 +93,13 @@ const RegistrationForm = () => {
   }
 
   const onAddingAddress = () => {
-    let clubbedAddress = primaryAddress+ "," +secondaryAddress;
-    setAddress(clubbedAddress);
+    let clubbedAddress;
+    if(secondaryAddress !== ""){
+    clubbedAddress = primaryAddress+ "," +secondaryAddress;
+    } else {
+      clubbedAddress = primaryAddress;
+    }
+    return clubbedAddress;
   }
 
   const onAadharEntered =(value) =>{
@@ -218,7 +224,7 @@ const RegistrationForm = () => {
       "state": "Jammu & Kashmir",
       "amount": 0,
       "email": email,
-      "address": address,
+      "address": onAddingAddress(),
       "aadhar_number": "",
       "area": null,
       "course_name_in_current_sis": "B.ED",
@@ -228,15 +234,31 @@ const RegistrationForm = () => {
       "alternate_mobile": ""
     })
     .then(function (response) {
-      console.log(response);
       if (response && response.status === 200) {
-        // axiosConfig.post('/students/sendEmail')
-        //   .then(function (secondResponse) {
-        //     console.log(secondResponse);
-        //   })
-        //   .catch(function (secondError) {
-        //     console.log(secondError);
-        //   });
+        setStudentData(response && response.data);
+      }
+      if(Object.keys(studentData).length !==0){
+        console.log("hello Jyoti!!!");
+        // axiosConfig.post('/students/sendEmail',{
+        //   "studentId" : studentData.student_id,
+        //   "name" : name,
+        //   "email": "jyoti.srivastava@coloredcow,in",
+        //   "parentsName": parentName,
+        //   "dateOfBirth": dateOfBirth,
+        //   "educationalInstitution": "508",
+        //   "course": course,
+        //   "courseLevel": courseLevel,
+        //   "yearOfStudy": courseStudyYear,
+        //   "yearOfCompletion": courseCompletionYear,
+        //   "courseName": "B.Com (Hons.)",
+        //   "otherCourseName": ""
+        // })
+        // .then(function (secondResponse) {
+        //   console.log(secondResponse);
+        // })
+        // .catch(function (secondError) {
+        //   console.log(secondError);
+        // });
       }
     })
     .catch(function (error) {
@@ -244,93 +266,94 @@ const RegistrationForm = () => {
    });
   }
 
-
-
+  console.log(onAddingAddress(), "address");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} errorMessage ={"Please enter Name"} hasError = {nameError} />
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true} errorMessage ={"Please enter Parent/Guardian's name"} hasError = {parentNameError}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true} errorMessage={"Please enter Address"} hasError = {dateOfBirthError}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true} errorMessage = {"Please select Category"} hasError = {categoryError}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <GenderField onGenderSelect={onSelectingGender} nameOfLabel={"Gender"} isMandatory={true} errorMessage = {"Please select Gender"} hasError = {genderError}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <TextField  onTextEntered={onAddingPrimaryAddress} nameOfLabel={"Address"} isMandatory={true} errorMessage={"Please enter address"} hasError={addressError}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <MultiTextField  onTextEntered={onAddingSecondaryAddress} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center phone-number'>
-        <div className='px-2 educational-institution'>
-          <StateField nameOfSecondaryLabel ={"State/Province/Region"}/>
+      <div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} errorMessage ={"Please enter Name"} hasError = {nameError} />
         </div>
-        <div className='px-2 educational-institution'>
-          <SelectField nameOfSecondaryLabel={"City"}/>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true} errorMessage ={"Please enter Parent/Guardian's name"} hasError = {parentNameError}/>
         </div>
-      </div>
-      <br></br>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <NumberField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} hasError={selectedFamilyIncomeError} errorMessage={"Please select Family Income"} />
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <NumberField  onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true} hasError= {familyIncomeError} errorMessage ={"Please enter Family Income"}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center phone-number'>
-        <div className='px-2'>
-          <NumberField  onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true} hasError= {phoneNumberError} errorMessage= {"Please enter Phone Number"}/>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true} errorMessage={"Please enter Address"} hasError = {dateOfBirthError}/>
         </div>
-        <div className='px-2'>
-          <NumberField  onNumberChange={onAlternatePhoneNumberEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false} />
+        <div className='d-lg-flex justify-content-lg-center'>
+          <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true} errorMessage = {"Please select Category"} hasError = {categoryError}/>
         </div>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center phone-number'>
-        <div className='px-2'>
-          <EmailField onTextEntered={onEnteringEmail} nameOfLabel={"Email"} isMandatory={true} hasError= {emailError} errorMessage ={"Please enter Email"}/>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <GenderField onGenderSelect={onSelectingGender} nameOfLabel={"Gender"} isMandatory={true} errorMessage = {"Please select Gender"} hasError = {genderError}/>
         </div>
-        <div className='px-2'>
-          <EmailField onTextEntered={onEnteringConfirmationEmail} nameOfLabel={"Confirm Email"} isMandatory={false} hasError={confirmEmailError} errorMessage={"Please confirm email"}/>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <TextField  onTextEntered={onAddingPrimaryAddress} nameOfLabel={"Address"} isMandatory={true} errorMessage={"Please enter address"} hasError={addressError}/>
         </div>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center educational-institution'>
-        <SelectField   nameOfLabel={"Educational Institution"} isMandatory={true}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center phone-number'>
-        <div className='px-2 educational-institution'>
-          <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} errorMessage ={"Please enter Course Level"}/>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <MultiTextField  onTextEntered={onAddingSecondaryAddress} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
         </div>
-        <div className='px-2 educational-institution'>
-          <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} errorMessage ={"Please enter Year Of Study"}/>
+        <div className='d-lg-flex justify-content-lg-center phone-number'>
+          <div className='px-2 educational-institution'>
+            <StateField nameOfSecondaryLabel ={"State/Province/Region"}/>
+          </div>
+          <div className='px-2 educational-institution'>
+            <SelectField nameOfSecondaryLabel={"City"}/>
+          </div>
         </div>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
-      </div>
-      <div className='d-lg-flex justify-content-lg-center '>
-        <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course"}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true} hasError={programError} errorMessage = {"Please select Program or Workshop"}/>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <div className='px-2 educational-institution'>
-          <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true} hasError={aboutUsError} errorMessage= {"Please enter this value"}/>
+        <br></br>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <NumberField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
         </div>
-      </div>
-      <div className='d-lg-flex justify-content-lg-center'>
-        <ConsentSection/>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} hasError={selectedFamilyIncomeError} errorMessage={"Please select Family Income"} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <NumberField  onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true} hasError= {familyIncomeError} errorMessage ={"Please enter Family Income"}/>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center phone-number'>
+          <div className='px-2'>
+            <NumberField  onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true} hasError= {phoneNumberError} errorMessage= {"Please enter Phone Number"}/>
+          </div>
+          <div className='px-2'>
+            <NumberField  onNumberChange={onAlternatePhoneNumberEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false} />
+          </div>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center phone-number'>
+          <div className='px-2'>
+            <EmailField onTextEntered={onEnteringEmail} nameOfLabel={"Email"} isMandatory={true} hasError= {emailError} errorMessage ={"Please enter Email"}/>
+          </div>
+          <div className='px-2'>
+            <EmailField onTextEntered={onEnteringConfirmationEmail} nameOfLabel={"Confirm Email"} isMandatory={false} hasError={confirmEmailError} errorMessage={"Please confirm email"}/>
+          </div>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center educational-institution'>
+          <SelectField   nameOfLabel={"Educational Institution"} isMandatory={true}/>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center phone-number'>
+          <div className='px-2 educational-institution'>
+            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} errorMessage ={"Please enter Course Level"}/>
+          </div>
+          <div className='px-2 educational-institution'>
+            <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} errorMessage ={"Please enter Year Of Study"}/>
+          </div>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center '>
+          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course"}/>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true} hasError={programError} errorMessage = {"Please select Program or Workshop"}/>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <div className='px-2 educational-institution'>
+            <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true} hasError={aboutUsError} errorMessage= {"Please enter this value"}/>
+          </div>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <ConsentSection/>
+        </div>
       </div>
       <br></br>
       {/* <DonationForm/> */}
