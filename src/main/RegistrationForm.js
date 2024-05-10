@@ -11,6 +11,7 @@ import axiosConfig from '../axios/axiosConfig';
 import DonationForm from './DonationForm';
 import EmailField from './EmailField';
 import SelectField from './SelectField';
+import DistrictField from './DistrictField';
 import ConsentSection from './ConsentSection';
 import StateField from './StateField';
 import CourseLevelField from './CourseLevelField';
@@ -18,6 +19,7 @@ import CourseStudyYear from './YearOfStudyField';
 import CourseCompletionYear from './YearOfCompletionField';
 import CourseName from './CourseNameField';
 import AboutUsField from './AboutUsField';
+import CityField from './CityField';
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -63,6 +65,9 @@ const RegistrationForm = () => {
   const [programError, setProgramError] = useState(false);
   const [aboutUsError, setAboutUsError] = useState(false);
   const [studentData, setStudentData] = useState({});
+  const [stateList, setStateList] = useState([]);
+  const [district, setDistrict] = useState('');
+  const [city, setCity] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -154,6 +159,19 @@ const RegistrationForm = () => {
     setAboutUs(value);
   }
 
+  const onSelectingState =(value, apiResponse) => {
+    setStudentState(value);
+    setStateList(apiResponse);
+  }
+
+  const onSelectingDistrict = (value) => {
+    setDistrict(value);
+  }
+
+  const onSelectingCity = (value) => {
+    setCity(value);
+  }
+
   const onValidateForm = () => {
     const fields = {
       name: { value: name, setError: setNameError },
@@ -190,8 +208,6 @@ const RegistrationForm = () => {
     });
     return isValid;
   };
-
-
 
   const onButtonClicked = (e) => {
     e.preventDefault();
@@ -265,8 +281,7 @@ const RegistrationForm = () => {
       console.log(error);
    });
   }
-
-  console.log(onAddingAddress(), "address");
+  console.log(city, "citye....");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -294,12 +309,18 @@ const RegistrationForm = () => {
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
-            <StateField nameOfSecondaryLabel ={"State/Province/Region"}/>
+            <StateField nameOfSecondaryLabel ={"State/Province/Region"} onStateSelected = {onSelectingState}/>
           </div>
           <div className='px-2 educational-institution'>
-            <SelectField nameOfSecondaryLabel={"City"}/>
+            <DistrictField nameOfSecondaryLabel={"District"} stateName ={studentState} stateList = {stateList} onDistrictSelected = {onSelectingDistrict}/>
           </div>
         </div>
+        <div className='d-lg-flex justify-content-lg-center phone-number city-field'>
+          <div className='px-2 educational-institution'>
+            <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity}/>
+          </div>
+        </div>
+
         <br></br>
         <div className='d-lg-flex justify-content-lg-center'>
           <NumberField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>

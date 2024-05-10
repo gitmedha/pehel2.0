@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const StateField = ({ value, onChange, nameOfLabel, isMandatory, nameOfSecondaryLabel }) => {
+const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSecondaryLabel }) => {
     const [stateList, setStateList] = useState([]);
     const [selectedState, setSelectedState] = useState('');
+    const [apiResponse, setApiResponse] = useState([]);
 
     useEffect(() => {
         axiosConfig.get('/api/geographies')
         .then(response => {
             if(response && response.data){
-                // Filter out duplicate states
+                setApiResponse(response && response.data);
                 const uniqueStates = Array.from(new Set(response.data.map(state => state.state)));
                 setStateList(uniqueStates);
             }
@@ -21,8 +22,10 @@ const StateField = ({ value, onChange, nameOfLabel, isMandatory, nameOfSecondary
 
     const handleStateChange = (e) => {
         setSelectedState(e.target.value);
-        if (onChange) {
-            onChange(e.target.value);
+        if(e.target.value){
+            let completeList = apiResponse;
+            let filteredData = completeList.filter(item => item.state === e.target.value);
+            onStateSelected(e.target.value, filteredData);
         }
     };
 
