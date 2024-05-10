@@ -93,8 +93,13 @@ const RegistrationForm = () => {
   }
 
   const onAddingAddress = () => {
-    let clubbedAddress = primaryAddress+ "," +secondaryAddress;
-    setAddress(clubbedAddress);
+    let clubbedAddress;
+    if(secondaryAddress !== ""){
+    clubbedAddress = primaryAddress+ "," +secondaryAddress;
+    } else {
+      clubbedAddress = primaryAddress;
+    }
+    return clubbedAddress;
   }
 
   const onAadharEntered =(value) =>{
@@ -219,7 +224,7 @@ const RegistrationForm = () => {
       "state": "Jammu & Kashmir",
       "amount": 0,
       "email": email,
-      "address": address,
+      "address": onAddingAddress(),
       "aadhar_number": "",
       "area": null,
       "course_name_in_current_sis": "B.ED",
@@ -260,6 +265,8 @@ const RegistrationForm = () => {
       console.log(error);
    });
   }
+
+  console.log(onAddingAddress(), "address");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
