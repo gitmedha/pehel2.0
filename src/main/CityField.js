@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-const DistrictField = ({ value, onDistrictSelected, nameOfLabel, isMandatory,nameOfSecondaryLabel, stateName, stateList  }) => {
-    const [selectedDistrict, setSelectedDistrict] = useState('');
+const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecondaryLabel, stateName, stateList  }) => {
+    const [SelctedCity, setSelctedCity] = useState('');
 
-    const handleDistrictChange = (e) => {
-        setSelectedDistrict(e.target.value);
-        onDistrictSelected(e.target.value);
+    const handleCityChange = (e) => {
+        setSelctedCity(e.target.value);
+        onCitySelected(e.target.value);
     };
 
     return (
@@ -17,12 +17,12 @@ const DistrictField = ({ value, onDistrictSelected, nameOfLabel, isMandatory,nam
         <select
             className="form-control"
             aria-label="Default select example"
-            value={selectedDistrict}
-            onChange={handleDistrictChange}
+            value={SelctedCity}
+            onChange={handleCityChange}
         >
-            <option value="">Select a district</option>
+            <option value="">Select a city</option>
             {stateList.map((state, index) => (
-                <option key={index} value={state.district}>{state.district}</option>
+                <option key={index} value={state.area}>{state.area}</option>
             ))}
         </select>
         <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
@@ -30,4 +30,4 @@ const DistrictField = ({ value, onDistrictSelected, nameOfLabel, isMandatory,nam
     );
 };
 
-export default DistrictField;
+export default CityField;

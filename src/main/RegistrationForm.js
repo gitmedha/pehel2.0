@@ -19,6 +19,7 @@ import CourseStudyYear from './YearOfStudyField';
 import CourseCompletionYear from './YearOfCompletionField';
 import CourseName from './CourseNameField';
 import AboutUsField from './AboutUsField';
+import CityField from './CityField';
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -66,6 +67,7 @@ const RegistrationForm = () => {
   const [studentData, setStudentData] = useState({});
   const [stateList, setStateList] = useState([]);
   const [district, setDistrict] = useState('');
+  const [city, setCity] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -164,6 +166,10 @@ const RegistrationForm = () => {
 
   const onSelectingDistrict = (value) => {
     setDistrict(value);
+  }
+
+  const onSelectingCity = (value) => {
+    setCity(value);
   }
 
   const onValidateForm = () => {
@@ -275,7 +281,7 @@ const RegistrationForm = () => {
       console.log(error);
    });
   }
-
+  console.log(city, "citye....");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -306,9 +312,15 @@ const RegistrationForm = () => {
             <StateField nameOfSecondaryLabel ={"State/Province/Region"} onStateSelected = {onSelectingState}/>
           </div>
           <div className='px-2 educational-institution'>
-            <DistrictField nameOfSecondaryLabel={"City"} stateName ={studentState} stateList = {stateList} onDistrictSelected = {onSelectingDistrict}/>
+            <DistrictField nameOfSecondaryLabel={"District"} stateName ={studentState} stateList = {stateList} onDistrictSelected = {onSelectingDistrict}/>
           </div>
         </div>
+        <div className='d-lg-flex justify-content-lg-center phone-number city-field'>
+          <div className='px-2 educational-institution'>
+            <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity}/>
+          </div>
+        </div>
+
         <br></br>
         <div className='d-lg-flex justify-content-lg-center'>
           <NumberField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>

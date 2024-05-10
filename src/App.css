@@ -111,10 +111,16 @@ input[type=number]::-webkit-inner-spin-button {
   .category-fields{
     width: 100% !important;
   }
+  .city-field{
+    padding-right: 0px;
+  }
 }
 .error-message{
   color: #FF0000;
 }
 .input-error{
   border: 1px solid #FF0000 !important;
+}
+.city-field{
+  padding-right: 280px;
 }
