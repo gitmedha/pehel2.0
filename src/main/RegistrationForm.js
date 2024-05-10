@@ -228,7 +228,7 @@ const RegistrationForm = () => {
     //   "how_did_you_hear_about_us_other": "",
     //   "alternate_mobile": ""
     // })
-    axiosConfig.post('/students/createFromWebhook',{
+    axiosConfig.post('/api/students/createFromWebhook',{
       "full_name": "Jyoti Srivastava",
       "parent_or_guardian_name": "rashmi",
       "date_of_birth": "2003-7-14",
@@ -266,25 +266,26 @@ const RegistrationForm = () => {
       }
       if(Object.keys(studentData).length !==0){
         console.log("hello Jyoti!!!");
-        axiosConfig.post('/students/sendEmail',{
-          "studentId" : studentData.student_id,
-          "name" : name,
-          "email": "jyoti.srivastava@coloredcow,in",
-          "parentsName": parentName,
-          "dateOfBirth": dateOfBirth,
-          "educationalInstitution": "508",
-          "course": course,
-          "courseLevel": courseLevel,
-          "yearOfStudy": courseStudyYear,
-          "yearOfCompletion": courseCompletionYear,
-          "courseName": "B.Com (Hons.)"
-        })
-        .then(function (secondResponse) {
-          console.log(secondResponse);
-        })
-        .catch(function (secondError) {
-          console.log(secondError);
-        });
+        // axiosConfig.post('/students/sendEmail',{
+        //   "studentId" : studentData.student_id,
+        //   "name" : name,
+        //   "email": "jyoti.srivastava@coloredcow,in",
+        //   "parentsName": parentName,
+        //   "dateOfBirth": dateOfBirth,
+        //   "educationalInstitution": "508",
+        //   "course": course,
+        //   "courseLevel": courseLevel,
+        //   "yearOfStudy": courseStudyYear,
+        //   "yearOfCompletion": courseCompletionYear,
+        //   "courseName": "B.Com (Hons.)",
+        //   "otherCourseName": ""
+        // })
+        // .then(function (secondResponse) {
+        //   console.log(secondResponse);
+        // })
+        // .catch(function (secondError) {
+        //   console.log(secondError);
+        // });
       }
     })
     .catch(function (error) {
@@ -294,7 +295,7 @@ const RegistrationForm = () => {
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
-      {/* <div>
+      <div>
         <div className='d-lg-flex justify-content-lg-center'>
           <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} errorMessage ={"Please enter Name"} hasError = {nameError} />
         </div>
@@ -378,7 +379,7 @@ const RegistrationForm = () => {
         <div className='d-lg-flex justify-content-lg-center'>
           <ConsentSection/>
         </div>
-      </div> */}
+      </div>
       <br></br>
       {/* <DonationForm/> */}
       <div className='d-lg-flex justify-content-lg-center'>
