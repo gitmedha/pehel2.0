@@ -275,7 +275,7 @@ const RegistrationForm = () => {
       console.log(error);
    });
   }
-  console.log(district, "district");
+
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
