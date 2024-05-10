@@ -195,9 +195,9 @@ const RegistrationForm = () => {
 
   const onButtonClicked = (e) => {
     e.preventDefault();
-    // if(onValidateForm() === true){
+    if(onValidateForm() === true){
       creatStudents();
-    // }
+    }
   }
 
   const creatStudents = () =>{
