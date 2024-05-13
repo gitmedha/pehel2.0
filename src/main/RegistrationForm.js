@@ -23,6 +23,8 @@ import CityField from './CityField';
 import PlanAfterCourse from './PlanAfterCourseField';
 import CourseField from './Course';
 import InstitutionField from './InstitutionField';
+import { Redirect } from 'react-router-dom';
+
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -275,6 +277,7 @@ const RegistrationForm = () => {
     .then(function (response) {
       if (response && response.status === 200) {
         setStudentData(response && response.data);
+        window.location.href = '/thankyou';
       }
       if(Object.keys(studentData).length !==0){
         axiosConfig.post('/api/students/sendEmail',{
