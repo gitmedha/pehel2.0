@@ -21,7 +21,7 @@ import CourseName from './CourseNameField';
 import AboutUsField from './AboutUsField';
 import CityField from './CityField';
 import PlanAfterCourse from './PlanAfterCourseField';
-
+import CourseField from './Course';
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -71,6 +71,8 @@ const RegistrationForm = () => {
   const [district, setDistrict] = useState('');
   const [city, setCity] = useState('');
   const [planAfterCourse, setPlanAfterCourse] = useState('');
+  const [courseType, setCourseType] = useState('');
+  const [courseTypeError, setCourseTypeError] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -176,7 +178,11 @@ const RegistrationForm = () => {
   }
 
   const onSelectionPlanAfterCourse = (value) => {
-    setPlanAfterCourse(value)
+    setPlanAfterCourse(value);
+  }
+
+  const onSelectionCourseType  =(value) =>{
+    setCourseType(value);
   }
 
   const onValidateForm = () => {
@@ -198,7 +204,8 @@ const RegistrationForm = () => {
       courseStudyYear: {value: courseStudyYear, setError: setCourseStudyYearError},
       course: {value: course, setError: setCourseError},
       program: {value: program, setError: setProgramError},
-      aboutUs: {value: aboutUs, setError: setAboutUsError}
+      aboutUs: {value: aboutUs, setError: setAboutUsError},
+      courseType: {value: courseType, setError: setCourseTypeError}
     };
 
     let isValid = true;
@@ -358,6 +365,9 @@ const RegistrationForm = () => {
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
           <SelectField   nameOfLabel={"Educational Institution"} isMandatory={true}/>
         </div>
+        <div className='d-lg-flex justify-content-lg-center educational-institution'>
+          <CourseField   nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError ={courseError} errorMessage ={"Please enter Course"}/>
+        </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
             <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} errorMessage ={"Please enter Course Level"}/>
@@ -373,7 +383,7 @@ const RegistrationForm = () => {
           <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center '>
-          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course"}/>
+          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course Name"}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
           <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true} hasError={programError} errorMessage = {"Please select Program or Workshop"}/>
