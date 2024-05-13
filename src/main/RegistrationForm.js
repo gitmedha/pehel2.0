@@ -79,6 +79,8 @@ const RegistrationForm = () => {
   const [collegeName, setCollegeName] = useState('');
   const [otherCourse, setOtherCourse] = useState('');
   const [otherCourseError, setOtherCourseError] = useState('');
+  const [aboutUsOther, setAboutUsOther] = useState('');
+  const [aboutUsOtherError, setAboutUsOtherError] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -198,6 +200,11 @@ const RegistrationForm = () => {
   const onOtherCourseNameEntered = (value) => {
     setOtherCourse(value);
   };
+
+  const onAboutUsOtherEntered = (value) =>{
+    setAboutUs(value);
+  }
+
   const onValidateForm = () => {
     const fields = {
       name: { value: name, setError: setNameError },
@@ -220,7 +227,8 @@ const RegistrationForm = () => {
       aboutUs: {value: aboutUs, setError: setAboutUsError},
       courseType: {value: courseType, setError: setCourseTypeError},
       institution:{value:collegeName, setError: setInstitutionError},
-      otherCourse: {value:otherCourse, setError: setOtherCourseError}
+      otherCourse: {value:otherCourse, setError: setOtherCourseError},
+      aboutUsOther: {value:aboutUsOther, setError: setAboutUsOtherError}
     };
 
     let isValid = true;
@@ -437,6 +445,7 @@ const RegistrationForm = () => {
             <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true} hasError={aboutUsError} errorMessage= {"Please enter this value"}/>
           </div>
         </div>
+        {aboutUs ==="Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onAboutUsOtherEntered} nameOfLabel={"If Other, Specify"} isMandatory={true} errorMessage ={"Please enter this value"} hasError = {aboutUsOtherError} /></div>}
         <div className='d-lg-flex justify-content-lg-center'>
           <ConsentSection/>
         </div>
