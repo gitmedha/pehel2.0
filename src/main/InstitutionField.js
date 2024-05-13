@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
+import Select from 'react-select'
 
 const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondaryLabel, hasError, onSelection, errorMessage  }) => {
     const [institutionList, setinstitutionList] = useState([]);
@@ -26,17 +27,13 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
         {nameOfLabel}
         <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
     </label>
-    <select
-        className={hasError === true ? "form-control input-error":"form-control"}
+        <Select
+        className={hasError === true ? "input-error institution-select-field":"institution-select-field"}
         aria-label="Default select example"
         // value={selectedState}
-        onChange={(e) => {handleInstitutionSelection(e)}}
-    >
-        <option value="">Select</option>
-        {institutionList.map((collegeName, index) => (
-            <option key={index} value={collegeName}>{collegeName}</option>
-        ))}
-    </select>
+        onChange={(selectedOption) => handleInstitutionSelection(selectedOption.value)}
+        options={institutionList.map(collegeName => ({ value: collegeName, label: collegeName }))}
+        />
     <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
     {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
 </div>
