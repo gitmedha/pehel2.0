@@ -35,7 +35,6 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
         onChange={(e) => handleInstitutionSelection(e)}
         options={institutionList.map(collegeName => ({ value: collegeName, label: collegeName }))}
         />
-        <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
         {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
   );

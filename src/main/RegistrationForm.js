@@ -398,7 +398,7 @@ const RegistrationForm = () => {
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
-          <InstitutionField   nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please enter Eduvational Institution"}/>
+          <InstitutionField   nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please enter Educational Institution"}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
           <CourseField   nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError ={courseError} errorMessage ={"Please enter Course"}/>

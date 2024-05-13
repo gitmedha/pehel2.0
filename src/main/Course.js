@@ -39,7 +39,6 @@ const CourseField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondary
             <option key={index} value={course.value}>{course.value}</option>
         ))}
     </select>
-    <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
     {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
 </div>
   );
