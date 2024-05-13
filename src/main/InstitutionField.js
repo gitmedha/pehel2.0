@@ -23,20 +23,20 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
 
   return (
     <div className="form-group py-2">
-    <label className='fz-16 lato-regular mb-1'>
-        {nameOfLabel}
-        <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
-    </label>
+        <label className='fz-16 lato-regular mb-1'>
+            {nameOfLabel}
+            <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
+        </label>
         <Select
         className={hasError === true ? "input-error institution-select-field":"institution-select-field"}
         aria-label="Default select example"
         // value={selectedState}
-        onChange={(selectedOption) => handleInstitutionSelection(selectedOption.value)}
+        onchange={(e) => handleInstitutionSelection(e)}
         options={institutionList.map(collegeName => ({ value: collegeName, label: collegeName }))}
         />
-    <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
-    {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
-</div>
+        <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
+        {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
+    </div>
   );
 };
 

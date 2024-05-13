@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
+import Select from 'react-select'
 
 const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel, hasError, errorMessage }) => {
     const [CourseNameList, setCourseNameList] = useState([]);
@@ -17,6 +18,7 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
     }, []);
 
     const handleCourseNameSelection =(e) =>{
+        console.log(e, "event")
         onSelection(e.target.value);
     };
 
@@ -26,7 +28,7 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
                 {nameOfLabel}
                 <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
             </label>
-            <select
+            {/* <select
                 className={hasError === true ? "form-control input-error":"form-control"}
                 aria-label="Default select example"
                 // value={selectedState}
@@ -36,7 +38,14 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
                 {CourseNameList.map((course, index) => (
                     <option key={index} value={course}>{course}</option>
                 ))}
-            </select>
+            </select> */}
+            <Select
+                className={hasError === true ? "input-error institution-select-field":"institution-select-field"}
+                aria-label="Default select example"
+                // value={selectedState}
+                onchange={(e) => handleCourseNameSelection(e)}
+                options={CourseNameList.map(course => ({ value: course, label: course }))}
+            />
             <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
             {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
