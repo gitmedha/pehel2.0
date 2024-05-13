@@ -235,11 +235,11 @@ const RegistrationForm = () => {
   const onButtonClicked = (e) => {
     e.preventDefault();
     if(onValidateForm() === true){
-      creatStudents();
+      createStudents();
     }
   }
 
-  const creatStudents = () =>{
+  const createStudents = () => {
     axiosConfig.post('/api/students/createFromWebhook', {
       "full_name": name,
       "parent_or_guardian_name": parentName,
@@ -276,13 +276,10 @@ const RegistrationForm = () => {
     })
     .then(function (response) {
       if (response && response.status === 200) {
-        setStudentData(response && response.data);
-        window.location.href = '/thankyou';
-      }
-      if(Object.keys(studentData).length !==0){
-        axiosConfig.post('/api/students/sendEmail',{
-          "studentId" : studentData.student_id,
-          "name" : name,
+        const studentData = response.data;
+        axiosConfig.post('/api/students/sendEmail', {
+          "studentId": studentData.student_id,
+          "name": name,
           "email": email,
           "parentsName": parentName,
           "dateOfBirth": dateOfBirth,
@@ -295,7 +292,34 @@ const RegistrationForm = () => {
           "otherCourseName": ""
         })
         .then(function (secondResponse) {
-          console.log(secondResponse);
+          if (secondResponse && secondResponse.status === 200) {
+            setName('');
+            setParentName('');
+            setDateOfBirth('');
+            setCategory('');
+            setGender('');
+            setAddress('');
+            setStudentState('');
+            setDistrict('');
+            setCity('');
+            setAadharNumber('');
+            setSelectedFamilyIncome('');
+            setFamilyIncome('');
+            setPhoneNumber('');
+            setAlternatePhoneNumber('');
+            setEmail('');
+            setConfirmedEmail('');
+            setCollegeName('');
+            setCourse('');
+            setCourseLevel('');
+            setCourseStudyYear('');
+            setcourseCompletionYear('');
+            setPlanAfterCourse('');
+            setCourseType('');
+            setProgram('');
+            setAboutUs('');
+            window.location.href = '/thankyou';
+          }
         })
         .catch(function (secondError) {
           console.log(secondError);
@@ -304,8 +328,9 @@ const RegistrationForm = () => {
     })
     .catch(function (error) {
       console.log(error);
-   });
+    });
   }
+
 
   return (
     <div className='p-5'>
