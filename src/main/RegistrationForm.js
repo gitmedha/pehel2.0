@@ -77,6 +77,8 @@ const RegistrationForm = () => {
   const [courseType, setCourseType] = useState('');
   const [courseTypeError, setCourseTypeError] = useState('');
   const [collegeName, setCollegeName] = useState('');
+  const [otherCourse, setOtherCourse] = useState('');
+  const [otherCourseError, setOtherCourseError] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -193,6 +195,9 @@ const RegistrationForm = () => {
     setCollegeName(value)
   }
 
+  const onOtherCourseNameEntered = (value) => {
+    setOtherCourse(value);
+  };
   const onValidateForm = () => {
     const fields = {
       name: { value: name, setError: setNameError },
@@ -214,7 +219,8 @@ const RegistrationForm = () => {
       program: {value: program, setError: setProgramError},
       aboutUs: {value: aboutUs, setError: setAboutUsError},
       courseType: {value: courseType, setError: setCourseTypeError},
-      institution:{value:collegeName, setError: setInstitutionError}
+      institution:{value:collegeName, setError: setInstitutionError},
+      otherCourse: {value:otherCourse, setError: setOtherCourseError}
     };
 
     let isValid = true;
@@ -420,6 +426,9 @@ const RegistrationForm = () => {
         <div className='d-lg-flex justify-content-lg-center '>
           <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course Name"}/>
         </div>
+        {
+          course === "Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onOtherCourseNameEntered} nameOfLabel={"Specify Course Name"} isMandatory={true} errorMessage ={"Please enter other course name"} hasError = {otherCourseError} /></div>
+        }
         <div className='d-lg-flex justify-content-lg-center'>
           <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true} hasError={programError} errorMessage = {"Please select Program or Workshop"}/>
         </div>
