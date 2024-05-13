@@ -22,6 +22,7 @@ import AboutUsField from './AboutUsField';
 import CityField from './CityField';
 import PlanAfterCourse from './PlanAfterCourseField';
 import CourseField from './Course';
+import InstitutionField from './InstitutionField';
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');
@@ -73,6 +74,7 @@ const RegistrationForm = () => {
   const [planAfterCourse, setPlanAfterCourse] = useState('');
   const [courseType, setCourseType] = useState('');
   const [courseTypeError, setCourseTypeError] = useState('');
+  const [collegeName, setCollegeName] = useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -185,6 +187,10 @@ const RegistrationForm = () => {
     setCourseType(value);
   }
 
+  const onSelectionInstitution =(value) => {
+    setCollegeName(value)
+  }
+
   const onValidateForm = () => {
     const fields = {
       name: { value: name, setError: setNameError },
@@ -205,7 +211,8 @@ const RegistrationForm = () => {
       course: {value: course, setError: setCourseError},
       program: {value: program, setError: setProgramError},
       aboutUs: {value: aboutUs, setError: setAboutUsError},
-      courseType: {value: courseType, setError: setCourseTypeError}
+      courseType: {value: courseType, setError: setCourseTypeError},
+      institution:{value:collegeName, setError: setInstitutionError}
     };
 
     let isValid = true;
@@ -268,7 +275,6 @@ const RegistrationForm = () => {
         setStudentData(response && response.data);
       }
       if(Object.keys(studentData).length !==0){
-        console.log("hello Jyoti!!!");
         // axiosConfig.post('/students/sendEmail',{
         //   "studentId" : studentData.student_id,
         //   "name" : name,
@@ -363,7 +369,7 @@ const RegistrationForm = () => {
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
-          <SelectField   nameOfLabel={"Educational Institution"} isMandatory={true}/>
+          <InstitutionField   nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please enter Eduvational Institution"}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
           <CourseField   nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError ={courseError} errorMessage ={"Please enter Course"}/>
