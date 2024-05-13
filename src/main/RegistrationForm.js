@@ -277,26 +277,26 @@ const RegistrationForm = () => {
         setStudentData(response && response.data);
       }
       if(Object.keys(studentData).length !==0){
-        // axiosConfig.post('/students/sendEmail',{
-        //   "studentId" : studentData.student_id,
-        //   "name" : name,
-        //   "email": "jyoti.srivastava@coloredcow,in",
-        //   "parentsName": parentName,
-        //   "dateOfBirth": dateOfBirth,
-        //   "educationalInstitution": "508",
-        //   "course": course,
-        //   "courseLevel": courseLevel,
-        //   "yearOfStudy": courseStudyYear,
-        //   "yearOfCompletion": courseCompletionYear,
-        //   "courseName": "B.Com (Hons.)",
-        //   "otherCourseName": ""
-        // })
-        // .then(function (secondResponse) {
-        //   console.log(secondResponse);
-        // })
-        // .catch(function (secondError) {
-        //   console.log(secondError);
-        // });
+        axiosConfig.post('/api/students/sendEmail',{
+          "studentId" : studentData.student_id,
+          "name" : name,
+          "email": email,
+          "parentsName": parentName,
+          "dateOfBirth": dateOfBirth,
+          "educationalInstitution": "508",
+          "course": course,
+          "courseLevel": courseLevel,
+          "yearOfStudy": courseStudyYear,
+          "yearOfCompletion": courseCompletionYear,
+          "courseName": "B.Com (Hons.)",
+          "otherCourseName": ""
+        })
+        .then(function (secondResponse) {
+          console.log(secondResponse);
+        })
+        .catch(function (secondError) {
+          console.log(secondError);
+        });
       }
     })
     .catch(function (error) {
