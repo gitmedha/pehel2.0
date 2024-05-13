@@ -4,6 +4,7 @@ import Select from 'react-select'
 
 const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondaryLabel, hasError, onSelection, errorMessage  }) => {
     const [institutionList, setinstitutionList] = useState([]);
+    const [institution, setInstitution] = useState('');
 
     useEffect(() => {
         axiosConfig.get('/api/picklist-field-configs?table=Pitching&field=college_name')
@@ -18,7 +19,7 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
     }, []);
 
     const handleInstitutionSelection =(e) =>{
-        onSelection(e.target.value);
+        onSelection(e.value);
     };
 
   return (
@@ -31,7 +32,7 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
         className={hasError === true ? "input-error institution-select-field":"institution-select-field"}
         aria-label="Default select example"
         // value={selectedState}
-        onchange={(e) => handleInstitutionSelection(e)}
+        onChange={(e) => handleInstitutionSelection(e)}
         options={institutionList.map(collegeName => ({ value: collegeName, label: collegeName }))}
         />
         <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>

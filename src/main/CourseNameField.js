@@ -18,8 +18,7 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
     }, []);
 
     const handleCourseNameSelection =(e) =>{
-        console.log(e, "event")
-        onSelection(e.target.value);
+        onSelection(e.value);
     };
 
     return (
@@ -28,22 +27,11 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
                 {nameOfLabel}
                 <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
             </label>
-            {/* <select
-                className={hasError === true ? "form-control input-error":"form-control"}
-                aria-label="Default select example"
-                // value={selectedState}
-                onChange={(e) => {handleCourseNameSelection(e)}}
-            >
-                <option value="">Select</option>
-                {CourseNameList.map((course, index) => (
-                    <option key={index} value={course}>{course}</option>
-                ))}
-            </select> */}
             <Select
                 className={hasError === true ? "input-error institution-select-field":"institution-select-field"}
                 aria-label="Default select example"
                 // value={selectedState}
-                onchange={(e) => handleCourseNameSelection(e)}
+                onChange={(e) => handleCourseNameSelection(e)}
                 options={CourseNameList.map(course => ({ value: course, label: course }))}
             />
             <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>

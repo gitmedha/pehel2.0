@@ -3,6 +3,7 @@ import axiosConfig from '../axios/axiosConfig';
 
 const CourseField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondaryLabel, hasError, onSelection, errorMessage  }) => {
     const [courseList, setCourseList] = useState([]);
+    const [courseType, setCourseType] = useState('');
 
     useEffect(() => {
         axiosConfig.get('/api/picklist-field-configs?table=program_enrollments&field=course_type')
@@ -17,6 +18,7 @@ const CourseField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondary
     }, []);
 
     const handleCourseSelection =(e) =>{
+        setCourseType(e.target.value);
         onSelection(e.target.value);
     };
 
@@ -29,7 +31,7 @@ const CourseField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondary
     <select
         className={hasError === true ? "form-control input-error":"form-control"}
         aria-label="Default select example"
-        // value={selectedState}
+        value={courseType}
         onChange={(e) => {handleCourseSelection(e)}}
     >
         <option value="">Select</option>

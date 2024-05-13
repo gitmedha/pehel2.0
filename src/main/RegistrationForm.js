@@ -251,24 +251,26 @@ const RegistrationForm = () => {
       "discount_code": null,
       "fee_transaction_id": "",
       "program_id": "23",
-      "course_type": course,
+      "course_type": courseType,
       "course_level": courseLevel,
       "year_of_course_completion": courseCompletionYear,
       "course_year": courseStudyYear,
-      "city": "Anantnag",
+      "city": city,
+      "district": district,
+      "planAfterCourse": planAfterCourse,
       "payuMoneyId": "",
       "phone": phoneNumber,
-      "state": "Jammu & Kashmir",
+      "state": studentState,
       "amount": 0,
       "email": email,
       "address": onAddingAddress(),
       "aadhar_number": "",
       "area": null,
-      "course_name_in_current_sis": "B.ED",
+      "course_name_in_current_sis": course,
       "course_name_other": "",
       "how_did_you_hear_about_us": aboutUs,
       "how_did_you_hear_about_us_other": "",
-      "alternate_mobile": ""
+      "alternate_mobile": alternatePhoneNumber
     })
     .then(function (response) {
       if (response && response.status === 200) {
@@ -302,7 +304,6 @@ const RegistrationForm = () => {
    });
   }
 
-  console.log(planAfterCourse, "plan");
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
