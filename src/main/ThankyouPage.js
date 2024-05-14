@@ -1,8 +1,32 @@
-import React, { useState, useEffect }  from 'react';
-const ThankyouPage = () =>{
+import React from 'react';
+import medhaLogo from '../images/medha.png';
+
+const ThankyouPage = (studentData) => {
+    console.log(studentData, "studenet")
     return (
-        <div>Hello jyoti</div>
-    )
-}
+        <div className='p-lg-5'>
+            <div className='p-lg-5'>
+                <div className='text-center thankyou'>
+                    <img src={medhaLogo} className='logo ' alt="Medha Logo" />
+                    <div className='sign-up-text text-white display-6 pb-5'>SIGN UP SUCCESSFUL</div>
+                </div>
+                <div className='fz-24 p-lg-5'>
+                    <div className='d-lg-flex justify-content-between pb-2'>
+                        <div>
+                            Name:
+                        </div>
+                        <div>Date:</div>
+                    </div>
+                    <div>Email id:</div>
+                </div>
+                <div className='text-center fz-24 pb-4'><b>Student Id:</b></div>
+                <div className='footer-thankyou text-center py-4 fz-24'>
+                <p><b>You will receive a confirmation email with your student ID.</b></p>
+                <p>In case you require a receipt of the transaction, mail us at <a href="mailto:finance@medha.org.in">finance@medha.org.in</a></p>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 export default ThankyouPage;

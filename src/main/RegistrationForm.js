@@ -24,6 +24,7 @@ import PlanAfterCourse from './PlanAfterCourseField';
 import CourseField from './Course';
 import InstitutionField from './InstitutionField';
 import { Redirect } from 'react-router-dom';
+import ThankyouPage from './ThankyouPage';
 
 
 const RegistrationForm = () => {
@@ -78,9 +79,9 @@ const RegistrationForm = () => {
   const [courseTypeError, setCourseTypeError] = useState('');
   const [collegeName, setCollegeName] = useState('');
   const [otherCourse, setOtherCourse] = useState('');
-  const [otherCourseError, setOtherCourseError] = useState('');
+  const [otherCourseError, setOtherCourseError] = useState(false);
   const [aboutUsOther, setAboutUsOther] = useState('');
-  const [aboutUsOtherError, setAboutUsOtherError] = useState('');
+  const [aboutUsOtherError, setAboutUsOtherError] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -202,7 +203,7 @@ const RegistrationForm = () => {
   };
 
   const onAboutUsOtherEntered = (value) =>{
-    setAboutUs(value);
+    setAboutUsOther(value);
   }
 
   const onValidateForm = () => {
@@ -210,26 +211,27 @@ const RegistrationForm = () => {
       name: { value: name, setError: setNameError },
       parentName: { value: parentName, setError: setParentNameError },
       address: { value: primaryAddress, setError: setAddressError },
-      dateOfBirth: {value: dateOfBirth, setError: setDateOfBirthError},
-      category: {value: category, setError: setCategoryError},
-      gender: {value: gender, setError: setGenderError},
-      state: {value: studentState, setError: setStateError },
-      phoneNumber: {value: phoneNumber, setError: setPhoneNumberError},
-      email: {value: email, setError: setEmailError},
-      confirmedEmail: {value: confirmedEmail, setError: setConfirmEmailError},
-      familyIncome: {value: familyIncome , setError: setFamilyIncomeError},
-      selectedFamilyIncome: {value: selectedFamilyIncome, setError: setSelectedFamilyIncomeError},
-      courseLevel: {value: courseLevel, setError: setCourseLevelError},
-      courseCompletionYear: {value: courseCompletionYear, setError: setcourseCompletionYearError},
-      courseStudyYear: {value: courseStudyYear, setError: setCourseStudyYearError},
-      course: {value: course, setError: setCourseError},
-      program: {value: program, setError: setProgramError},
-      aboutUs: {value: aboutUs, setError: setAboutUsError},
-      courseType: {value: courseType, setError: setCourseTypeError},
-      institution:{value:collegeName, setError: setInstitutionError},
-      otherCourse: {value:otherCourse, setError: setOtherCourseError},
-      aboutUsOther: {value:aboutUsOther, setError: setAboutUsOtherError}
+      dateOfBirth: { value: dateOfBirth, setError: setDateOfBirthError },
+      category: { value: category, setError: setCategoryError },
+      gender: { value: gender, setError: setGenderError },
+      state: { value: studentState, setError: setStateError },
+      phoneNumber: { value: phoneNumber, setError: setPhoneNumberError },
+      email: { value: email, setError: setEmailError },
+      confirmedEmail: { value: confirmedEmail, setError: setConfirmEmailError },
+      familyIncome: { value: familyIncome , setError: setFamilyIncomeError },
+      selectedFamilyIncome: { value: selectedFamilyIncome, setError: setSelectedFamilyIncomeError },
+      courseLevel: { value: courseLevel, setError: setCourseLevelError },
+      courseCompletionYear: { value: courseCompletionYear, setError: setcourseCompletionYearError },
+      courseStudyYear: { value: courseStudyYear, setError: setCourseStudyYearError },
+      course: { value: course, setError: setCourseError },
+      program: { value: program, setError: setProgramError },
+      aboutUs: { value: aboutUs, setError: setAboutUsError },
+      courseType: { value: courseType, setError: setCourseTypeError },
+      institution: { value: collegeName, setError: setInstitutionError },
+      ...(course === 'other' && { otherCourse: { value: otherCourse, setError: setOtherCourseError } }),
+      ...(aboutUs === 'other' && { aboutUsOther: { value: aboutUsOther, setError: setAboutUsOtherError } })
     };
+
 
     let isValid = true;
 
@@ -290,9 +292,10 @@ const RegistrationForm = () => {
     })
     .then(function (response) {
       if (response && response.status === 200) {
-        const studentData = response.data;
+        const studentInfo = response.data;
+        setStudentData(response.data)
         axiosConfig.post('/api/students/sendEmail', {
-          "studentId": studentData.student_id,
+          "studentId": studentInfo.student_id,
           "name": name,
           "email": email,
           "parentsName": parentName,
