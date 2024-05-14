@@ -70,14 +70,36 @@
   width: 550px !important;
   height: 44px !important;
 }
+.institution-select-field{
+  width: 550px !important;
+}
+.css-13cymwt-control{
+  height: 44px !important;
+  border-radius: 999px !important;
+}
+.css-13cymwt-control:focus{
+  height: 44px !important;
+  border-radius: 999px !important;
+}
+.css-t3ipsp-control{
+  height: 44px !important;
+  border-radius: 999px !important;
+  border: 1px solid #ccc !important;
+}
+.css-t3ipsp-control:hover{
+  border: 1px solid #ccc !important;
+}
+.css-13cymwt-control:hover{
+  border: 1px solid #ccc !important;
+}
 .phone-number{
   .form-control{
     width: 265px !important;
   }
 }
-.educational-institution{
+/* .educational-institution{
   height: 100px;
-}
+} */
 .disclaimer{
   font-size: 14px;
 }
@@ -120,7 +142,24 @@ input[type=number]::-webkit-inner-spin-button {
 }
 .input-error{
   border: 1px solid #FF0000 !important;
+  border-radius: 999px !important;
 }
 .city-field{
   padding-right: 280px;
+}
+.thankyou{
+  background-color: #3be8b0;
+}
+.logo{
+  height: 150px;
+  width: 150px;
+}
+.fz-24{
+  font-size: 24px;
+}
+.footer-thankyou{
+  background-color: #f2f2f2;
+}
+.header-thankyou{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
 }

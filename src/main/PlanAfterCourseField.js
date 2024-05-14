@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
-import Select from 'react-select'
 
-const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel, hasError, errorMessage }) => {
-    const [CourseNameList, setCourseNameList] = useState([]);
+const PlanAfterCourse = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel, hasError, errorMessage }) => {
+    const [PlanAfterCourseList, setPlanAfterCourseList] = useState([]);
 
     useEffect(() => {
-        axiosConfig.get('/api/picklist-field-configs?table=program_enrollments&field=course')
+        axiosConfig.get('/api/picklist-field-configs?table=plan_after_current_course')
         .then(response => {
             if(response && response.data){
-                setCourseNameList(response.data[0].values)
+                setPlanAfterCourseList(response.data[0].values)
             }
         })
         .catch(error => {
@@ -17,8 +16,8 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
         });
     }, []);
 
-    const handleCourseNameSelection =(e) =>{
-        onSelection(e.value);
+    const handlePlanAfterCourseSelected =(e) =>{
+        onSelection(e.target.value);
     };
 
     return (
@@ -27,17 +26,21 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
                 {nameOfLabel}
                 <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
             </label>
-            <Select
-                className={hasError === true ? "input-error institution-select-field":"institution-select-field"}
+            <select
+                className={hasError === true ? "form-control input-error":"form-control"}
                 aria-label="Default select example"
                 // value={selectedState}
-                onChange={(e) => handleCourseNameSelection(e)}
-                options={CourseNameList.map(course => ({ value: course, label: course }))}
-            />
+                onChange={(e) => {handlePlanAfterCourseSelected(e)}}
+            >
+                <option value="">Select</option>
+                {PlanAfterCourseList.map((plan, index) => (
+                    <option key={index} value={plan}>{plan}</option>
+                ))}
+            </select>
             <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
             {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
     );
 };
 
-export default CourseName;
+export default PlanAfterCourse;

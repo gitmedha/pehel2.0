@@ -27,9 +27,9 @@ const GenderField = ({ value, onGenderSelect, nameOfLabel, isMandatory, hasError
                 {genderData.map(gender => (
                     <div key={gender.key} className="form-check form-check-inline">
                         <input
-                            className="form-check-input"
+                            className="form-check-input gender-field"
                             type="radio"
-                            name="inlineRadioOptions"
+                            name="gender"
                             id={`inlineRadio${gender.key}`}
                             value={gender.value}
                             onChange={(e) => {onGenderChange(e)}}
