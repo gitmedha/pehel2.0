@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NumberField = ({ value, onNumberChange, nameOfLabel, isMandatory, hasError, errorMessage }) => {
+const NumberField = ({ value, onNumberChange, nameOfLabel, isMandatory, hasError, errorMessage, nameOfSecondaryLabel }) => {
   const onNumberEntered = (e) =>{
     onNumberChange(e.target.value)
   }
@@ -11,6 +11,7 @@ const NumberField = ({ value, onNumberChange, nameOfLabel, isMandatory, hasError
       </label>
       <input type="number" className={hasError === true ? "form-control input-error":"form-control"} onChange = {(e) =>onNumberEntered(e)}/>
       {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
+      <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
     </div>
   );
 };

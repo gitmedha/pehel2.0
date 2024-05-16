@@ -87,6 +87,8 @@ const RegistrationForm = () => {
   const [aboutUsOtherError, setAboutUsOtherError] = useState(false);
   const [paymentMappingList, setPaymentMappingList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pincode, setPincode] = useState('');
+  const [pincodeError, setPincodeError] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -140,6 +142,10 @@ const RegistrationForm = () => {
 
   const onAddingFamilyIncome = (value) => {
     setFamilyIncome(value);
+  }
+
+  const onEnteringPinCode = (value) =>{
+    setPincode(value);
   }
 
   const onSelectingFamilyIncome = (value) =>{
@@ -211,6 +217,7 @@ const RegistrationForm = () => {
     setAboutUsOther(value);
   }
 
+
   useEffect( () =>{
     axios.get('https://run.mocky.io/v3/bc4d7905-985e-43db-9cd3-b9e73f6792fd').then(
       response =>{
@@ -246,7 +253,8 @@ const RegistrationForm = () => {
       courseType: { value: courseType, setError: setCourseTypeError },
       institution: { value: collegeName, setError: setInstitutionError },
       ...(course === 'other' && { otherCourse: { value: otherCourse, setError: setOtherCourseError } }),
-      ...(aboutUs === 'other' && { aboutUsOther: { value: aboutUsOther, setError: setAboutUsOtherError } })
+      ...(aboutUs === 'other' && { aboutUsOther: { value: aboutUsOther, setError: setAboutUsOtherError } }),
+      pincode: {value: pincode, setError: setPincodeError}
     };
 
 
@@ -277,7 +285,7 @@ const RegistrationForm = () => {
       "full_name": name,
       "parent_or_guardian_name": parentName,
       "date_of_birth": dateOfBirth,
-      "pin_code": "122003",
+      "pin_code": pincode,
       "category": category,
       "gender": gender,
       "income_level": selectedFamilyIncome,
@@ -351,7 +359,6 @@ const RegistrationForm = () => {
             setCourseType('');
             setProgram('');
             setAboutUs('');
-            {!isModalOpen &&
             navigate('/thankyou', {
               state: {
                 name: studentInfo.full_name,
@@ -359,7 +366,6 @@ const RegistrationForm = () => {
                 email: studentInfo.email
               },
             });
-          }
           }
         })
         .catch(function (secondError) {
@@ -386,7 +392,6 @@ const RegistrationForm = () => {
     e.preventDefault();
     if(onValidateForm() === true){
       setIsModalOpen(true);
-      createStudents();
     }
   }
 
@@ -426,6 +431,9 @@ const RegistrationForm = () => {
         <div className='d-lg-flex justify-content-lg-center phone-number city-field'>
           <div className='px-2 educational-institution'>
             <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity}/>
+          </div>
+          <div className='px-2'>
+            <NumberField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"}/>
           </div>
         </div>
 
