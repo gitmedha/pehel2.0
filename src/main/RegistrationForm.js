@@ -26,6 +26,8 @@ import InstitutionField from './InstitutionField';
 import { Redirect } from 'react-router-dom';
 import ThankyouPage from './ThankyouPage';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const RegistrationForm = () => {
@@ -84,6 +86,10 @@ const RegistrationForm = () => {
   const [otherCourseError, setOtherCourseError] = useState(false);
   const [aboutUsOther, setAboutUsOther] = useState('');
   const [aboutUsOtherError, setAboutUsOtherError] = useState(false);
+  const [paymentMappingList, setPaymentMappingList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pincode, setPincode] = useState('');
+  const [pincodeError, setPincodeError] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -137,6 +143,10 @@ const RegistrationForm = () => {
 
   const onAddingFamilyIncome = (value) => {
     setFamilyIncome(value);
+  }
+
+  const onEnteringPinCode = (value) =>{
+    setPincode(value);
   }
 
   const onSelectingFamilyIncome = (value) =>{
@@ -208,6 +218,34 @@ const RegistrationForm = () => {
     setAboutUsOther(value);
   }
 
+
+  useEffect( () =>{
+    axiosConfig.post('/api/institutions/paymentRequired').then(
+      response =>{
+        if(response && response.data){
+          setPaymentMappingList(response.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching states:', error);
+      });
+  },[]);
+
+  const showToastMessage = () => {
+    return toast('Form Submitted Successfully!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "dark",
+      style: {
+        background: 'green',
+      }
+    });
+  };
+
   const onValidateForm = () => {
     const fields = {
       name: { value: name, setError: setNameError },
@@ -231,7 +269,8 @@ const RegistrationForm = () => {
       courseType: { value: courseType, setError: setCourseTypeError },
       institution: { value: collegeName, setError: setInstitutionError },
       ...(course === 'other' && { otherCourse: { value: otherCourse, setError: setOtherCourseError } }),
-      ...(aboutUs === 'other' && { aboutUsOther: { value: aboutUsOther, setError: setAboutUsOtherError } })
+      ...(aboutUs === 'other' && { aboutUsOther: { value: aboutUsOther, setError: setAboutUsOtherError } }),
+      pincode: {value: pincode, setError: setPincodeError}
     };
 
 
@@ -253,6 +292,7 @@ const RegistrationForm = () => {
   const onButtonClicked = (e) => {
     e.preventDefault();
     if(onValidateForm() === true){
+      showToastMessage();
       createStudents();
     }
   }
@@ -262,7 +302,7 @@ const RegistrationForm = () => {
       "full_name": name,
       "parent_or_guardian_name": parentName,
       "date_of_birth": dateOfBirth,
-      "pin_code": "122003",
+      "pin_code": pincode,
       "category": category,
       "gender": gender,
       "income_level": selectedFamilyIncome,
@@ -355,6 +395,23 @@ const RegistrationForm = () => {
     });
   }
 
+  const isPaymentRequired = () =>{
+    let isPaid;
+    let paymentList = paymentMappingList;
+    const filteredList = paymentList.filter(item => {
+      return item.institution_name === collegeName && item.program_name === program;
+    });
+    isPaid = filteredList &&  filteredList[0] && filteredList[0].payment;
+    return isPaid;
+  }
+
+  const onClickOfDonateButton =(e) =>{
+    e.preventDefault();
+    if(onValidateForm() === true){
+      setIsModalOpen(true);
+    }
+  }
+
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -391,6 +448,9 @@ const RegistrationForm = () => {
         <div className='d-lg-flex justify-content-lg-center phone-number city-field'>
           <div className='px-2 educational-institution'>
             <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity}/>
+          </div>
+          <div className='px-2'>
+            <NumberField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"}/>
           </div>
         </div>
 
@@ -460,10 +520,27 @@ const RegistrationForm = () => {
         </div>
       </div>
       <br></br>
-      {/* <DonationForm/> */}
-      <div className='d-lg-flex justify-content-lg-center'>
-      <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked}>Submit</button>
-      </div>
+      {isModalOpen && <DonationForm isOpen = {isModalOpen}/>}
+      {isPaymentRequired() === true ?
+        <div className='d-lg-flex justify-content-lg-center'>
+        <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton}>Donate</button>
+        </div>
+          :
+        <div className='d-lg-flex justify-content-lg-center'>
+        <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked}>Submit</button>
+        </div>
+      }
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
