@@ -351,6 +351,7 @@ const RegistrationForm = () => {
             setCourseType('');
             setProgram('');
             setAboutUs('');
+            {!isModalOpen &&
             navigate('/thankyou', {
               state: {
                 name: studentInfo.full_name,
@@ -358,6 +359,7 @@ const RegistrationForm = () => {
                 email: studentInfo.email
               },
             });
+          }
           }
         })
         .catch(function (secondError) {
@@ -380,8 +382,12 @@ const RegistrationForm = () => {
     return isPaid;
   }
 
-  const onClickOfDonateButton =() =>{
-    setIsModalOpen(true);
+  const onClickOfDonateButton =(e) =>{
+    e.preventDefault();
+    if(onValidateForm() === true){
+      setIsModalOpen(true);
+      createStudents();
+    }
   }
 
   return (
@@ -489,16 +495,16 @@ const RegistrationForm = () => {
         </div>
       </div>
       <br></br>
-      {console.log(isModalOpen)}
-      {isModalOpen && <DonationForm/>}
-      {isPaymentRequired() === true &&
+      {isModalOpen && <DonationForm isOpen = {isModalOpen}/>}
+      {isPaymentRequired() === true ?
         <div className='d-lg-flex justify-content-lg-center'>
         <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton}>Donate</button>
         </div>
+          :
+        <div className='d-lg-flex justify-content-lg-center'>
+        <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked}>Submit</button>
+        </div>
       }
-      <div className='d-lg-flex justify-content-lg-center'>
-      <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked}>Submit</button>
-      </div>
     </div>
   );
 };

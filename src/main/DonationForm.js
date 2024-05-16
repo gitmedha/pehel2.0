@@ -1,26 +1,28 @@
 import React from 'react';
+import Modal from 'react-modal';
 
-const DonationForm = (isOpen) => {
+const DonationForm = ({ isOpen }) => {
   return (
-    // console.log("hello")
-      <div class="modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    // <iframe src={`${process.env.PUBLIC_URL}/donation.html`} title="Donation Page" />
+    <div>
+      <Modal
+        isOpen={isOpen}
+        style={{
+          content: {
+            height: '800px',
+          },
+        }}
+      >
+        <iframe
+          src={`${process.env.PUBLIC_URL}/donation.html`}
+          title="Donation Page"
+          style={{
+            width: '100%',
+            height: '100%',
+            border: 'none',
+          }}
+        />
+      </Modal>
+    </div>
   );
 };
 
