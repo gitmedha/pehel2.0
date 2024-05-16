@@ -26,6 +26,7 @@ import InstitutionField from './InstitutionField';
 import { Redirect } from 'react-router-dom';
 import ThankyouPage from './ThankyouPage';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const RegistrationForm = () => {
@@ -84,6 +85,8 @@ const RegistrationForm = () => {
   const [otherCourseError, setOtherCourseError] = useState(false);
   const [aboutUsOther, setAboutUsOther] = useState('');
   const [aboutUsOtherError, setAboutUsOtherError] = useState(false);
+  const [paymentMappingList, setPaymentMappingList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -207,6 +210,18 @@ const RegistrationForm = () => {
   const onAboutUsOtherEntered = (value) =>{
     setAboutUsOther(value);
   }
+
+  useEffect( () =>{
+    axios.get('https://run.mocky.io/v3/bc4d7905-985e-43db-9cd3-b9e73f6792fd').then(
+      response =>{
+        if(response && response.data){
+          setPaymentMappingList(response.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching states:', error);
+      });
+  },[])
 
   const onValidateForm = () => {
     const fields = {
@@ -355,6 +370,20 @@ const RegistrationForm = () => {
     });
   }
 
+  const isPaymentRequired = () =>{
+    let isPaid;
+    let paymentList = paymentMappingList;
+    const filteredList = paymentList.filter(item => {
+      return item.institution_name === collegeName && item.program_name === program;
+    });
+    isPaid = filteredList &&  filteredList[0] && filteredList[0].payment;
+    return isPaid;
+  }
+
+  const onClickOfDonateButton =() =>{
+    setIsModalOpen(true);
+  }
+
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -460,7 +489,13 @@ const RegistrationForm = () => {
         </div>
       </div>
       <br></br>
-      {/* <DonationForm/> */}
+      {console.log(isModalOpen)}
+      {isModalOpen && <DonationForm/>}
+      {isPaymentRequired() === true &&
+        <div className='d-lg-flex justify-content-lg-center'>
+        <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton}>Donate</button>
+        </div>
+      }
       <div className='d-lg-flex justify-content-lg-center'>
       <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked}>Submit</button>
       </div>
