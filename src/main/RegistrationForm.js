@@ -27,6 +27,8 @@ import { Redirect } from 'react-router-dom';
 import ThankyouPage from './ThankyouPage';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const RegistrationForm = () => {
@@ -228,7 +230,22 @@ const RegistrationForm = () => {
       .catch(error => {
         console.error('Error fetching states:', error);
       });
-  },[])
+  },[]);
+
+  const showToastMessage = () => {
+    return toast('Form Submitted Successfully!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "dark",
+      style: {
+        background: 'green',
+      }
+    });
+  };
 
   const onValidateForm = () => {
     const fields = {
@@ -276,6 +293,7 @@ const RegistrationForm = () => {
   const onButtonClicked = (e) => {
     e.preventDefault();
     if(onValidateForm() === true){
+      showToastMessage();
       createStudents();
     }
   }
@@ -513,6 +531,17 @@ const RegistrationForm = () => {
         <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked}>Submit</button>
         </div>
       }
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
