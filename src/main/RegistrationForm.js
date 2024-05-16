@@ -26,7 +26,6 @@ import InstitutionField from './InstitutionField';
 import { Redirect } from 'react-router-dom';
 import ThankyouPage from './ThankyouPage';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -221,7 +220,7 @@ const RegistrationForm = () => {
 
 
   useEffect( () =>{
-    axios.get('https://run.mocky.io/v3/bc4d7905-985e-43db-9cd3-b9e73f6792fd').then(
+    axiosConfig.post('/api/institutions/paymentRequired').then(
       response =>{
         if(response && response.data){
           setPaymentMappingList(response.data);
