@@ -289,9 +289,25 @@ const RegistrationForm = () => {
     return isValid;
   };
 
+  const validateEmail = () =>{
+    if(email){
+      const emailPattern =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const isValid = emailPattern.test(email);
+      return isValid;
+    }
+  }
+
+  const  validateConfirmedEmail = () =>{
+    if(email === confirmedEmail){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const onButtonClicked = (e) => {
     e.preventDefault();
-    if(onValidateForm() === true){
+    if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true ){
       showToastMessage();
       createStudents();
     }
@@ -478,10 +494,10 @@ const RegistrationForm = () => {
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2'>
-            <EmailField onTextEntered={onEnteringEmail} nameOfLabel={"Email"} isMandatory={true} hasError= {emailError} errorMessage ={"Please enter Email"}/>
+            <EmailField onTextEntered={onEnteringEmail} nameOfLabel={"Email"} isMandatory={true} hasError= {emailError || validateEmail() === false} errorMessage ={validateEmail() === false ? "Please enter valid Email" : "Please enter Email"}/>
           </div>
           <div className='px-2'>
-            <EmailField onTextEntered={onEnteringConfirmationEmail} nameOfLabel={"Confirm Email"} isMandatory={false} hasError={confirmEmailError} errorMessage={"Please confirm email"}/>
+            <EmailField onTextEntered={onEnteringConfirmationEmail} nameOfLabel={"Confirm Email"} isMandatory={false} hasError={confirmEmailError || validateConfirmedEmail() === false } errorMessage={validateConfirmedEmail() === false ? "Please enter same email" : "Please confirm email"}/>
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
