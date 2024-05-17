@@ -376,13 +376,15 @@ const RegistrationForm = () => {
             setCourseType('');
             setProgram('');
             setAboutUs('');
-            navigate('/thankyou', {
-              state: {
-                name: studentInfo.full_name,
-                id: studentInfo.student_id,
-                email: studentInfo.email
-              },
-            });
+            {isPaymentRequired() === false &&
+              navigate('/thankyou', {
+                state: {
+                  name: studentInfo.full_name,
+                  id: studentInfo.student_id,
+                  email: studentInfo.email
+                },
+              });
+            }
           }
         })
         .catch(function (secondError) {
@@ -409,6 +411,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     if(onValidateForm() === true){
       setIsModalOpen(true);
+      createStudents();
     }
   }
 
