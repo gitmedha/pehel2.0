@@ -91,6 +91,7 @@ const RegistrationForm = () => {
   const [pincode, setPincode] = useState('');
   const [pincodeError, setPincodeError] = useState(false);
   const [collegeId, setCollegeId] = useState('');
+  const [programId, setProgramId] =useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -178,8 +179,9 @@ const RegistrationForm = () => {
     setCourse(value);
   }
 
-  const onProgramSelected = (value) => {
+  const onProgramSelected = (value,id) => {
     setProgram(value);
+    setProgramId(id)
   }
 
   const onAboutUsSelect =(value) =>{
@@ -394,16 +396,13 @@ const RegistrationForm = () => {
             setCourseType('');
             setProgram('');
             setAboutUs('');
-            {
-              isPaymentRequired() === false &&
-              navigate('/thankyou', {
-                state: {
-                  name: studentInfo.full_name,
-                  id: studentInfo.student_id,
-                  email: studentInfo.email
-                },
-              });
-            }
+            navigate('/thankyou', {
+              state: {
+                name: studentInfo.full_name,
+                id: studentInfo.student_id,
+                email: studentInfo.email
+              },
+            });
           }
         })
         .catch(function (secondError) {
@@ -433,6 +432,7 @@ const RegistrationForm = () => {
       createStudents();
     }
   }
+  console.log( isPaymentRequired());
 
   return (
     <div className='p-5'>
