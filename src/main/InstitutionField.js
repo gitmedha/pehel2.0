@@ -7,10 +7,10 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
     const [institution, setInstitution] = useState('');
 
     useEffect(() => {
-        axiosConfig.get('/api/picklist-field-configs?table=Pitching&field=college_name')
+        axiosConfig.get('/api/institutions')
         .then(response => {
             if(response && response.data){
-                setinstitutionList(response.data[0].values)
+                setinstitutionList(response.data)
             }
         })
         .catch(error => {
@@ -19,8 +19,9 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
     }, []);
 
     const handleInstitutionSelection =(e) =>{
-        onSelection(e.value);
+        onSelection(e.value, e.label);
     };
+
 
   return (
     <div className="form-group py-2">
@@ -33,7 +34,10 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
         aria-label="Default select example"
         // value={selectedState}
         onChange={(e) => handleInstitutionSelection(e)}
-        options={institutionList.map(collegeName => ({ value: collegeName, label: collegeName }))}
+        options={institutionList.map(collegeName =>
+            ({ value: collegeName.id, label: collegeName.name })
+        )
+        }
         />
         {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
