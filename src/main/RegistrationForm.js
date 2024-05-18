@@ -432,7 +432,6 @@ const RegistrationForm = () => {
       createStudents();
     }
   }
-  console.log( isPaymentRequired());
 
   return (
     <div className='p-5'>
