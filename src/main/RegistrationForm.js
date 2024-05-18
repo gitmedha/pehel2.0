@@ -90,6 +90,8 @@ const RegistrationForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pincode, setPincode] = useState('');
   const [pincodeError, setPincodeError] = useState(false);
+  const [collegeId, setCollegeId] = useState('');
+  const [programId, setProgramId] =useState('');
 
   const onNameEntered = (value) => {
     setName(value);
@@ -177,8 +179,9 @@ const RegistrationForm = () => {
     setCourse(value);
   }
 
-  const onProgramSelected = (value) => {
+  const onProgramSelected = (value,id) => {
     setProgram(value);
+    setProgramId(id)
   }
 
   const onAboutUsSelect =(value) =>{
@@ -206,8 +209,9 @@ const RegistrationForm = () => {
     setCourseType(value);
   }
 
-  const onSelectionInstitution =(value) => {
-    setCollegeName(value)
+  const onSelectionInstitution =(value,label) => {
+    setCollegeName(label);
+    setCollegeId(value);
   }
 
   const onOtherCourseNameEntered = (value) => {
@@ -323,10 +327,10 @@ const RegistrationForm = () => {
       "gender": gender,
       "income_level": selectedFamilyIncome,
       "family_annual_income": familyIncome,
-      "institution_id": "118",
+      "institution_id": collegeId,
       "discount_code": null,
       "fee_transaction_id": "",
-      "program_id": "23",
+      "program_id": program,
       "course_type": courseType,
       "course_level": courseLevel,
       "year_of_course_completion": courseCompletionYear,
@@ -343,9 +347,9 @@ const RegistrationForm = () => {
       "aadhar_number": "",
       "area": null,
       "course_name_in_current_sis": course,
-      "course_name_other": "",
+      "course_name_other": otherCourse,
       "how_did_you_hear_about_us": aboutUs,
-      "how_did_you_hear_about_us_other": "",
+      "how_did_you_hear_about_us_other": aboutUsOther,
       "alternate_mobile": alternatePhoneNumber
     })
     .then(function (response) {
@@ -357,12 +361,12 @@ const RegistrationForm = () => {
           "email": email,
           "parentsName": parentName,
           "dateOfBirth": dateOfBirth,
-          "educationalInstitution": "508",
+          "educationalInstitution": collegeName,
           "course": course,
           "courseLevel": courseLevel,
           "yearOfStudy": courseStudyYear,
           "yearOfCompletion": courseCompletionYear,
-          "courseName": "B.Com (Hons.)",
+          "courseName": courseType,
           "otherCourseName": ""
         })
         .then(function (secondResponse) {
@@ -392,16 +396,13 @@ const RegistrationForm = () => {
             setCourseType('');
             setProgram('');
             setAboutUs('');
-            {
-              isPaymentRequired() === false &&
-              navigate('/thankyou', {
-                state: {
-                  name: studentInfo.full_name,
-                  id: studentInfo.student_id,
-                  email: studentInfo.email
-                },
-              });
-            }
+            navigate('/thankyou', {
+              state: {
+                name: studentInfo.full_name,
+                id: studentInfo.student_id,
+                email: studentInfo.email
+              },
+            });
           }
         })
         .catch(function (secondError) {
