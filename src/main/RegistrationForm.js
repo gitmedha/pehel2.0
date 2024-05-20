@@ -317,6 +317,16 @@ const RegistrationForm = () => {
     }
   }
 
+  const isPaymentRequired = () =>{
+    let isPaid;
+    let paymentList = paymentMappingList;
+    const filteredList = paymentList.filter(item => {
+      return item.institution_name === collegeName && item.program_name === programId;
+    });
+    isPaid = filteredList &&  filteredList[0] && filteredList[0].payment;
+    return isPaid;
+  }
+
   const createStudents = () => {
     axiosConfig.post('/api/students/createFromWebhook', {
       "full_name": name,
@@ -367,7 +377,8 @@ const RegistrationForm = () => {
           "yearOfStudy": courseStudyYear,
           "yearOfCompletion": courseCompletionYear,
           "courseName": courseType,
-          "otherCourseName": ""
+          "otherCourseName": otherCourse,
+          "program": programId
         })
         .then(function (secondResponse) {
           if (secondResponse && secondResponse.status === 200) {
@@ -396,6 +407,7 @@ const RegistrationForm = () => {
             setCourseType('');
             setProgram('');
             setAboutUs('');
+            {(isModalOpen === false || isPaymentRequired === false) &&
             navigate('/thankyou', {
               state: {
                 name: studentInfo.full_name,
@@ -403,6 +415,7 @@ const RegistrationForm = () => {
                 email: studentInfo.email
               },
             });
+            }
           }
         })
         .catch(function (secondError) {
@@ -415,21 +428,13 @@ const RegistrationForm = () => {
     });
   }
 
-  const isPaymentRequired = () =>{
-    let isPaid;
-    let paymentList = paymentMappingList;
-    const filteredList = paymentList.filter(item => {
-      return item.institution_name === collegeName && item.program_name === program;
-    });
-    isPaid = filteredList &&  filteredList[0] && filteredList[0].payment;
-    return isPaid;
-  }
-
   const onClickOfDonateButton =(e) =>{
     e.preventDefault();
     if(onValidateForm() === true){
       setIsModalOpen(true);
-      createStudents();
+      if(isModalOpen === true){
+        createStudents();
+      }
     }
   }
 
@@ -541,6 +546,7 @@ const RegistrationForm = () => {
         </div>
       </div>
       <br></br>
+      {console.log(isPaymentRequired())}
       {isModalOpen && <DonationForm isOpen = {isModalOpen}/>}
       {isPaymentRequired() === true ?
         <div className='d-lg-flex justify-content-lg-center'>
