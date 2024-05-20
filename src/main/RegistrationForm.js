@@ -546,7 +546,6 @@ const RegistrationForm = () => {
         </div>
       </div>
       <br></br>
-      {console.log(isPaymentRequired())}
       {isModalOpen && <DonationForm isOpen = {isModalOpen}/>}
       {isPaymentRequired() === true ?
         <div className='d-lg-flex justify-content-lg-center'>

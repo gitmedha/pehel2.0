@@ -44,7 +44,7 @@ const Program = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondLab
             <label className='fz-16 lato-regular mb-1 mt-4'>{nameOfThirdLabel}</label>
             <div className='mt-1'>
                 <div class="form-check form-check-inline mt-1 mb-1">
-                    <input className="form-check-input" type="radio" name="program" id="23" value="Workshop" onChange={(e) => {onProgramSelected(e)}}/>
+                    <input className="form-check-input" type="radio" name="program" id="Workshop" value="23" onChange={(e) => {onProgramSelected(e)}}/>
                     <label className="form-check-label" for="inlineRadio1">Pehli Udaan</label>
                 </div>
             </div>
