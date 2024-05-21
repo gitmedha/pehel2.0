@@ -27,6 +27,7 @@ const AlumniForm =() =>{
   const [parentName, setParentName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
   const [collegeName, setCollegeName] = useState('');
   const [collegeId, setCollegeId] = useState('');
   const [courseType, setCourseType] = useState('');
@@ -59,6 +60,7 @@ const AlumniForm =() =>{
       setParentName(data[0].name_of_parent_or_guardian);
       setDateOfBirth(data[0].date_of_birth);
       setGender(data[0].gender);
+      setEmail(data[0].email);
     }
   }
 
@@ -151,8 +153,10 @@ const AlumniForm =() =>{
   };
 
   const createStudents = () => {
+    let student_id = studentId;
+    student_id = +student_id
     axiosConfig.post('/api/program-enrollments/createFromWebhook', {
-      "student_id" : studentId,
+      "student_id" : student_id,
       "institution_id" : collegeId,
       "program_id" : program,
       "course_type" : courseType,
@@ -167,9 +171,9 @@ const AlumniForm =() =>{
       if (response && response.status === 200) {
         const studentInfo = response.data;
         axiosConfig.post('/api/students/sendEmail', {
-          "studentId": studentInfo.student_id,
+          "studentId": studentId,
           "name": studentName,
-          "email": email,
+          "email":email,
           "parentsName": parentName,
           "dateOfBirth": dateOfBirth,
           "educationalInstitution": collegeName,
@@ -183,24 +187,12 @@ const AlumniForm =() =>{
         })
         .then(function (secondResponse) {
           if (secondResponse && secondResponse.status === 200) {
-            setName('');
-            setParentName('');
-            setDateOfBirth('');
-            setGender('');
-            setCollegeName('');
-            setCourse('');
-            setCourseLevel('');
-            setCourseStudyYear('');
-            setcourseCompletionYear('');
-            setPlanAfterCourse('');
-            setCourseType('');
-            setProgram('');
-            {(isModalOpen === false || isPaymentRequired === false) &&
+            {(isModalOpen === false || isPaymentRequired() === false ) &&
             navigate('/thankyou', {
               state: {
-                name: studentInfo.full_name,
-                id: studentInfo.student_id,
-                email: studentInfo.email
+                name: studentName,
+                id: studentId,
+                email: email
               },
             });
             }
@@ -249,6 +241,7 @@ const AlumniForm =() =>{
     });
   };
 
+  console.log(studentData, "studentdata");
   return(
       <div className='p-5'>
           <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>

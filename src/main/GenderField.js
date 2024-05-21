@@ -20,7 +20,6 @@ const GenderField = ({ value, onGenderSelect, nameOfLabel, isMandatory, hasError
         onGenderSelect(event.target.value);
     };
 
-    console.log(value, "value")
     return (
         <div className="form-group py-2 category-fields">
             <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
