@@ -525,7 +525,7 @@ const RegistrationForm = () => {
             <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
           </div>
           <div className='px-2 educational-institution'>
-            <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
+            <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Plan After Course"} />
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center '>
