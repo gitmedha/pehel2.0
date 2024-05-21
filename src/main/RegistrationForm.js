@@ -23,8 +23,6 @@ import CityField from './CityField';
 import PlanAfterCourse from './PlanAfterCourseField';
 import CourseField from './Course';
 import InstitutionField from './InstitutionField';
-import { Redirect } from 'react-router-dom';
-import ThankyouPage from './ThankyouPage';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
