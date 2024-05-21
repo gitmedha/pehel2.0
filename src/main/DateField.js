@@ -5,7 +5,6 @@ const DateField = ({onDateEntered ,nameOfLabel, isMandatory, hasError, errorMess
   const dateEntered = (event) => {
     onDateEntered(event.target.value);
   }
-  console.log(value)
   return (
     <div className="form-group py-2">
         <label className='fz-16 lato-regular mb-1'>{nameOfLabel}
