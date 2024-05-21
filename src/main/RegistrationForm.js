@@ -23,8 +23,6 @@ import CityField from './CityField';
 import PlanAfterCourse from './PlanAfterCourseField';
 import CourseField from './Course';
 import InstitutionField from './InstitutionField';
-import { Redirect } from 'react-router-dom';
-import ThankyouPage from './ThankyouPage';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -520,11 +518,13 @@ const RegistrationForm = () => {
             <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} errorMessage ={"Please enter Year Of Study"}/>
           </div>
         </div>
-        <div className='d-lg-flex justify-content-lg-center'>
-          <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
-        </div>
-        <div className='d-lg-flex justify-content-lg-center'>
-          <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
+        <div className="d-lg-flex justify-content-lg-center phone-number">
+          <div className='px-2 educational-institution'>
+            <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
+          </div>
+          <div className='px-2 educational-institution'>
+            <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Plan After Course"} />
+          </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center '>
           <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course Name"}/>
