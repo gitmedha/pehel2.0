@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import TextField from "./TextField";
 import StudentIdField from "./StudentIdField";
+import DateField from "./DateField";
+import GenderField from "./GenderField";
 
 const AlumniForm =() =>{
 
@@ -31,14 +33,20 @@ return(
     <div className='p-5'>
         <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
         <div>
-        <div className='d-lg-flex justify-content-lg-center'>
-          <StudentIdField onTextEntered={onEnteringStudentId} nameOfLabel={"Student Id"} isMandatory={true} errorMessage ={"Please enter StudentId"} hasError = {studentIdError} />
-        </div>
-        <div className='d-lg-flex justify-content-lg-center'>
-          <TextField nameOfLabel={"Name"} value ={studentName} isMandatory={true} isDisabled ={true}/>
-        </div>
-        <div className='d-lg-flex justify-content-lg-center'>
-          <TextField nameOfLabel={"Parent/Guardian's Name"} value ={parentName} isMandatory={true} isDisabled ={true}/>
+          <div className='d-lg-flex justify-content-lg-center'>
+            <StudentIdField onTextEntered={onEnteringStudentId} nameOfLabel={"Student Id"} isMandatory={true} errorMessage ={"Please enter StudentId"} hasError = {studentIdError} />
+          </div>
+          <div className='d-lg-flex justify-content-lg-center'>
+            <TextField nameOfLabel={"Name"} value ={studentName} isMandatory={true} isDisabled ={true}/>
+          </div>
+          <div className='d-lg-flex justify-content-lg-center'>
+            <TextField nameOfLabel={"Parent/Guardian's Name"} value ={parentName} isMandatory={true} isDisabled ={true}/>
+          </div>
+          <div className='d-lg-flex justify-content-lg-center'>
+            <DateField nameOfLabel={"Date of Birth"} isMandatory={true} value={dateOfBirth} isDisabled={true}/>
+          </div>
+          <div className='d-lg-flex justify-content-lg-center'>
+          <GenderField nameOfLabel={"Gender"} isMandatory={true} isDisabled ={true} value={gender}/>
         </div>
         </div>
     </div>
