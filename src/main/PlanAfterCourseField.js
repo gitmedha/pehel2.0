@@ -5,7 +5,7 @@ const PlanAfterCourse = ({ value, onSelection, nameOfLabel, isMandatory, nameOfS
     const [PlanAfterCourseList, setPlanAfterCourseList] = useState([]);
 
     useEffect(() => {
-        axiosConfig.get('/api/picklist-field-configs?table=plan_after_current_course')
+        axiosConfig.get('/api/picklist-field-configs?table=students&field=your_plan_after_your_current_course')
         .then(response => {
             if(response && response.data){
                 setPlanAfterCourseList(response.data[0].values)

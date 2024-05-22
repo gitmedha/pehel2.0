@@ -512,18 +512,18 @@ const RegistrationForm = () => {
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
-            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} errorMessage ={"Please enter Course Level"}/>
+            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} isMandatory={true} errorMessage ={"Please enter Course Level"}/>
           </div>
           <div className='px-2 educational-institution'>
-            <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} errorMessage ={"Please enter Year Of Study"}/>
+            <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} isMandatory={true} errorMessage ={"Please enter Year Of Study"}/>
           </div>
         </div>
         <div className="d-lg-flex justify-content-lg-center phone-number">
           <div className='px-2 educational-institution'>
-            <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
+            <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
           </div>
           <div className='px-2 educational-institution'>
-            <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} hasError= {courseCompletionYearError} errorMessage={"Please enter Plan After Course"} />
+            <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please enter Plan After Course"} />
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center '>
