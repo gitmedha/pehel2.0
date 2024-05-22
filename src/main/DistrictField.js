@@ -14,7 +14,7 @@ const DistrictField = ({ value, onDistrictSelected, nameOfLabel, isMandatory,nam
             {nameOfLabel}
         </label>
         <select
-            className="form-control"
+            className={hasError === true ? "form-control input-error":"form-control"}
             aria-label="Default select example"
             value={selectedDistrict}
             onChange={handleDistrictChange}

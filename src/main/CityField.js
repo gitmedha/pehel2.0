@@ -14,7 +14,7 @@ const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecon
             {nameOfLabel}
         </label>
         <select
-            className="form-control"
+            className={hasError === true ? "form-control input-error":"form-control"}
             aria-label="Default select example"
             value={SelctedCity}
             onChange={handleCityChange}

@@ -35,7 +35,7 @@ const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSe
                 {nameOfLabel}
             </label>
             <select
-                className="form-control"
+                className={hasError === true ? "form-control input-error":"form-control"}
                 aria-label="Default select example"
                 value={selectedState}
                 onChange={handleStateChange}
