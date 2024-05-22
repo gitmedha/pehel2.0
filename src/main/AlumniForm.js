@@ -250,16 +250,16 @@ const AlumniForm =() =>{
               <StudentIdField onTextEntered={onEnteringStudentId} nameOfLabel={"Student Id"} isMandatory={true} errorMessage ={"Please enter StudentId"} hasError = {studentIdError} />
             </div>
             <div className='d-lg-flex justify-content-lg-center'>
-              <TextField nameOfLabel={"Name"} value ={studentName} isMandatory={true} isDisabled ={true}/>
+              <TextField nameOfLabel={"Name"} value ={studentName} isDisabled ={true}/>
             </div>
             <div className='d-lg-flex justify-content-lg-center'>
-              <TextField nameOfLabel={"Parent/Guardian's Name"} value ={parentName} isMandatory={true} isDisabled ={true}/>
+              <TextField nameOfLabel={"Parent/Guardian's Name"} value ={parentName} isDisabled ={true}/>
             </div>
             <div className='d-lg-flex justify-content-lg-center'>
-              <DateField nameOfLabel={"Date of Birth"} isMandatory={true} value={dateOfBirth} isDisabled={true}/>
+              <DateField nameOfLabel={"Date of Birth"}  value={dateOfBirth} isDisabled={true}/>
             </div>
             <div className='d-lg-flex justify-content-lg-center'>
-            <GenderField nameOfLabel={"Gender"} isMandatory={true} isDisabled ={true} value={gender}/>
+            <GenderField nameOfLabel={"Gender"} isDisabled ={true} value={gender}/>
             </div>
             <div className='d-lg-flex justify-content-lg-center educational-institution'>
               <InstitutionField   nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please enter Educational Institution"}/>
