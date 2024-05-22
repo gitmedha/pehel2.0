@@ -311,9 +311,28 @@ const RegistrationForm = () => {
     }
   }
 
+  const validateFamilyIncome = () => {
+    const incomeRanges = [
+      { label: "Less than INR 25k", min: 0, max: 24999 },
+      { label: "INR 25k-50k", min: 25000, max: 50000 },
+      { label: "INR 50k-1lac", min: 50001, max: 100000 },
+      { label: "INR 1lac-2.5lac", min: 100001, max: 250000 },
+      { label: "More than INR 2.5lac", min: 250001, max: Infinity }
+    ];
+
+    const selectedRange = incomeRanges.find(range => range.label === selectedFamilyIncome);
+
+    if (selectedRange) {
+      return familyIncome >= selectedRange.min && familyIncome <= selectedRange.max;
+    } else {
+      return false;
+    }
+  };
+
+
   const onButtonClicked = (e) => {
     e.preventDefault();
-    if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true ){
+    if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true && validateFamilyIncome === true ){
       showToastMessage();
       createStudents();
     }
@@ -440,6 +459,8 @@ const RegistrationForm = () => {
     }
   }
 
+  console.log(selectedFamilyIncome, "familyIncome");
+
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -490,7 +511,7 @@ const RegistrationForm = () => {
           <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} hasError={selectedFamilyIncomeError} errorMessage={"Please select Family Income"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <NumberField  onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true} hasError= {familyIncomeError} errorMessage ={"Please enter Family Income"}/>
+          <NumberField  onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true} hasError= {familyIncomeError || validateFamilyIncome() === false} errorMessage ={ validateFamilyIncome() === false ? "Please enter valid income": "Please enter Family Income"}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2'>
