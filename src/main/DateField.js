@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DateField = ({onDateEntered ,nameOfLabel, isMandatory, hasError, errorMessag, value, isDisabled }) => {
+const DateField = ({onDateEntered ,nameOfLabel, isMandatory, hasError, errorMessage, value, isDisabled }) => {
 
   const dateEntered = (event) => {
     onDateEntered(event.target.value);

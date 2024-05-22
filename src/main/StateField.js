@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSecondaryLabel }) => {
+const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSecondaryLabel ,hasError, errorMessage}) => {
     const [stateList, setStateList] = useState([]);
     const [selectedState, setSelectedState] = useState('');
     const [apiResponse, setApiResponse] = useState([]);
@@ -33,7 +33,6 @@ const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSe
         <div className="form-group py-2">
             <label className='fz-16 lato-regular mb-1'>
                 {nameOfLabel}
-                <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
             </label>
             <select
                 className="form-control"
@@ -47,6 +46,8 @@ const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSe
                 ))}
             </select>
             <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
+            <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
+            {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
     );
 };

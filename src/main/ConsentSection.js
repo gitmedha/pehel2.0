@@ -11,7 +11,7 @@ const ConsentSection = ({})=>{
             <br></br>
             <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked/>
             <label class="form-check-label" for="flexCheckChecked">
-            I agree to the <a className='link'>student consent form</a>.
+            I agree to the <a className='link' href='https://medha.org.in/payments/Student.Consent.Form.pdf' target='_blank'>student consent form</a>.
             </label>
         </div>
     )

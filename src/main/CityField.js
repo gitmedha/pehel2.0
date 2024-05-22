@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecondaryLabel, stateName, stateList  }) => {
+const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecondaryLabel, stateName, stateList,hasError, errorMessage,  }) => {
     const [SelctedCity, setSelctedCity] = useState('');
 
     const handleCityChange = (e) => {
@@ -12,7 +12,6 @@ const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecon
         <div className="form-group py-2">
         <label className='fz-16 lato-regular mb-1'>
             {nameOfLabel}
-            <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
         </label>
         <select
             className="form-control"
@@ -26,6 +25,8 @@ const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecon
             ))}
         </select>
         <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
+        <span className='mandatory-class'>{isMandatory ? "*" : ""}</span>
+        {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
     </div>
     );
 };

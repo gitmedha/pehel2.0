@@ -60,6 +60,7 @@ const RegistrationForm = () => {
   const [genderError, setGenderError] = useState(false);
   const [stateError, setStateError] = useState(false);
   const [cityError, setCityError] = useState(false);
+  const [districtError, setDisctrictError] = useState(false);
   const [selectedFamilyIncomeError, setSelectedFamilyIncomeError] = useState(false);
   const [familyIncomeError, setFamilyIncomeError] = useState(false);
   const [phoneNumberError, setPhoneNumberError] = useState(false);
@@ -272,7 +273,10 @@ const RegistrationForm = () => {
       institution: { value: collegeName, setError: setInstitutionError },
       ...(course === 'other' && { otherCourse: { value: otherCourse, setError: setOtherCourseError } }),
       ...(aboutUs === 'other' && { aboutUsOther: { value: aboutUsOther, setError: setAboutUsOtherError } }),
-      pincode: {value: pincode, setError: setPincodeError}
+      pincode: {value: pincode, setError: setPincodeError},
+      state: {value:studentState, setError:setStateError},
+      district: {value:district, setError:setDisctrictError},
+      city: {value:city, setError: setCityError}
     };
 
 
@@ -447,7 +451,7 @@ const RegistrationForm = () => {
           <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true} errorMessage ={"Please enter Parent/Guardian's name"} hasError = {parentNameError}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true} errorMessage={"Please enter Address"} hasError = {dateOfBirthError}/>
+          <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true} errorMessage={"Please enter Date Of Birth"} hasError = {dateOfBirthError}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
           <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true} errorMessage = {"Please select Category"} hasError = {categoryError}/>
@@ -463,18 +467,18 @@ const RegistrationForm = () => {
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
-            <StateField nameOfSecondaryLabel ={"State/Province/Region"} onStateSelected = {onSelectingState}/>
+            <StateField nameOfSecondaryLabel ={"State/Province/Region"} onStateSelected = {onSelectingState} isMandatory={true} hasError={stateError} errorMessage={"Please enter State"}/>
           </div>
           <div className='px-2 educational-institution'>
-            <DistrictField nameOfSecondaryLabel={"District"} stateName ={studentState} stateList = {stateList} onDistrictSelected = {onSelectingDistrict}/>
+            <DistrictField nameOfSecondaryLabel={"District"} stateName ={studentState} stateList = {stateList} onDistrictSelected = {onSelectingDistrict} isMandatory={true} hasError={districtError} errorMessage={"Please enter District"}/>
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number city-field'>
           <div className='px-2 educational-institution'>
-            <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity}/>
+            <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity} isMandatory={true} hasError= {cityError} errorMessage={"Please enter City"}/>
           </div>
           <div className='px-2'>
-            <NumberField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"}/>
+            <NumberField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"} isMandatory={true}/>
           </div>
         </div>
 
