@@ -28,7 +28,7 @@ const FamilyIncome = ({ value, onRangeSelect, nameOfLabel, isMandatory, hasError
                     <input
                         className="form-check-input"
                         type="radio"
-                        name="inlineRadioOptions"
+                        name="familyIncome"
                         id={`inlineRadio${income.key}`}
                         value={income.value}
                         onChange={(e) => {onIncomeSelect(e)}}
