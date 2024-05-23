@@ -8,19 +8,25 @@ const DistrictField = ({ value, onDistrictSelected, nameOfLabel, isMandatory,nam
         onDistrictSelected(e.target.value);
     };
 
+    const filterDistrictList =() =>{
+        let stateDataList= stateList;
+        const result = stateDataList.filter(state => state.district !== null);
+        return result;
+    }
+
     return (
         <div className="form-group py-2">
         <label className='fz-16 lato-regular mb-1'>
             {nameOfLabel}
         </label>
         <select
-            className="form-control"
+            className={hasError === true ? "form-control input-error":"form-control"}
             aria-label="Default select example"
             value={selectedDistrict}
             onChange={handleDistrictChange}
         >
             <option value="">Select a district</option>
-            {stateList.map((state, index) => (
+            {filterDistrictList().map((state, index) => (
                 <option key={index} value={state.district}>{state.district}</option>
             ))}
         </select>

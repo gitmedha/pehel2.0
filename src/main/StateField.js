@@ -7,7 +7,7 @@ const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSe
     const [apiResponse, setApiResponse] = useState([]);
 
     useEffect(() => {
-        axiosConfig.get('/api/geographies')
+        axiosConfig.post('/api/geographies/findall')
         .then(response => {
             if(response && response.data){
                 setApiResponse(response && response.data);
@@ -35,7 +35,7 @@ const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSe
                 {nameOfLabel}
             </label>
             <select
-                className="form-control"
+                className={hasError === true ? "form-control input-error":"form-control"}
                 aria-label="Default select example"
                 value={selectedState}
                 onChange={handleStateChange}

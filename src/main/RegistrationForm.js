@@ -312,20 +312,22 @@ const RegistrationForm = () => {
   }
 
   const validateFamilyIncome = () => {
-    const incomeRanges = [
-      { label: "Less than INR 25k", min: 0, max: 24999 },
-      { label: "INR 25k-50k", min: 25000, max: 50000 },
-      { label: "INR 50k-1lac", min: 50001, max: 100000 },
-      { label: "INR 1lac-2.5lac", min: 100001, max: 250000 },
-      { label: "More than INR 2.5lac", min: 250001, max: Infinity }
-    ];
+    if(familyIncome !==""){
+      const incomeRanges = [
+        { label: "Less than INR 25k", min: 0, max: 24999 },
+        { label: "INR 25k-50k", min: 25000, max: 50000 },
+        { label: "INR 50k-1lac", min: 50001, max: 100000 },
+        { label: "INR 1lac-2.5lac", min: 100001, max: 250000 },
+        { label: "More than INR 2.5lac", min: 250001, max: Infinity }
+      ];
 
-    const selectedRange = incomeRanges.find(range => range.label === selectedFamilyIncome);
+      const selectedRange = incomeRanges.find(range => range.label === selectedFamilyIncome);
 
-    if (selectedRange) {
-      return familyIncome >= selectedRange.min && familyIncome <= selectedRange.max;
-    } else {
-      return false;
+      if (selectedRange) {
+        return familyIncome >= selectedRange.min && familyIncome <= selectedRange.max;
+      } else {
+        return false;
+      }
     }
   };
 
@@ -459,7 +461,6 @@ const RegistrationForm = () => {
     }
   }
 
-  console.log(selectedFamilyIncome, "familyIncome");
 
   return (
     <div className='p-5'>

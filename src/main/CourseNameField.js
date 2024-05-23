@@ -34,7 +34,6 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
                 onChange={(e) => handleCourseNameSelection(e)}
                 options={CourseNameList.map(course => ({ value: course, label: course }))}
             />
-            <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
             {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
     );
