@@ -7,7 +7,7 @@ const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSe
     const [apiResponse, setApiResponse] = useState([]);
 
     useEffect(() => {
-        axiosConfig.get('/api/geographies')
+        axiosConfig.post('/api/geographies/findall')
         .then(response => {
             if(response && response.data){
                 setApiResponse(response && response.data);
