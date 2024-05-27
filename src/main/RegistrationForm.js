@@ -93,6 +93,7 @@ const RegistrationForm = () => {
   const [pincodeError, setPincodeError] = useState(false);
   const [collegeId, setCollegeId] = useState('');
   const [programId, setProgramId] =useState('');
+  const [formHasError, setFormHasError] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -339,6 +340,8 @@ const RegistrationForm = () => {
     if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true && validateFamilyIncome === true ){
       showToastMessage();
       createStudents();
+    } else {
+      setFormHasError(true);
     }
   }
 
@@ -572,7 +575,11 @@ const RegistrationForm = () => {
         <div className='d-lg-flex justify-content-lg-center'>
           <ConsentSection/>
         </div>
+        {formHasError === true &&
+        <div className='d-lg-flex justify-content-lg-center error-message'>* You have errors on page. Please check.</div>
+        }
       </div>
+
       <br></br>
       {isModalOpen && <DonationForm isOpen = {isModalOpen}/>}
       {isPaymentRequired() === true ?
