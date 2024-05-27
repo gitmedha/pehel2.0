@@ -26,6 +26,8 @@ import InstitutionField from './InstitutionField';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PinCodeField from './PincodeField';
+import AadharField from './AadharField';
 
 
 const RegistrationForm = () => {
@@ -500,13 +502,13 @@ const RegistrationForm = () => {
             <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity} isMandatory={true} hasError= {cityError} errorMessage={"Please enter City"}/>
           </div>
           <div className='px-2'>
-            <NumberField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"} isMandatory={true}/>
+            <PinCodeField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"} isMandatory={true}/>
           </div>
         </div>
 
         <br></br>
         <div className='d-lg-flex justify-content-lg-center'>
-          <NumberField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
+          <AadharField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
           <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} hasError={selectedFamilyIncomeError} errorMessage={"Please select Family Income"} />
