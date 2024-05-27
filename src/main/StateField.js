@@ -41,7 +41,7 @@ const StateField = ({ value, onStateSelected, nameOfLabel, isMandatory, nameOfSe
                 onChange={handleStateChange}
             >
                 <option value="">Select a State</option>
-                {stateList.map((state, index) => (
+                {stateList.sort().map((state, index) => (
                     <option key={index} value={state}>{state}</option>
                 ))}
             </select>
