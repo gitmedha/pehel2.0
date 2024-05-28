@@ -160,3 +160,10 @@ input[type=number]::-webkit-inner-spin-button {
 .thankyou-page{
   padding: 5rem !important;
 }
+.form-check-input{
+  border: 2px solid #dee2e6 !important
+}
+.close-button{
+  background: white !important;
+  border: 0px !important;
+}

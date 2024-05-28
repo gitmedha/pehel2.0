@@ -1,7 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
+import CloseIcon from '../../src/images/close-icon.svg'
 
-const DonationForm = ({ isOpen }) => {
+const DonationForm = ({ isOpen, onClose }) => {
   return (
     <div>
       <Modal
@@ -11,7 +12,12 @@ const DonationForm = ({ isOpen }) => {
             height: '800px',
           },
         }}
+        onRequestClose={onClose}
       >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2>Donate</h2>
+          <button className='close-button' onClick={onClose} style={{ fontSize: '16px', padding: '8px' }}><img src={CloseIcon}></img></button>
+        </div>
         <iframe
           src={`${process.env.PUBLIC_URL}/donation.html`}
           title="Donation Page"

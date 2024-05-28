@@ -26,6 +26,8 @@ import InstitutionField from './InstitutionField';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PinCodeField from './PincodeField';
+import AadharField from './AadharField';
 
 
 const RegistrationForm = () => {
@@ -91,6 +93,7 @@ const RegistrationForm = () => {
   const [pincodeError, setPincodeError] = useState(false);
   const [collegeId, setCollegeId] = useState('');
   const [programId, setProgramId] =useState('');
+  const [formHasError, setFormHasError] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -337,6 +340,8 @@ const RegistrationForm = () => {
     if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true && validateFamilyIncome === true ){
       showToastMessage();
       createStudents();
+    } else {
+      setFormHasError(true);
     }
   }
 
@@ -461,6 +466,10 @@ const RegistrationForm = () => {
     }
   }
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
 
   return (
     <div className='p-5'>
@@ -500,13 +509,13 @@ const RegistrationForm = () => {
             <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity} isMandatory={true} hasError= {cityError} errorMessage={"Please enter City"}/>
           </div>
           <div className='px-2'>
-            <NumberField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"} isMandatory={true}/>
+            <PinCodeField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"} isMandatory={true}/>
           </div>
         </div>
 
         <br></br>
         <div className='d-lg-flex justify-content-lg-center'>
-          <NumberField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
+          <AadharField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
           <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} hasError={selectedFamilyIncomeError} errorMessage={"Please select Family Income"} />
@@ -570,9 +579,13 @@ const RegistrationForm = () => {
         <div className='d-lg-flex justify-content-lg-center'>
           <ConsentSection/>
         </div>
+        {formHasError === true &&
+        <div className='d-lg-flex justify-content-lg-center error-message'>* You have errors on page. Please check.</div>
+        }
       </div>
+
       <br></br>
-      {isModalOpen && <DonationForm isOpen = {isModalOpen}/>}
+      {isModalOpen && <DonationForm isOpen = {isModalOpen} onClose={handleCloseModal}/>}
       {isPaymentRequired() === true ?
         <div className='d-lg-flex justify-content-lg-center'>
         <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton}>Donate</button>

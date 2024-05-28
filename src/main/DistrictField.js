@@ -8,11 +8,17 @@ const DistrictField = ({ value, onDistrictSelected, nameOfLabel, isMandatory,nam
         onDistrictSelected(e.target.value);
     };
 
-    const filterDistrictList =() =>{
-        let stateDataList= stateList;
+    const filterDistrictList = () => {
+        let stateDataList = stateList;
         const result = stateDataList.filter(state => state.district !== null);
-        return result;
+        let district = [];
+        result.map((state) => {
+            district.push(state.district);
+        });
+        district = district.sort();
+        return district;
     }
+
 
     return (
         <div className="form-group py-2">
@@ -26,8 +32,8 @@ const DistrictField = ({ value, onDistrictSelected, nameOfLabel, isMandatory,nam
             onChange={handleDistrictChange}
         >
             <option value="">Select a district</option>
-            {filterDistrictList().map((state, index) => (
-                <option key={index} value={state.district}>{state.district}</option>
+            {filterDistrictList().map((district, index) => (
+                <option key={index} value={district}>{district}</option>
             ))}
         </select>
         <label className='fz-12 lato-light mb-1'>{nameOfSecondaryLabel}</label>
