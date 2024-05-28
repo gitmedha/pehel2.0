@@ -256,7 +256,7 @@ const AlumniForm =() =>{
           <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
           <div>
             <div className='d-lg-flex justify-content-lg-center'>
-              <StudentIdField onTextEntered={onEnteringStudentId} nameOfLabel={"Student Id"} isMandatory={true} errorMessage ={"Please enter StudentId"} hasError = {studentIdError} />
+              <StudentIdField onTextEntered={onEnteringStudentId} nameOfLabel={"Student Id"} isMandatory={true} errorMessage ={"Please enter valid StudentId"} hasError = {studentIdError} />
             </div>
             <div className='d-lg-flex justify-content-lg-center'>
               <TextField nameOfLabel={"Name"} value ={studentName} isDisabled ={true}/>
