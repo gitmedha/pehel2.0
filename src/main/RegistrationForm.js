@@ -302,6 +302,7 @@ const RegistrationForm = () => {
     if(email){
       const emailPattern =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const isValid = emailPattern.test(email);
+      console.log(isValid, "Valid")
       return isValid;
     }
   }
@@ -337,7 +338,7 @@ const RegistrationForm = () => {
 
   const onButtonClicked = (e) => {
     e.preventDefault();
-    if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true && validateFamilyIncome === true ){
+    if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true ){
       showToastMessage();
       createStudents();
     } else {
@@ -469,7 +470,6 @@ const RegistrationForm = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
 
   return (
     <div className='p-5'>
