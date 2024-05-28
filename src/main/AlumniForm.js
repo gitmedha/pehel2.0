@@ -128,6 +128,7 @@ const AlumniForm =() =>{
 
   const onValidateForm = () => {
     const fields = {
+      studentId: {value: studentId, setError: setStudentIdError},
       courseLevel: { value: courseLevel, setError: setCourseLevelError },
       courseCompletionYear: { value: courseCompletionYear, setError: setcourseCompletionYearError },
       courseStudyYear: { value: courseStudyYear, setError: setCourseStudyYearError },
