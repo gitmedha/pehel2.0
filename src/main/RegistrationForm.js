@@ -94,6 +94,8 @@ const RegistrationForm = () => {
   const [collegeId, setCollegeId] = useState('');
   const [programId, setProgramId] =useState('');
   const [formHasError, setFormHasError] = useState(false);
+  const [firstConsentMessage, setFirstConsentMesaage] = useState(false);
+  const [secondConsentMessage, setSecondConsentMessage] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -470,6 +472,14 @@ const RegistrationForm = () => {
     setIsModalOpen(false);
   };
 
+  const handleFirstConsent = (value) =>{
+    setFirstConsentMesaage(value);
+  }
+
+  const handleSecondConsent =(value) =>{
+    setSecondConsentMessage(value);
+  }
+
   return (
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -497,15 +507,15 @@ const RegistrationForm = () => {
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
-            <StateField nameOfSecondaryLabel ={"State/Province/Region"} onStateSelected = {onSelectingState} isMandatory={true} hasError={stateError} errorMessage={"Please enter State"}/>
+            <StateField nameOfSecondaryLabel ={"State/Province/Region"} onStateSelected = {onSelectingState} isMandatory={true} hasError={stateError} errorMessage={"Please select State"}/>
           </div>
           <div className='px-2 educational-institution'>
-            <DistrictField nameOfSecondaryLabel={"District"} stateName ={studentState} stateList = {stateList} onDistrictSelected = {onSelectingDistrict} isMandatory={true} hasError={districtError} errorMessage={"Please enter District"}/>
+            <DistrictField nameOfSecondaryLabel={"District"} stateName ={studentState} stateList = {stateList} onDistrictSelected = {onSelectingDistrict} isMandatory={true} hasError={districtError} errorMessage={"Please select District"}/>
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number city-field'>
           <div className='px-2 educational-institution'>
-            <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity} isMandatory={true} hasError= {cityError} errorMessage={"Please enter City"}/>
+            <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity} isMandatory={true} hasError= {cityError} errorMessage={"Please select City"}/>
           </div>
           <div className='px-2'>
             <PinCodeField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"} isMandatory={true}/>
@@ -539,29 +549,29 @@ const RegistrationForm = () => {
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
-          <InstitutionField   nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please enter Educational Institution"}/>
+          <InstitutionField   nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please select Educational Institution"}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
-          <CourseField   nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError ={courseError} errorMessage ={"Please enter Course"}/>
+          <CourseField   nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError ={courseError} errorMessage ={"Please select Course"}/>
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
-            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} isMandatory={true} errorMessage ={"Please enter Course Level"}/>
+            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} isMandatory={true} errorMessage ={"Please select Course Level"}/>
           </div>
           <div className='px-2 educational-institution'>
-            <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} isMandatory={true} errorMessage ={"Please enter Year Of Study"}/>
+            <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} isMandatory={true} errorMessage ={"Please select Year Of Study"}/>
           </div>
         </div>
         <div className="d-lg-flex justify-content-lg-center phone-number">
           <div className='px-2 educational-institution'>
-            <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please enter Course Completion Year"} />
+            <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please select Course Completion Year"} />
           </div>
           <div className='px-2 educational-institution'>
-            <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please enter Plan After Course"} />
+            <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please select Plan After Course"} />
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center '>
-          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please enter Course Name"}/>
+          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please select Course Name"}/>
         </div>
         {
           course === "Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onOtherCourseNameEntered} nameOfLabel={"Specify Course Name"} isMandatory={true} errorMessage ={"Please enter other course name"} hasError = {otherCourseError} /></div>
@@ -571,12 +581,12 @@ const RegistrationForm = () => {
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
           <div className='px-2 educational-institution'>
-            <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true} hasError={aboutUsError} errorMessage= {"Please enter this value"}/>
+            <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true} hasError={aboutUsError} errorMessage= {"Please select this value"}/>
           </div>
         </div>
         {aboutUs ==="Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onAboutUsOtherEntered} nameOfLabel={"If Other, Specify"} isMandatory={true} errorMessage ={"Please enter this value"} hasError = {aboutUsOtherError} /></div>}
         <div className='d-lg-flex justify-content-lg-center'>
-          <ConsentSection/>
+          <ConsentSection onCheckingFirstBox = {handleFirstConsent} onCheckingSecondBox = {handleSecondConsent}/>
         </div>
         {formHasError === true &&
         <div className='d-lg-flex justify-content-lg-center error-message'>* You have errors on page. Please check.</div>
@@ -587,11 +597,11 @@ const RegistrationForm = () => {
       {isModalOpen && <DonationForm isOpen = {isModalOpen} onClose={handleCloseModal}/>}
       {isPaymentRequired() === true ?
         <div className='d-lg-flex justify-content-lg-center'>
-        <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton}>Donate</button>
+        <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
         </div>
           :
         <div className='d-lg-flex justify-content-lg-center'>
-        <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked}>Submit</button>
+        <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
         </div>
       }
       <ToastContainer
