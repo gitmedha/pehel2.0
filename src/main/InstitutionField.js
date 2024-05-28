@@ -8,15 +8,21 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
 
     useEffect(() => {
         axiosConfig.get('/api/institutions')
-        .then(response => {
-            if(response && response.data){
-                setinstitutionList(response.data)
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching states:', error);
-        });
+            .then(response => {
+                if (response && response.data) {
+                    let sortedInstitutions = response.data.sort((a, b) => {
+                        if (a.name < b.name) return -1;
+                        if (a.name > b.name) return 1;
+                        return 0;
+                    });
+                    setinstitutionList(sortedInstitutions);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching institutions:', error);
+            });
     }, []);
+
 
     const handleInstitutionSelection =(e) =>{
         onSelection(e.value, e.label);
