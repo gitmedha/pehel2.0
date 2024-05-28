@@ -466,6 +466,10 @@ const RegistrationForm = () => {
     }
   }
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
 
   return (
     <div className='p-5'>
@@ -581,7 +585,7 @@ const RegistrationForm = () => {
       </div>
 
       <br></br>
-      {isModalOpen && <DonationForm isOpen = {isModalOpen}/>}
+      {isModalOpen && <DonationForm isOpen = {isModalOpen} onClose={handleCloseModal}/>}
       {isPaymentRequired() === true ?
         <div className='d-lg-flex justify-content-lg-center'>
         <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton}>Donate</button>
