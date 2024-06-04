@@ -267,10 +267,10 @@ const AlumniForm =() =>{
               <StudentIdField onTextEntered={onEnteringStudentId} nameOfLabel={"Student Id"} isMandatory={true} errorMessage ={"Please enter valid StudentId"} hasError = {studentIdError} />
             </div>
             <div className='d-lg-flex justify-content-lg-center'>
-              <TextField nameOfLabel={"Name"} value ={studentName} isDisabled ={true}/>
+              <TextField nameOfLabel={"Name"} value ={studentName} isDisabled ={true} isOldStudent={true}/>
             </div>
             <div className='d-lg-flex justify-content-lg-center'>
-              <TextField nameOfLabel={"Parent/Guardian's Name"} value ={parentName} isDisabled ={true}/>
+              <TextField nameOfLabel={"Parent/Guardian's Name"} value ={parentName} isDisabled ={true} isOldStudent={true}/>
             </div>
             <div className='d-lg-flex justify-content-lg-center'>
               <DateField nameOfLabel={"Date of Birth"}  value={dateOfBirth} isDisabled={true}/>
