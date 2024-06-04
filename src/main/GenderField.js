@@ -32,7 +32,7 @@ const GenderField = ({ value, onGenderSelect, nameOfLabel, isMandatory, hasError
                             className="form-check-input gender-field"
                             type="radio"
                             name="gender"
-                            id={`inlineRadio${gender.key}`}
+                            id={`${gender.key}`}
                             value={gender.value}
                             onChange={onGenderChange}
                             checked={value && value && gender.value === value}

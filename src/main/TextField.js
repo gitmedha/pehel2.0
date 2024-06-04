@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const TextField = ({
   onTextEntered,
@@ -10,8 +10,32 @@ const TextField = ({
   value
 }) => {
 
+  const [inputValue, setInputValue] = useState(value);
+
   const onTextChange = (e) => {
-    onTextEntered(e.target.value);
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    onTextEntered(newValue);
+  };
+
+  const onKeyDown = (e) => {
+    const charCode = e.which || e.keyCode;
+    if (
+      charCode === 8 ||
+      charCode === 46 ||
+      charCode === 9 ||
+      charCode === 27 ||
+      charCode === 13 ||
+      (charCode >= 37 && charCode <= 40)
+    ) {
+      return;
+    }
+
+    const char = String.fromCharCode(charCode);
+    const regex = /^[a-zA-Z\s]*$/;
+    if (!regex.test(char)) {
+      e.preventDefault();
+    }
   };
 
   return (
@@ -24,8 +48,9 @@ const TextField = ({
         type="text"
         className={hasError ? "form-control input-error" : "form-control"}
         onChange={onTextChange}
+        onKeyDown={onKeyDown}
         disabled={isDisabled}
-        value={value}
+        value={inputValue}
       />
       {hasError && <div className='error-message'>{errorMessage}</div>}
     </div>
