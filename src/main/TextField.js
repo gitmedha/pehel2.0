@@ -7,7 +7,8 @@ const TextField = ({
   errorMessage,
   hasError,
   isDisabled,
-  value
+  value,
+  isOldStudent
 }) => {
 
   const [inputValue, setInputValue] = useState(value);
@@ -19,22 +20,27 @@ const TextField = ({
   };
 
   const onKeyDown = (e) => {
-    const charCode = e.which || e.keyCode;
-    if (
-      charCode === 8 ||
-      charCode === 46 ||
-      charCode === 9 ||
-      charCode === 27 ||
-      charCode === 13 ||
-      (charCode >= 37 && charCode <= 40)
-    ) {
+    if(isOldStudent){
       return;
     }
+    else{
+      const charCode = e.which || e.keyCode;
+      if (
+        charCode === 8 ||
+        charCode === 46 ||
+        charCode === 9 ||
+        charCode === 27 ||
+        charCode === 13 ||
+        (charCode >= 37 && charCode <= 40)
+      ) {
+        return;
+      }
 
-    const char = String.fromCharCode(charCode);
-    const regex = /^[a-zA-Z\s]*$/;
-    if (!regex.test(char)) {
-      e.preventDefault();
+      const char = String.fromCharCode(charCode);
+      const regex = /^[a-zA-Z\s]*$/;
+      if (!regex.test(char)) {
+        e.preventDefault();
+      }
     }
   };
 
@@ -50,7 +56,7 @@ const TextField = ({
         onChange={onTextChange}
         onKeyDown={onKeyDown}
         disabled={isDisabled}
-        value={inputValue}
+        value={value}
       />
       {hasError && <div className='error-message'>{errorMessage}</div>}
     </div>
