@@ -28,8 +28,8 @@ const CategoryField = ({ value, onCategorySelect, nameOfLabel, isMandatory, erro
                         <input
                             className="form-check-input"
                             type="radio"
-                            name="inlineRadioOptions"
-                            id={`inlineRadio${category.key}`}
+                            name="category"
+                            id={`${category.key}`}
                             value={category.value}
                             onChange={(e) => {onCategoryChange(e)}}
                         />
