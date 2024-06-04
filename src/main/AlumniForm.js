@@ -17,6 +17,7 @@ import axiosConfig from "../axios/axiosConfig";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "./Loader";
 
 const AlumniForm =() =>{
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const AlumniForm =() =>{
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [firstConsentMessage, setFirstConsentMesaage] = useState(false);
   const [secondConsentMessage, setSecondConsentMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onEnteringStudentId =(value, data) =>{
     setStudentId(value);
@@ -225,8 +227,13 @@ const AlumniForm =() =>{
     e.preventDefault();
     if(onValidateForm() === true ){
       showToastMessage();
+      showLoader();
       createStudents();
     }
+  }
+
+  const showLoader =() =>{
+    setLoading(true);
   }
 
   const showToastMessage = () => {
@@ -317,17 +324,20 @@ const AlumniForm =() =>{
           <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
           </div>
         }
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+        {loading === true &&
+          <Loader />
+        }
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
   )
 }

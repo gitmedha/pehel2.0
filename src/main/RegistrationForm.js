@@ -28,6 +28,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PinCodeField from './PincodeField';
 import AadharField from './AadharField';
+import Loader from './Loader';
 
 
 const RegistrationForm = () => {
@@ -96,6 +97,7 @@ const RegistrationForm = () => {
   const [formHasError, setFormHasError] = useState(false);
   const [firstConsentMessage, setFirstConsentMesaage] = useState(false);
   const [secondConsentMessage, setSecondConsentMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onNameEntered = (value) => {
     setName(value);
@@ -341,10 +343,16 @@ const RegistrationForm = () => {
     e.preventDefault();
     if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true ){
       showToastMessage();
+      showLoader();
       createStudents();
+
     } else {
       setFormHasError(true);
     }
+  }
+
+  const showLoader =() =>{
+    setLoading(true);
   }
 
   const isPaymentRequired = () =>{
@@ -481,6 +489,7 @@ const RegistrationForm = () => {
   }
 
   return (
+
     <div className='p-5'>
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
       <div>
@@ -603,6 +612,9 @@ const RegistrationForm = () => {
         <div className='d-lg-flex justify-content-lg-center'>
         <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
         </div>
+      }
+      {loading === true &&
+        <Loader />
       }
       <ToastContainer
         position="top-right"
