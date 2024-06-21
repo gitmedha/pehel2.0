@@ -470,8 +470,12 @@ const RegistrationForm = () => {
     e.preventDefault();
     if(onValidateForm() === true){
       setIsModalOpen(true);
-      if(isModalOpen === true){
-        createStudents();
+      let isThankYou = false;
+      if (window.location.href.includes('thankyou')) {
+        isThankYou = true;
+        if(isThankYou === true ){
+          createStudents();
+        }
       }
     }
   }
@@ -487,6 +491,8 @@ const RegistrationForm = () => {
   const handleSecondConsent =(value) =>{
     setSecondConsentMessage(value);
   }
+
+
 
   return (
 
