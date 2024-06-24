@@ -263,6 +263,10 @@ const AlumniForm =() =>{
     setSecondConsentMessage(value);
   }
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return(
       <div className='p-5'>
           <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
@@ -318,7 +322,7 @@ const AlumniForm =() =>{
             </div>
           </div>
         <br></br>
-        {isModalOpen && <DonationForm isOpen = {isModalOpen}/>}
+        {isModalOpen && <DonationForm isOpen = {isModalOpen} onClose={handleCloseModal}/>}
         {isPaymentRequired() === true ?
           <div className='d-lg-flex justify-content-lg-center'>
           <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
