@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 const ThankyouPage = () => {
     const location = useLocation();
-    const { studentData } = location.state;
+    // const { studentData } = location?.state;
     return (
         <div className='thankyou-page'>
             <div className='p-lg-5'>
@@ -18,13 +18,13 @@ const ThankyouPage = () => {
                     <div className='fz-24 p-lg-2'>
                         <div className='text-center'>
                             <div>
-                                Name:{location.state && location.state.name}
+                                Name:{ location?.state?.name || 'N/A'}
                             </div>
                             <div>Date: {new Date().toLocaleDateString()}</div>
                         </div>
-                        <div className='text-center'>Email id: {location.state && location.state.email}</div>
+                        <div className='text-center'>Email id: {location?.state?.email || 'N/A'}</div>
                     </div>
-                    <div className='text-center fz-24 pb-4'><b>Student Id: {location.state && location.state.id}</b></div>
+                    <div className='text-center fz-24 pb-4'><b>Student Id: {location?.state?.id || 'N/A'}</b></div>
                     <div className='footer-thankyou text-center py-4 fz-24'>
                     <p><b>You will receive a confirmation email with your student ID.</b></p>
                     <p>In case you require a receipt of the transaction, mail us at <a href="mailto:finance@medha.org.in">finance@medha.org.in</a></p>
