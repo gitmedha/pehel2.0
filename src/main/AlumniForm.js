@@ -335,8 +335,8 @@ const AlumniForm = () => {
         } */}
       <div className='d-lg-flex justify-content-lg-center'>
         <button  type="button" className="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
-        <span className="p-2" />
-        <button className="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
+        {/* <span className="p-2" /> */}
+        {/* <button className="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button> */}
       </div>
    
       {loading === true &&
