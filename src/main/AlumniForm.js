@@ -19,11 +19,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "./Loader";
 
-const AlumniForm =() =>{
+const AlumniForm = () => {
   const navigate = useNavigate();
   const [studentId, setStudentId] = useState('');
   const [studentIdError, setStudentIdError] = useState(false);
-  const [studentData, setStudentData] = useState([])
+  // const [studentData, setStudentData] = useState([])
   const [studentName, setStudentName] = useState('');
   const [parentName, setParentName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
@@ -41,7 +41,7 @@ const AlumniForm =() =>{
   const [program, setProgram] = useState('');
   const [programId, setProgramId] = useState('');
   const [paymentMappingList, setPaymentMappingList] = useState([]);
-  const [institutionError, setInstitutionError] =useState(false);
+  const [institutionError, setInstitutionError] = useState(false);
   const [courseTypeError, setCourseTypeError] = useState(false);
   const [courseLevelError, setCourseLevelError] = useState(false);
   const [courseStudyYearError, setCourseStudyYearError] = useState(false);
@@ -54,12 +54,12 @@ const AlumniForm =() =>{
   const [secondConsentMessage, setSecondConsentMessage] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const onEnteringStudentId =(value, data) =>{
+  const onEnteringStudentId = (value, data) => {
     setStudentId(value);
     studentInformation(data)
   }
-  const studentInformation =(data) =>{
-    if(data && data[0]){
+  const studentInformation = (data) => {
+    if (data && data[0]) {
       setStudentName(data[0].full_name);
       setParentName(data[0].name_of_parent_or_guardian);
       setDateOfBirth(data[0].date_of_birth);
@@ -68,24 +68,24 @@ const AlumniForm =() =>{
     }
   }
 
-  const onSelectionInstitution =(value, label) =>{
+  const onSelectionInstitution = (value, label) => {
     setCollegeName(label);
     setCollegeId(value);
   }
 
-  const onSelectionCourseType  =(value) =>{
+  const onSelectionCourseType = (value) => {
     setCourseType(value);
   }
 
-  const onCourseLevelSelection =(value) => {
+  const onCourseLevelSelection = (value) => {
     setCourseLevel(value);
   }
 
-  const onCourseYearSelection =(value) => {
+  const onCourseYearSelection = (value) => {
     setCourseStudyYear(value);
   }
 
-  const onCourseCompletionYearSelection =(value) => {
+  const onCourseCompletionYearSelection = (value) => {
     setcourseCompletionYear(value);
   }
 
@@ -93,7 +93,7 @@ const AlumniForm =() =>{
     setPlanAfterCourse(value);
   }
 
-  const onCourseNameSelection =(value) => {
+  const onCourseNameSelection = (value) => {
     setCourse(value);
   }
 
@@ -101,36 +101,36 @@ const AlumniForm =() =>{
     setOtherCourse(value);
   };
 
-  const onProgramSelected = (value,id) => {
+  const onProgramSelected = (value, id) => {
     setProgram(value);
     setProgramId(id)
   }
 
-  useEffect( () =>{
+  useEffect(() => {
     axiosConfig.post('/api/institutions/paymentRequired').then(
-      response =>{
-        if(response && response.data){
+      response => {
+        if (response && response.data) {
           setPaymentMappingList(response.data);
         }
       })
       .catch(error => {
         console.error('Error fetching states:', error);
       });
-  },[]);
+  }, []);
 
-  const isPaymentRequired = () =>{
+  const isPaymentRequired = () => {
     let isPaid;
     let paymentList = paymentMappingList;
     const filteredList = paymentList.filter(item => {
       return item.institution_name === collegeName && item.program_name === programId;
     });
-    isPaid = filteredList &&  filteredList[0] && filteredList[0].payment;
+    isPaid = filteredList && filteredList[0] && filteredList[0].payment;
     return isPaid;
   }
 
   const onValidateForm = () => {
     const fields = {
-      studentId: {value: studentId, setError: setStudentIdError},
+      studentId: { value: studentId, setError: setStudentIdError },
       courseLevel: { value: courseLevel, setError: setCourseLevelError },
       courseCompletionYear: { value: courseCompletionYear, setError: setcourseCompletionYearError },
       courseStudyYear: { value: courseStudyYear, setError: setCourseStudyYearError },
@@ -161,66 +161,67 @@ const AlumniForm =() =>{
     let student_id = studentId;
     student_id = +student_id
     axiosConfig.post('/api/program-enrollments/createFromWebhook', {
-      "student_id" : student_id,
-      "institution_id" : collegeId,
-      "program_id" : program,
-      "course_type" : courseType,
-      "course_level" : courseLevel,
-      "year_of_course_completion" : courseCompletionYear,
-      "course_year" : courseStudyYear,
-      "course_name_in_current_sis" : course,
-      "course_name_other" : otherCourse,
-      "amount" : 0,
+      "student_id": student_id,
+      "institution_id": collegeId,
+      "program_id": program,
+      "course_type": courseType,
+      "course_level": courseLevel,
+      "year_of_course_completion": courseCompletionYear,
+      "course_year": courseStudyYear,
+      "course_name_in_current_sis": course,
+      "course_name_other": otherCourse,
+      "amount": 0,
     })
-    .then(function (response) {
-      if (response && response.status === 200) {
-        const studentInfo = response.data;
-        axiosConfig.post('/api/students/sendEmail', {
-          "studentId": studentId,
-          "name": studentName,
-          "email":email,
-          "parentsName": parentName,
-          "dateOfBirth": dateOfBirth,
-          "educationalInstitution": collegeName,
-          "course": course,
-          "courseLevel": courseLevel,
-          "yearOfStudy": courseStudyYear,
-          "yearOfCompletion": courseCompletionYear,
-          "courseName": courseType,
-          "otherCourseName": otherCourse,
-          "program": programId
-        })
-        .then(function (secondResponse) {
-          if (secondResponse && secondResponse.status === 200) {
-            {(isModalOpen === false || isPaymentRequired() === false ) &&
-            navigate('/thankyou', {
-              state: {
-                name: studentName,
-                id: studentId,
-                email: email
-              },
+      .then(function (response) {
+        if (response && response.status === 200) {
+          const studentInfo = response.data;
+          axiosConfig.post('/api/students/sendEmail', {
+            "studentId": studentId,
+            "name": studentName,
+            "email": email,
+            "parentsName": parentName,
+            "dateOfBirth": dateOfBirth,
+            "educationalInstitution": collegeName,
+            "course": course,
+            "courseLevel": courseLevel,
+            "yearOfStudy": courseStudyYear,
+            "yearOfCompletion": courseCompletionYear,
+            "courseName": courseType,
+            "otherCourseName": otherCourse,
+            "program": programId
+          })
+            .then(function (secondResponse) {
+              if (secondResponse && secondResponse.status === 200) {
+                {
+                  (isModalOpen === false || isPaymentRequired() === false) &&
+                  navigate('/thankyou', {
+                    state: {
+                      name: studentName,
+                      id: studentId,
+                      email: email
+                    },
+                  });
+                }
+              }
+            })
+            .catch(function (secondError) {
+              console.log(secondError);
             });
-            }
-          }
-        })
-        .catch(function (secondError) {
-          console.log(secondError);
-        });
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  const onClickOfDonateButton =(e) =>{
+  const onClickOfDonateButton = (e) => {
     e.preventDefault();
-    if(onValidateForm() === true){
+    if (onValidateForm() === true) {
       setIsModalOpen(true);
       let isThankYou = false;
       if (window.location.href.includes('thankyou')) {
         isThankYou = true;
-        if(isThankYou === true ){
+        if (isThankYou === true) {
           createStudents();
         }
       }
@@ -229,14 +230,14 @@ const AlumniForm =() =>{
 
   const onButtonClicked = (e) => {
     e.preventDefault();
-    if(onValidateForm() === true ){
+    if (onValidateForm() === true) {
       showToastMessage();
       showLoader();
       createStudents();
     }
   }
 
-  const showLoader =() =>{
+  const showLoader = () => {
     setLoading(true);
   }
 
@@ -255,11 +256,11 @@ const AlumniForm =() =>{
     });
   };
 
-  const handleFirstConsent = (value) =>{
+  const handleFirstConsent = (value) => {
     setFirstConsentMesaage(value);
   }
 
-  const handleSecondConsent =(value) =>{
+  const handleSecondConsent = (value) => {
     setSecondConsentMessage(value);
   }
 
@@ -267,86 +268,92 @@ const AlumniForm =() =>{
     setIsModalOpen(false);
   };
 
-  return(
-      <div className='p-5'>
-          <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
-          <div>
-            <div className='d-lg-flex justify-content-lg-center'>
-              <StudentIdField onTextEntered={onEnteringStudentId} nameOfLabel={"Student Id"} isMandatory={true} errorMessage ={"Please enter valid StudentId"} hasError = {studentIdError} />
-            </div>
-            <div className='d-lg-flex justify-content-lg-center'>
-              <TextField nameOfLabel={"Name"} value ={studentName} isDisabled ={true} isOldStudent={true}/>
-            </div>
-            <div className='d-lg-flex justify-content-lg-center'>
-              <TextField nameOfLabel={"Parent/Guardian's Name"} value ={parentName} isDisabled ={true} isOldStudent={true}/>
-            </div>
-            <div className='d-lg-flex justify-content-lg-center'>
-              <DateField nameOfLabel={"Date of Birth"}  value={dateOfBirth} isDisabled={true}/>
-            </div>
-            <div className='d-lg-flex justify-content-lg-center'>
-            <GenderField nameOfLabel={"Gender"} isDisabled ={true} value={gender}/>
-            </div>
-            <div className='d-lg-flex justify-content-lg-center educational-institution'>
-              <InstitutionField   nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please select Educational Institution"}/>
-            </div>
-            <div className='d-lg-flex justify-content-lg-center educational-institution'>
-              <CourseField   nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError ={courseTypeError} errorMessage ={"Please select Course"}/>
-            </div>
-            <div className='d-lg-flex justify-content-lg-center phone-number'>
-              <div className='px-2 educational-institution'>
-                <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} isMandatory={true} hasError ={courseLevelError} errorMessage ={"Please select Course Level"}/>
-              </div>
-              <div className='px-2 educational-institution'>
-                <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} isMandatory={true} hasError ={courseStudyYearError} errorMessage ={"Please select Year Of Study"}/>
-              </div>
-            </div>
-            <div className="d-lg-flex justify-content-lg-center phone-number">
-              <div className='px-2 educational-institution'>
-                <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please select Course Completion Year"} />
-              </div>
-              <div className='px-2 educational-institution'>
-                <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please select Plan After Course"} />
-              </div>
-            </div>
-            <div className='d-lg-flex justify-content-lg-center '>
-              <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please select Course Name"}/>
-            </div>
-            {
-              course === "Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onOtherCourseNameEntered} nameOfLabel={"Specify Course Name"} isMandatory={true} errorMessage ={"Please enter other course name"} hasError = {otherCourseError} /></div>
-            }
-            <div className='d-lg-flex justify-content-lg-center'>
-              <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true} hasError={programError} errorMessage = {"Please select Program or Workshop"}/>
-            </div>
-            <div className='d-lg-flex justify-content-lg-center'>
-              <ConsentSection onCheckingFirstBox = {handleFirstConsent} onCheckingSecondBox = {handleSecondConsent}/>
-            </div>
+  return (
+    <div className='p-5'>
+      <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
+      <div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <StudentIdField onTextEntered={onEnteringStudentId} nameOfLabel={"Student Id"} isMandatory={true} errorMessage={"Please enter valid StudentId"} hasError={studentIdError} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <TextField nameOfLabel={"Name"} value={studentName} isDisabled={true} isOldStudent={true} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <TextField nameOfLabel={"Parent/Guardian's Name"} value={parentName} isDisabled={true} isOldStudent={true} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <DateField nameOfLabel={"Date of Birth"} value={dateOfBirth} isDisabled={true} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <GenderField nameOfLabel={"Gender"} isDisabled={true} value={gender} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center educational-institution'>
+          <InstitutionField nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please select Educational Institution"} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center educational-institution'>
+          <CourseField nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError={courseTypeError} errorMessage={"Please select Course"} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center phone-number'>
+          <div className='px-2 educational-institution'>
+            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel={"Course Level"} isMandatory={true} hasError={courseLevelError} errorMessage={"Please select Course Level"} />
           </div>
-        <br></br>
-        {isModalOpen && <DonationForm isOpen = {isModalOpen} onClose={handleCloseModal}/>}
-        {isPaymentRequired() === true ?
+          <div className='px-2 educational-institution'>
+            <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} isMandatory={true} hasError={courseStudyYearError} errorMessage={"Please select Year Of Study"} />
+          </div>
+        </div>
+        <div className="d-lg-flex justify-content-lg-center phone-number">
+          <div className='px-2 educational-institution'>
+            <CourseCompletionYear onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} isMandatory={true} hasError={courseCompletionYearError} errorMessage={"Please select Course Completion Year"} />
+          </div>
+          <div className='px-2 educational-institution'>
+            <PlanAfterCourse onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} isMandatory={true} hasError={courseCompletionYearError} errorMessage={"Please select Plan After Course"} />
+          </div>
+        </div>
+        <div className='d-lg-flex justify-content-lg-center '>
+          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please select Course Name"} />
+        </div>
+        {
+          course === "Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onOtherCourseNameEntered} nameOfLabel={"Specify Course Name"} isMandatory={true} errorMessage={"Please enter other course name"} hasError={otherCourseError} /></div>
+        }
+        <div className='d-lg-flex justify-content-lg-center'>
+          <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel={"WorkShop"} isMandatory={true} hasError={programError} errorMessage={"Please select Program or Workshop"} />
+        </div>
+        <div className='d-lg-flex justify-content-lg-center'>
+          <ConsentSection onCheckingFirstBox={handleFirstConsent} onCheckingSecondBox={handleSecondConsent} />
+        </div>
+      </div>
+      <br></br>
+      {isModalOpen && <DonationForm isOpen={isModalOpen} onClose={handleCloseModal} />}
+      {/* {isPaymentRequired() === true ?
           <div className='d-lg-flex justify-content-lg-center'>
-          <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
+          <button type="button" className="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
           </div>
             :
           <div className='d-lg-flex justify-content-lg-center'>
-          <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
+          <button type="button" className="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
           </div>
-        }
-        {loading === true &&
-          <Loader />
-        }
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        } */}
+      <div className='d-lg-flex justify-content-lg-center'>
+        <button  type="button" className="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
+        <span className="p-2" />
+        <button className="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
       </div>
+   
+      {loading === true &&
+        <Loader />
+      }
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </div>
   )
 }
 

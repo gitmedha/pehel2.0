@@ -612,11 +612,11 @@ const RegistrationForm = () => {
       {isModalOpen && <DonationForm isOpen = {isModalOpen} onClose={handleCloseModal}/>}
       {isPaymentRequired() === true ?
         <div className='d-lg-flex justify-content-lg-center'>
-        <button type="button" class="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
+        <button type="button" className="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
         </div>
           :
         <div className='d-lg-flex justify-content-lg-center'>
-        <button type="button" class="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
+        <button type="button" className="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
         </div>
       }
       {loading === true &&
