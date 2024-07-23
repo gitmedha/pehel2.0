@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-
+ 
 const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecondaryLabel, stateName, stateList,hasError, errorMessage,  }) => {
     const [SelctedCity, setSelctedCity] = useState('');
-
+ 
     const handleCityChange = (e) => {
         setSelctedCity(e.target.value);
         onCitySelected(e.target.value);
     };
-
+ 
     const filterCityList =() =>{
         let stateDataList= stateList;
-        let result = stateDataList.filter(state => state.area !== null);
-        let uniqueArea = Array.from(new Set(result.map(state => state.area)));
+        let result = stateDataList.filter(state => state.city !== null);
+        let uniqueArea = Array.from(new Set(result.map(state => state.city)));
         uniqueArea.sort();
         return uniqueArea;
     }
-
+ 
     return (
         <div className="form-group py-2">
         <label className='fz-16 lato-regular mb-1'>
@@ -38,5 +38,5 @@ const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecon
     </div>
     );
 };
-
+ 
 export default CityField;

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 import Select from 'react-select'
-
+ 
 const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondaryLabel, hasError, onSelection, errorMessage  }) => {
     const [institutionList, setinstitutionList] = useState([]);
     const [institution, setInstitution] = useState('');
-
+ 
     useEffect(() => {
-        axiosConfig.get('/api/institutions')
+        axiosConfig.get('/api/payment-mappings')
             .then(response => {
                 if (response && response.data) {
                     let sortedInstitutions = response.data.sort((a, b) => {
-                        if (a.name < b.name) return -1;
-                        if (a.name > b.name) return 1;
+                        if (a.institution_name < b.institution_name) return -1;
+                        if (a.institution_name > b.institution_name) return 1;
                         return 0;
                     });
                     setinstitutionList(sortedInstitutions);
@@ -22,13 +22,13 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
                 console.error('Error fetching institutions:', error);
             });
     }, []);
-
-
+ 
+ 
     const handleInstitutionSelection =(e) =>{
         onSelection(e.value, e.label);
     };
-
-
+ 
+ 
   return (
     <div className="form-group py-2">
         <label className='fz-16 lato-regular mb-1'>
@@ -41,7 +41,7 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
         // value={selectedState}
         onChange={(e) => handleInstitutionSelection(e)}
         options={institutionList.map(collegeName =>
-            ({ value: collegeName.id, label: collegeName.name })
+            ({ value: collegeName.id, label: collegeName.institution_name })
         )
         }
         />
@@ -49,5 +49,5 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
     </div>
   );
 };
-
+ 
 export default InstitutionField;
