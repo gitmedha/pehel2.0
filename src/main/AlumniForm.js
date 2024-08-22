@@ -55,6 +55,9 @@ const AlumniForm = () => {
   const [loading, setLoading] = useState(false);
   const [stuId,setStuId]=useState('')
   const [courseList,setCourseList]=useState([])
+  const [courseLevelOption,setCourseLevelOption]=useState([])
+  const [courseData,setCourseData]=useState([])
+  const [courseNameList,setCourseNameList]=useState([])
 
   const onEnteringStudentId = (value, data) => {
     setStuId(value)
@@ -65,7 +68,7 @@ const AlumniForm = () => {
     axiosConfig.get('/api/curses')
         .then(response => {
             if(response && response.data){
-              console.log(response.data);
+              setCourseData(response.data);
               const filteredCourses = response.data.filter(obj => {
                 return obj
               });
@@ -75,14 +78,27 @@ const AlumniForm = () => {
                 value: obj.course_type,
                 label: obj.course_type
               }));
+
+              const courseLevelOptions = filteredCourses.map(obj => ({
+                key: obj.course_level,
+                value: obj.course_level,
+                label: obj.course_level
+              }));
               const uniqueCourseTypes = [...new Set(courseOptions.map(option => option.value))];
+              const uniquecourseLevelOptions= [...new Set(courseLevelOptions.map(option => option.value))];
               const uniqueCourseOptions = uniqueCourseTypes.map(type => ({
                 key: type,
                 value: type,
                 label: type
               }));
               
-              console.log(uniqueCourseOptions);
+              const uniqueCourseLevelOption = uniquecourseLevelOptions.map(type => ({
+                key: type,
+                value: type,
+                label: type
+              }));
+              setCourseList(uniqueCourseOptions);
+              setCourseLevelOption(uniqueCourseLevelOption)
             }
         })
         .catch(error => {
@@ -106,13 +122,19 @@ const AlumniForm = () => {
   }
 
   const onSelectionCourseType = (value) => {
-    console.log(value);
     setCourseType(value);
   }
 
   const onCourseLevelSelection = (value) => {
     setCourseLevel(value);
   }
+  useEffect(()=>{
+    if(courseType && courseLevel){
+      const data =courseData.filter(item => item.course_type === courseType && item.course_level === courseLevel).map(item => item.course_name)
+      setCourseNameList(data)
+    }
+
+  },[courseType,courseLevel])
 
   const onCourseYearSelection = (value) => {
     setCourseStudyYear(value);
@@ -324,11 +346,11 @@ const AlumniForm = () => {
           <InstitutionField nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please select Educational Institution"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
-          <CourseField nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError={courseTypeError} errorMessage={"Please select Course"} />
+          <CourseField nameOfLabel={"Course"} onSelection={onSelectionCourseType} course={courseList} isMandatory={true} hasError={courseTypeError} errorMessage={"Please select Course"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
-            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel={"Course Level"} isMandatory={true} hasError={courseLevelError} errorMessage={"Please select Course Level"} />
+            <CourseLevelField onSelection={onCourseLevelSelection} courseLevelOptions={courseLevelOption} nameOfSecondaryLabel={"Course Level"} isMandatory={true} hasError={courseLevelError} errorMessage={"Please select Course Level"} />
           </div>
           <div className='px-2 educational-institution'>
             <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} isMandatory={true} hasError={courseStudyYearError} errorMessage={"Please select Year Of Study"} />
@@ -343,7 +365,7 @@ const AlumniForm = () => {
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center '>
-          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please select Course Name"} />
+          <CourseName onSelection={onCourseNameSelection} courseNameListOption={courseNameList} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please select Course Name"} />
         </div>
         {
           course === "Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onOtherCourseNameEntered} nameOfLabel={"Specify Course Name"} isMandatory={true} errorMessage={"Please enter other course name"} hasError={otherCourseError} /></div>
