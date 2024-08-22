@@ -8,6 +8,7 @@ const CourseLevelField = ({ value, onSelection, nameOfLabel, isMandatory, nameOf
         axiosConfig.get('/api/picklist-field-configs?table=program_enrollments&field=course_level')
         .then(response => {
             if(response && response.data){
+                console.log(response);
                 setCourseLevelList(response.data[0].values)
             }
         })

@@ -10,8 +10,8 @@ const CityField = ({ value, onCitySelected, nameOfLabel, isMandatory,nameOfSecon
 
     const filterCityList =() =>{
         let stateDataList= stateList;
-        let result = stateDataList.filter(state => state.area !== null);
-        let uniqueArea = Array.from(new Set(result.map(state => state.area)));
+        let result = stateDataList.filter(state => state.city !== null);
+        let uniqueArea = Array.from(new Set(result.map(state => state.city)));
         uniqueArea.sort();
         return uniqueArea;
     }

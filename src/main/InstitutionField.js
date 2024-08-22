@@ -7,12 +7,12 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
     const [institution, setInstitution] = useState('');
 
     useEffect(() => {
-        axiosConfig.get('/api/institutions')
+        axiosConfig.get('/api/payment-mappings')
             .then(response => {
                 if (response && response.data) {
                     let sortedInstitutions = response.data.sort((a, b) => {
-                        if (a.name < b.name) return -1;
-                        if (a.name > b.name) return 1;
+                        if (a.institution_name < b.institution_name) return -1;
+                        if (a.institution_name > b.institution_name) return 1;
                         return 0;
                     });
                     setinstitutionList(sortedInstitutions);
@@ -41,7 +41,7 @@ const InstitutionField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSeco
         // value={selectedState}
         onChange={(e) => handleInstitutionSelection(e)}
         options={institutionList.map(collegeName =>
-            ({ value: collegeName.id, label: collegeName.name })
+            ({ value: collegeName.sis_id.id, label: collegeName.institution_name })
         )
         }
         />

@@ -15,6 +15,8 @@ const CourseName = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecond
         .catch(error => {
             console.error('Error fetching states:', error);
         });
+
+        
     }, []);
 
     const handleCourseNameSelection =(e) =>{

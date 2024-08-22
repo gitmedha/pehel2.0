@@ -393,7 +393,7 @@ const RegistrationForm = () => {
       "email": email,
       "address": onAddingAddress(),
       "aadhar_number": "",
-      "area": null,
+      "medha_area": "",
       "course_name_in_current_sis": course,
       "course_name_other": otherCourse,
       "how_did_you_hear_about_us": aboutUs,

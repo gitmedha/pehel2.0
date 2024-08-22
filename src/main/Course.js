@@ -9,6 +9,7 @@ const CourseField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondary
         axiosConfig.get('/api/picklist-field-configs?table=program_enrollments&field=course_type')
         .then(response => {
             if(response && response.data){
+                console.log(response);
                 setCourseList(response.data[0].values)
             }
         })

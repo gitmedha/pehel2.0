@@ -53,11 +53,43 @@ const AlumniForm = () => {
   const [firstConsentMessage, setFirstConsentMesaage] = useState(false);
   const [secondConsentMessage, setSecondConsentMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [stuId,setStuId]=useState('')
+  const [courseList,setCourseList]=useState([])
 
   const onEnteringStudentId = (value, data) => {
-    setStudentId(value);
+    setStuId(value)
+    setStudentId(data[0].id);
     studentInformation(data)
   }
+  useEffect(() => {
+    axiosConfig.get('/api/curses')
+        .then(response => {
+            if(response && response.data){
+              console.log(response.data);
+              const filteredCourses = response.data.filter(obj => {
+                return obj
+              });
+              
+              const courseOptions = filteredCourses.map(obj => ({
+                key: obj.course_type,
+                value: obj.course_type,
+                label: obj.course_type
+              }));
+              const uniqueCourseTypes = [...new Set(courseOptions.map(option => option.value))];
+              const uniqueCourseOptions = uniqueCourseTypes.map(type => ({
+                key: type,
+                value: type,
+                label: type
+              }));
+              
+              console.log(uniqueCourseOptions);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching states:', error);
+        });
+  }, [])
+  
   const studentInformation = (data) => {
     if (data && data[0]) {
       setStudentName(data[0].full_name);
@@ -74,6 +106,7 @@ const AlumniForm = () => {
   }
 
   const onSelectionCourseType = (value) => {
+    console.log(value);
     setCourseType(value);
   }
 
@@ -163,7 +196,7 @@ const AlumniForm = () => {
     axiosConfig.post('/api/program-enrollments/createFromWebhook', {
       "student_id": student_id,
       "institution_id": collegeId,
-      "program_id": program,
+      "program_id": +program,
       "course_type": courseType,
       "course_level": courseLevel,
       "year_of_course_completion": courseCompletionYear,
@@ -176,7 +209,7 @@ const AlumniForm = () => {
         if (response && response.status === 200) {
           const studentInfo = response.data;
           axiosConfig.post('/api/students/sendEmail', {
-            "studentId": studentId,
+            "studentId": stuId,
             "name": studentName,
             "email": email,
             "parentsName": parentName,
@@ -197,7 +230,7 @@ const AlumniForm = () => {
                   navigate('/thankyou', {
                     state: {
                       name: studentName,
-                      id: studentId,
+                      id: stuId,
                       email: email
                     },
                   });
