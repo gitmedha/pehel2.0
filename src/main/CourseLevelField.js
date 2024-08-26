@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const CourseLevelField = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel, hasError, errorMessage  }) => {
+const CourseLevelField = ({courseLevelOptions, value, onSelection, nameOfLabel, isMandatory, nameOfSecondaryLabel, hasError, errorMessage  }) => {
     const [courseLevelList, setCourseLevelList] = useState([]);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const CourseLevelField = ({ value, onSelection, nameOfLabel, isMandatory, nameOf
                 onChange={(e) => {handleCourseLevelChange(e)}}
             >
                 <option value="">Select</option>
-                {courseLevelList.map((courseLevel, index) => (
+                {courseLevelOptions.map((courseLevel, index) => (
                     <option key={index} value={courseLevel.value}>{courseLevel.value}</option>
                 ))}
             </select>
