@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../axios/axiosConfig';
 
-const CourseField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondaryLabel, hasError, onSelection, errorMessage  }) => {
+const CourseField = ({course, value, onChange, nameOfLabel, isMandatory,nameOfSecondaryLabel, hasError, onSelection, errorMessage  }) => {
     const [courseList, setCourseList] = useState([]);
     const [courseType, setCourseType] = useState('');
 
@@ -9,7 +9,6 @@ const CourseField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondary
         axiosConfig.get('/api/picklist-field-configs?table=program_enrollments&field=course_type')
         .then(response => {
             if(response && response.data){
-                console.log(response);
                 setCourseList(response.data[0].values)
             }
         })
@@ -36,7 +35,7 @@ const CourseField = ({ value, onChange, nameOfLabel, isMandatory,nameOfSecondary
         onChange={(e) => {handleCourseSelection(e)}}
     >
         <option value="">Select</option>
-        {courseList.map((course, index) => (
+        {course?.map((course, index) => (
             <option key={index} value={course.value}>{course.value}</option>
         ))}
     </select>
