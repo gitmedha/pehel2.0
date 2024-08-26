@@ -36,10 +36,10 @@ const RegistrationForm = () => {
   const [name, setName] = useState('');
   const [parentName, setParentName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
-  const [category, setCategory] =useState('');
+  const [category, setCategory] = useState('');
   const [gender, setGender] = useState('');
   const [primaryAddress, setPrimaryAddress] = useState('');
-  const [secondaryAddress, setSecondaryAddress] =useState('');
+  const [secondaryAddress, setSecondaryAddress] = useState('');
   const [address, setAddress] = useState('');
   const [studentState, setStudentState] = useState('');
   const [aadharNumber, setAadharNumber] = useState('');
@@ -93,7 +93,7 @@ const RegistrationForm = () => {
   const [pincode, setPincode] = useState('');
   const [pincodeError, setPincodeError] = useState(false);
   const [collegeId, setCollegeId] = useState('');
-  const [programId, setProgramId] =useState('');
+  const [programId, setProgramId] = useState('');
   const [formHasError, setFormHasError] = useState(false);
   const [firstConsentMessage, setFirstConsentMesaage] = useState(false);
   const [secondConsentMessage, setSecondConsentMessage] = useState(false);
@@ -103,49 +103,49 @@ const RegistrationForm = () => {
     setName(value);
   };
 
-  const onParentNameEntered =(value) =>{
+  const onParentNameEntered = (value) => {
     setParentName(value);
   }
 
-  const onDateOfBirthEntered =(value) =>{
+  const onDateOfBirthEntered = (value) => {
     setDateOfBirth(value);
   }
 
-  const onSelectingCategory =(value) =>{
+  const onSelectingCategory = (value) => {
     setCategory(value);
   }
 
-  const onSelectingGender =(value) =>{
+  const onSelectingGender = (value) => {
     setGender(value);
   }
 
-  const onAddingPrimaryAddress =(value) => {
+  const onAddingPrimaryAddress = (value) => {
     setPrimaryAddress(value);
   }
 
-  const onAddingSecondaryAddress =(value) => {
+  const onAddingSecondaryAddress = (value) => {
     setSecondaryAddress(value);
   }
 
   const onAddingAddress = () => {
     let clubbedAddress;
-    if(secondaryAddress !== ""){
-    clubbedAddress = primaryAddress+ "," +secondaryAddress;
+    if (secondaryAddress !== "") {
+      clubbedAddress = primaryAddress + "," + secondaryAddress;
     } else {
       clubbedAddress = primaryAddress;
     }
     return clubbedAddress;
   }
 
-  const onAadharEntered =(value) =>{
+  const onAadharEntered = (value) => {
     setAadharNumber(value);
   }
 
-  const onPhoneNumberEntered =(value) => {
+  const onPhoneNumberEntered = (value) => {
     setPhoneNumber(value);
   }
 
-  const onAlternatePhoneNumberEntered =(value) => {
+  const onAlternatePhoneNumberEntered = (value) => {
     setAlternatePhoneNumber(value);
   }
 
@@ -153,11 +153,11 @@ const RegistrationForm = () => {
     setFamilyIncome(value);
   }
 
-  const onEnteringPinCode = (value) =>{
+  const onEnteringPinCode = (value) => {
     setPincode(value);
   }
 
-  const onSelectingFamilyIncome = (value) =>{
+  const onSelectingFamilyIncome = (value) => {
     setSelectedFamilyIncome(value);
   }
 
@@ -169,32 +169,32 @@ const RegistrationForm = () => {
     setConfirmedEmail(value);
   }
 
-  const onCourseLevelSelection =(value) => {
+  const onCourseLevelSelection = (value) => {
     setCourseLevel(value);
   }
 
-  const onCourseYearSelection =(value) => {
+  const onCourseYearSelection = (value) => {
     setCourseStudyYear(value);
   }
 
-  const onCourseCompletionYearSelection =(value) => {
+  const onCourseCompletionYearSelection = (value) => {
     setcourseCompletionYear(value);
   }
 
-  const onCourseNameSelection =(value) => {
+  const onCourseNameSelection = (value) => {
     setCourse(value);
   }
 
-  const onProgramSelected = (value,id) => {
+  const onProgramSelected = (value, id) => {
     setProgram(value);
     setProgramId(id)
   }
 
-  const onAboutUsSelect =(value) =>{
+  const onAboutUsSelect = (value) => {
     setAboutUs(value);
   }
 
-  const onSelectingState =(value, apiResponse) => {
+  const onSelectingState = (value, apiResponse) => {
     setStudentState(value);
     setStateList(apiResponse);
   }
@@ -211,11 +211,11 @@ const RegistrationForm = () => {
     setPlanAfterCourse(value);
   }
 
-  const onSelectionCourseType  =(value) =>{
+  const onSelectionCourseType = (value) => {
     setCourseType(value);
   }
 
-  const onSelectionInstitution =(value,label) => {
+  const onSelectionInstitution = (value, label) => {
     setCollegeName(label);
     setCollegeId(value);
   }
@@ -224,22 +224,22 @@ const RegistrationForm = () => {
     setOtherCourse(value);
   };
 
-  const onAboutUsOtherEntered = (value) =>{
+  const onAboutUsOtherEntered = (value) => {
     setAboutUsOther(value);
   }
 
 
-  useEffect( () =>{
+  useEffect(() => {
     axiosConfig.post('/api/institutions/paymentRequired').then(
-      response =>{
-        if(response && response.data){
+      response => {
+        if (response && response.data) {
           setPaymentMappingList(response.data);
         }
       })
       .catch(error => {
         console.error('Error fetching states:', error);
       });
-  },[]);
+  }, []);
 
   const showToastMessage = () => {
     return toast('Form Submitted Successfully!', {
@@ -268,7 +268,7 @@ const RegistrationForm = () => {
       phoneNumber: { value: phoneNumber, setError: setPhoneNumberError },
       email: { value: email, setError: setEmailError },
       confirmedEmail: { value: confirmedEmail, setError: setConfirmEmailError },
-      familyIncome: { value: familyIncome , setError: setFamilyIncomeError },
+      familyIncome: { value: familyIncome, setError: setFamilyIncomeError },
       selectedFamilyIncome: { value: selectedFamilyIncome, setError: setSelectedFamilyIncomeError },
       courseLevel: { value: courseLevel, setError: setCourseLevelError },
       courseCompletionYear: { value: courseCompletionYear, setError: setcourseCompletionYearError },
@@ -280,10 +280,10 @@ const RegistrationForm = () => {
       institution: { value: collegeName, setError: setInstitutionError },
       ...(course === 'other' && { otherCourse: { value: otherCourse, setError: setOtherCourseError } }),
       ...(aboutUs === 'other' && { aboutUsOther: { value: aboutUsOther, setError: setAboutUsOtherError } }),
-      pincode: {value: pincode, setError: setPincodeError},
-      state: {value:studentState, setError:setStateError},
-      district: {value:district, setError:setDisctrictError},
-      city: {value:city, setError: setCityError}
+      pincode: { value: pincode, setError: setPincodeError },
+      state: { value: studentState, setError: setStateError },
+      district: { value: district, setError: setDisctrictError },
+      city: { value: city, setError: setCityError }
     };
 
 
@@ -302,16 +302,16 @@ const RegistrationForm = () => {
     return isValid;
   };
 
-  const validateEmail = () =>{
-    if(email){
-      const emailPattern =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const validateEmail = () => {
+    if (email) {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const isValid = emailPattern.test(email);
       return isValid;
     }
   }
 
-  const  validateConfirmedEmail = () =>{
-    if(email === confirmedEmail){
+  const validateConfirmedEmail = () => {
+    if (email === confirmedEmail) {
       return true;
     } else {
       return false;
@@ -319,7 +319,7 @@ const RegistrationForm = () => {
   }
 
   const validateFamilyIncome = () => {
-    if(familyIncome !==""){
+    if (familyIncome !== "") {
       const incomeRanges = [
         { label: "Less than INR 25k", min: 0, max: 24999 },
         { label: "INR 25k-50k", min: 25000, max: 50000 },
@@ -341,7 +341,7 @@ const RegistrationForm = () => {
 
   const onButtonClicked = (e) => {
     e.preventDefault();
-    if(onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true ){
+    if (onValidateForm() === true && validateEmail() === true && validateConfirmedEmail() === true) {
       showToastMessage();
       showLoader();
       createStudents();
@@ -351,17 +351,17 @@ const RegistrationForm = () => {
     }
   }
 
-  const showLoader =() =>{
+  const showLoader = () => {
     setLoading(true);
   }
 
-  const isPaymentRequired = () =>{
+  const isPaymentRequired = () => {
     let isPaid;
     let paymentList = paymentMappingList;
     const filteredList = paymentList.filter(item => {
       return item.institution_name === collegeName && item.program_name === programId;
     });
-    isPaid = filteredList &&  filteredList[0] && filteredList[0].payment;
+    isPaid = filteredList && filteredList[0] && filteredList[0].payment;
     return isPaid;
   }
 
@@ -393,87 +393,88 @@ const RegistrationForm = () => {
       "email": email,
       "address": onAddingAddress(),
       "aadhar_number": "",
-      "medha_area": "",
+      "medha_area": "No Area Assigned",
       "course_name_in_current_sis": course,
       "course_name_other": otherCourse,
       "how_did_you_hear_about_us": aboutUs,
       "how_did_you_hear_about_us_other": aboutUsOther,
       "alternate_mobile": alternatePhoneNumber
     })
-    .then(function (response) {
-      if (response && response.status === 200) {
-        const studentInfo = response.data;
-        axiosConfig.post('/api/students/sendEmail', {
-          "studentId": studentInfo.student_id,
-          "name": name,
-          "email": email,
-          "parentsName": parentName,
-          "dateOfBirth": dateOfBirth,
-          "educationalInstitution": collegeName,
-          "course": course,
-          "courseLevel": courseLevel,
-          "yearOfStudy": courseStudyYear,
-          "yearOfCompletion": courseCompletionYear,
-          "courseName": courseType,
-          "otherCourseName": otherCourse,
-          "program": programId
-        })
-        .then(function (secondResponse) {
-          if (secondResponse && secondResponse.status === 200) {
-            setName('');
-            setParentName('');
-            setDateOfBirth('');
-            setCategory('');
-            setGender('');
-            setAddress('');
-            setStudentState('');
-            setDistrict('');
-            setCity('');
-            setAadharNumber('');
-            setSelectedFamilyIncome('');
-            setFamilyIncome('');
-            setPhoneNumber('');
-            setAlternatePhoneNumber('');
-            setEmail('');
-            setConfirmedEmail('');
-            setCollegeName('');
-            setCourse('');
-            setCourseLevel('');
-            setCourseStudyYear('');
-            setcourseCompletionYear('');
-            setPlanAfterCourse('');
-            setCourseType('');
-            setProgram('');
-            setAboutUs('');
-            {(isModalOpen === false || isPaymentRequired === false) &&
-            navigate('/thankyou', {
-              state: {
-                name: studentInfo.full_name,
-                id: studentInfo.student_id,
-                email: studentInfo.email
-              },
+      .then(function (response) {
+        if (response && response.status === 200) {
+          const studentInfo = response.data;
+          axiosConfig.post('/api/students/sendEmail', {
+            "studentId": studentInfo.student_id,
+            "name": name,
+            "email": email,
+            "parentsName": parentName,
+            "dateOfBirth": dateOfBirth,
+            "educationalInstitution": collegeName,
+            "course": course,
+            "courseLevel": courseLevel,
+            "yearOfStudy": courseStudyYear,
+            "yearOfCompletion": courseCompletionYear,
+            "courseName": courseType,
+            "otherCourseName": otherCourse,
+            "program": programId
+          })
+            .then(function (secondResponse) {
+              if (secondResponse && secondResponse.status === 200) {
+                setName('');
+                setParentName('');
+                setDateOfBirth('');
+                setCategory('');
+                setGender('');
+                setAddress('');
+                setStudentState('');
+                setDistrict('');
+                setCity('');
+                setAadharNumber('');
+                setSelectedFamilyIncome('');
+                setFamilyIncome('');
+                setPhoneNumber('');
+                setAlternatePhoneNumber('');
+                setEmail('');
+                setConfirmedEmail('');
+                setCollegeName('');
+                setCourse('');
+                setCourseLevel('');
+                setCourseStudyYear('');
+                setcourseCompletionYear('');
+                setPlanAfterCourse('');
+                setCourseType('');
+                setProgram('');
+                setAboutUs('');
+                {
+                  (isModalOpen === false || isPaymentRequired === false) &&
+                  navigate('/thankyou', {
+                    state: {
+                      name: studentInfo.full_name,
+                      id: studentInfo.student_id,
+                      email: studentInfo.email
+                    },
+                  });
+                }
+              }
+            })
+            .catch(function (secondError) {
+              console.log(secondError);
             });
-            }
-          }
-        })
-        .catch(function (secondError) {
-          console.log(secondError);
-        });
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  const onClickOfDonateButton =(e) =>{
+  const onClickOfDonateButton = (e) => {
     e.preventDefault();
-    if(onValidateForm() === true){
+    if (onValidateForm() === true) {
       setIsModalOpen(true);
       let isThankYou = false;
       if (window.location.href.includes('thankyou')) {
         isThankYou = true;
-        if(isThankYou === true ){
+        if (isThankYou === true) {
           createStudents();
         }
       }
@@ -484,11 +485,11 @@ const RegistrationForm = () => {
     setIsModalOpen(false);
   };
 
-  const handleFirstConsent = (value) =>{
+  const handleFirstConsent = (value) => {
     setFirstConsentMesaage(value);
   }
 
-  const handleSecondConsent =(value) =>{
+  const handleSecondConsent = (value) => {
     setSecondConsentMessage(value);
   }
 
@@ -500,123 +501,123 @@ const RegistrationForm = () => {
       <h2 className='d-flex display-4 lato-regular'>SIGN UP</h2>
       <div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <TextField  onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} errorMessage ={"Please enter Name"} hasError = {nameError} />
+          <TextField onTextEntered={onNameEntered} nameOfLabel={"Name"} isMandatory={true} errorMessage={"Please enter Name"} hasError={nameError} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <TextField  onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true} errorMessage ={"Please enter Parent/Guardian's name"} hasError = {parentNameError}/>
+          <TextField onTextEntered={onParentNameEntered} nameOfLabel={"Father's / Mother's Name"} isMandatory={true} errorMessage={"Please enter Parent/Guardian's name"} hasError={parentNameError} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true} errorMessage={"Please enter Date Of Birth"} hasError = {dateOfBirthError}/>
+          <DateField onDateEntered={onDateOfBirthEntered} nameOfLabel={"Date of Birth"} isMandatory={true} errorMessage={"Please enter Date Of Birth"} hasError={dateOfBirthError} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true} errorMessage = {"Please select Category"} hasError = {categoryError}/>
+          <CategoryField onCategorySelect={onSelectingCategory} nameOfLabel={"Category"} isMandatory={true} errorMessage={"Please select Category"} hasError={categoryError} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <GenderField onGenderSelect={onSelectingGender} nameOfLabel={"Gender"} isMandatory={true} errorMessage = {"Please select Gender"} hasError = {genderError}/>
+          <GenderField onGenderSelect={onSelectingGender} nameOfLabel={"Gender"} isMandatory={true} errorMessage={"Please select Gender"} hasError={genderError} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <TextField  onTextEntered={onAddingPrimaryAddress} nameOfLabel={"Address"} isMandatory={true} errorMessage={"Please enter address"} hasError={addressError}/>
+          <TextField onTextEntered={onAddingPrimaryAddress} nameOfLabel={"Address"} isMandatory={true} errorMessage={"Please enter address"} hasError={addressError} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <MultiTextField  onTextEntered={onAddingSecondaryAddress} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel= {"Address Line 2"}/>
+          <MultiTextField onTextEntered={onAddingSecondaryAddress} nameOfFirstLabel={"Address Line 1"} nameOfSecondLabel={"Address Line 2"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
-            <StateField nameOfSecondaryLabel ={"State/Province/Region"} onStateSelected = {onSelectingState} isMandatory={true} hasError={stateError} errorMessage={"Please select State"}/>
+            <StateField nameOfSecondaryLabel={"State/Province/Region"} onStateSelected={onSelectingState} isMandatory={true} hasError={stateError} errorMessage={"Please select State"} />
           </div>
           <div className='px-2 educational-institution'>
-            <DistrictField nameOfSecondaryLabel={"District"} stateName ={studentState} stateList = {stateList} onDistrictSelected = {onSelectingDistrict} isMandatory={true} hasError={districtError} errorMessage={"Please select District"}/>
+            <DistrictField nameOfSecondaryLabel={"District"} stateName={studentState} stateList={stateList} onDistrictSelected={onSelectingDistrict} isMandatory={true} hasError={districtError} errorMessage={"Please select District"} />
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number city-field'>
           <div className='px-2 educational-institution'>
-            <CityField nameOfSecondaryLabel ={"City"} stateList = {stateList} onCitySelected = {onSelectingCity} isMandatory={true} hasError= {cityError} errorMessage={"Please select City"}/>
+            <CityField nameOfSecondaryLabel={"City"} stateList={stateList} onCitySelected={onSelectingCity} isMandatory={true} hasError={cityError} errorMessage={"Please select City"} />
           </div>
           <div className='px-2'>
-            <PinCodeField onNumberChange={onEnteringPinCode}  hasError={pincodeError} nameOfSecondaryLabel ={"Pincode"} errorMessage={"Please enter Pincode"} isMandatory={true}/>
+            <PinCodeField onNumberChange={onEnteringPinCode} hasError={pincodeError} nameOfSecondaryLabel={"Pincode"} errorMessage={"Please enter Pincode"} isMandatory={true} />
           </div>
         </div>
 
         <br></br>
         <div className='d-lg-flex justify-content-lg-center'>
-          <AadharField  onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false}/>
+          <AadharField onNumberChange={onAadharEntered} nameOfLabel={"Aadhaar Number"} isMandatory={false} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect ={onSelectingFamilyIncome} hasError={selectedFamilyIncomeError} errorMessage={"Please select Family Income"} />
+          <FamilyIncome nameOfLabel={"Family's Annual Income"} isMandatory={true} onRangeSelect={onSelectingFamilyIncome} hasError={selectedFamilyIncomeError} errorMessage={"Please select Family Income"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
-          <NumberField  onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true} hasError= {familyIncomeError || validateFamilyIncome() === false} errorMessage ={ validateFamilyIncome() === false ? "Please enter valid income": "Please enter Family Income"}/>
+          <NumberField onNumberChange={onAddingFamilyIncome} nameOfLabel={"Family Annual Income Amount"} isMandatory={true} hasError={familyIncomeError || validateFamilyIncome() === false} errorMessage={validateFamilyIncome() === false ? "Please enter valid income" : "Please enter Family Income"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2'>
-            <NumberField  onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true} hasError= {phoneNumberError} errorMessage= {"Please enter Phone Number"} />
+            <NumberField onNumberChange={onPhoneNumberEntered} nameOfLabel={"Phone Number"} isMandatory={true} hasError={phoneNumberError} errorMessage={"Please enter Phone Number"} />
           </div>
           <div className='px-2'>
-            <NumberField  onNumberChange={onAlternatePhoneNumberEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false} />
+            <NumberField onNumberChange={onAlternatePhoneNumberEntered} nameOfLabel={"Alternate Phone Number"} isMandatory={false} />
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2'>
-            <EmailField onTextEntered={onEnteringEmail} nameOfLabel={"Email"} isMandatory={true} hasError= {emailError || validateEmail() === false} errorMessage ={validateEmail() === false ? "Please enter valid Email" : "Please enter Email"}/>
+            <EmailField onTextEntered={onEnteringEmail} nameOfLabel={"Email"} isMandatory={true} hasError={emailError || validateEmail() === false} errorMessage={validateEmail() === false ? "Please enter valid Email" : "Please enter Email"} />
           </div>
           <div className='px-2'>
-            <EmailField onTextEntered={onEnteringConfirmationEmail} nameOfLabel={"Confirm Email"} isMandatory={false} hasError={confirmEmailError || validateConfirmedEmail() === false } errorMessage={validateConfirmedEmail() === false ? "Please enter same email" : "Please confirm email"}/>
+            <EmailField onTextEntered={onEnteringConfirmationEmail} nameOfLabel={"Confirm Email"} isMandatory={false} hasError={confirmEmailError || validateConfirmedEmail() === false} errorMessage={validateConfirmedEmail() === false ? "Please enter same email" : "Please confirm email"} />
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
-          <InstitutionField   nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please select Educational Institution"}/>
+          <InstitutionField nameOfLabel={"Educational Institution"} isMandatory={true} onSelection={onSelectionInstitution} hasError={institutionError} errorMessage={"Please select Educational Institution"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center educational-institution'>
-          <CourseField   nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError ={courseError} errorMessage ={"Please select Course"}/>
+          <CourseField nameOfLabel={"Course"} onSelection={onSelectionCourseType} isMandatory={true} hasError={courseError} errorMessage={"Please select Course"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center phone-number'>
           <div className='px-2 educational-institution'>
-            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel ={"Course Level"} hasError ={courseLevelError} isMandatory={true} errorMessage ={"Please select Course Level"}/>
+            <CourseLevelField onSelection={onCourseLevelSelection} nameOfSecondaryLabel={"Course Level"} hasError={courseLevelError} isMandatory={true} errorMessage={"Please select Course Level"} />
           </div>
           <div className='px-2 educational-institution'>
-            <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError ={courseStudyYearError} isMandatory={true} errorMessage ={"Please select Year Of Study"}/>
+            <CourseStudyYear onSelection={onCourseYearSelection} nameOfSecondaryLabel={"Year of Study"} hasError={courseStudyYearError} isMandatory={true} errorMessage={"Please select Year Of Study"} />
           </div>
         </div>
         <div className="d-lg-flex justify-content-lg-center phone-number">
           <div className='px-2 educational-institution'>
-            <CourseCompletionYear  onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please select Course Completion Year"} />
+            <CourseCompletionYear onSelection={onCourseCompletionYearSelection} nameOfSecondaryLabel={"Year of Course Completion"} isMandatory={true} hasError={courseCompletionYearError} errorMessage={"Please select Course Completion Year"} />
           </div>
           <div className='px-2 educational-institution'>
-            <PlanAfterCourse  onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} isMandatory={true} hasError= {courseCompletionYearError} errorMessage={"Please select Plan After Course"} />
+            <PlanAfterCourse onSelection={onSelectionPlanAfterCourse} nameOfSecondaryLabel={"Plan After Course Completion"} isMandatory={true} hasError={courseCompletionYearError} errorMessage={"Please select Plan After Course"} />
           </div>
         </div>
         <div className='d-lg-flex justify-content-lg-center '>
-          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please select Course Name"}/>
+          <CourseName onSelection={onCourseNameSelection} nameOfLabel={"Course Name"} isMandatory={true} hasError={courseError} errorMessage={"Please select Course Name"} />
         </div>
         {
-          course === "Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onOtherCourseNameEntered} nameOfLabel={"Specify Course Name"} isMandatory={true} errorMessage ={"Please enter other course name"} hasError = {otherCourseError} /></div>
+          course === "Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onOtherCourseNameEntered} nameOfLabel={"Specify Course Name"} isMandatory={true} errorMessage={"Please enter other course name"} hasError={otherCourseError} /></div>
         }
         <div className='d-lg-flex justify-content-lg-center'>
-          <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel ={"WorkShop"} isMandatory={true} hasError={programError} errorMessage = {"Please select Program or Workshop"}/>
+          <Program onSelection={onProgramSelected} nameOfLabel={"What we offer"} nameOfSecondLabel={"Programs"} nameOfThirdLabel={"WorkShop"} isMandatory={true} hasError={programError} errorMessage={"Please select Program or Workshop"} />
         </div>
         <div className='d-lg-flex justify-content-lg-center'>
           <div className='px-2 educational-institution'>
-            <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel ={"How did you hear about us?"} isMandatory={true} hasError={aboutUsError} errorMessage= {"Please select this value"}/>
+            <AboutUsField onAboutUsSelect={onAboutUsSelect} nameOfLabel={"How did you hear about us?"} isMandatory={true} hasError={aboutUsError} errorMessage={"Please select this value"} />
           </div>
         </div>
-        {aboutUs ==="Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onAboutUsOtherEntered} nameOfLabel={"If Other, Specify"} isMandatory={true} errorMessage ={"Please enter this value"} hasError = {aboutUsOtherError} /></div>}
+        {aboutUs === "Other" && <div className='d-lg-flex justify-content-lg-center'><TextField onTextEntered={onAboutUsOtherEntered} nameOfLabel={"If Other, Specify"} isMandatory={true} errorMessage={"Please enter this value"} hasError={aboutUsOtherError} /></div>}
         <div className='d-lg-flex justify-content-lg-center'>
-          <ConsentSection onCheckingFirstBox = {handleFirstConsent} onCheckingSecondBox = {handleSecondConsent}/>
+          <ConsentSection onCheckingFirstBox={handleFirstConsent} onCheckingSecondBox={handleSecondConsent} />
         </div>
         {formHasError === true &&
-        <div className='d-lg-flex justify-content-lg-center error-message'>* You have errors on page. Please check.</div>
+          <div className='d-lg-flex justify-content-lg-center error-message'>* You have errors on page. Please check.</div>
         }
       </div>
 
       <br></br>
-      {isModalOpen && <DonationForm isOpen = {isModalOpen} onClose={handleCloseModal}/>}
+      {isModalOpen && <DonationForm isOpen={isModalOpen} onClose={handleCloseModal} />}
       {isPaymentRequired() === true ?
         <div className='d-lg-flex justify-content-lg-center'>
-        <button type="button" className="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
+          <button type="button" className="btn btn-warning submit-button" onClick={onClickOfDonateButton} disabled={firstConsentMessage === false || secondConsentMessage === false}>Donate</button>
         </div>
-          :
+        :
         <div className='d-lg-flex justify-content-lg-center'>
-        <button type="button" className="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
+          <button type="button" className="btn btn-warning submit-button" onClick={onButtonClicked} disabled={firstConsentMessage === false || secondConsentMessage === false}>Submit</button>
         </div>
       }
       {loading === true &&
