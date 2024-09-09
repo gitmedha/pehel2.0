@@ -230,6 +230,7 @@ const AlumniForm = () => {
       .then(function (response) {
         if (response && response.status === 200) {
           const studentInfo = response.data;
+          console.log(studentInfo)
           axiosConfig.post('/api/students/sendEmail', {
             "studentId": stuId,
             "name": studentName,

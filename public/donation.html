@@ -25,12 +25,14 @@
                 // Use URLSearchParams to get the query parameters
                 let params = new URLSearchParams(urlObj.search);
                 // Extract the values
-                let student_id = params.get('studentId');
-                let apiaccessToken = params.get('apiaccessToken');
+                let kptrk = params.get('kptrk');
+
+                let {student_id, accessTokenAPI, apiBaseUrl } = JSON.parse(kptrk)
+                console.log(student_id, accessTokenAPI, apiBaseUrl )
 
                 if (this.responseText.includes('https://pehel.medha.org.in/thankyou')) {
-                    console.log(`API Call: ${this._method} ${this._url}`, 'Response:', this.responseText);
-                    console.log('https://pehel.medha.org.in/thankyou', '****************************')
+                    // console.log(`API Call: ${this._method} ${this._url}`, 'Response:', this.responseText);
+                    // console.log('https://pehel.medha.org.in/thankyou', '****************************')
                     if (this.responseText) {
                         // Create a URL object
                         const urlObj = new URL(this.responseText);
@@ -44,7 +46,7 @@
                         const amount = params.get('dmTotalAmount'); // "1000"
 
                         // Define the API endpoint
-                        const apiUrl = `${window?.REACT_APP_API_BASE_URL}/createDonation`;
+                        const apiUrl = `${apiBaseUrl}/api/createDonation`;
 
                         // Define the data to be sent in the request body
                         const donationData = {
@@ -55,13 +57,12 @@
                             createdby: 2
                         };
 
-
                         // Make the POST request using fetch
                         fetch(apiUrl, {
                             method: 'POST', // HTTP method
                             headers: {
                                 'Content-Type': 'application/json',// Indicate the format of the data,
-                                'Authorization': `Bearer ${apiaccessToken}`
+                                'Authorization': `Bearer ${accessTokenAPI}`
                             },
                             body: JSON.stringify(donationData) // Convert the data to a JSON string
                         })
