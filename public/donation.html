@@ -26,6 +26,7 @@
                 let params = new URLSearchParams(urlObj.search);
                 // Extract the values
                 let student_id = params.get('studentId');
+                let apiaccessToken = params.get('apiaccessToken');
 
                 if (this.responseText.includes('https://pehel.medha.org.in/thankyou')) {
                     console.log(`API Call: ${this._method} ${this._url}`, 'Response:', this.responseText);
@@ -60,7 +61,7 @@
                             method: 'POST', // HTTP method
                             headers: {
                                 'Content-Type': 'application/json',// Indicate the format of the data,
-                                'Authorization': `Bearer ${window.REACT_APP_API_TOKEN}`
+                                'Authorization': `Bearer ${apiaccessToken}`
                             },
                             body: JSON.stringify(donationData) // Convert the data to a JSON string
                         })
