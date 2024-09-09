@@ -32,7 +32,7 @@ const CourseLevelField = ({courseLevelOptions, value, onSelection, nameOfLabel, 
                 onChange={(e) => {handleCourseLevelChange(e)}}
             >
                 <option value="">Select</option>
-                {courseLevelOptions?.map((courseLevel, index) => (
+                {courseLevelList?.map((courseLevel, index) => (
                     <option key={index} value={courseLevel.value}>{courseLevel.value}</option>
                 ))}
             </select>
