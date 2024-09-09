@@ -1,7 +1,112 @@
 <!DOCTYPE html>
 <html>
-    <script src="https://danamojo.org/dm/js/widget.js" type="text/javascript"></script>
-    <script>setTimeout(function(){ if(document.getElementById("ngoContentContainer").innerHTML.length < 40){ document.getElementById("ngoContentContainer").innerHTML="<center> <p style='color:#a94442;'>we are sorry that our systems are down. we will be up shortly. apologies for the inconvenience.</p></center>";}},20000); </script>
-    <div id="dmScriptContainer" style="display:none;"><a href="#">Donate Now</a></div>
-    <div id="ngoContentContainer" iNGOId="1224" oDisplay="product"><img alt="please wait..." src="https://danamojo.org/dm/css/images/loading.gif"/></div>
+<script src="https://danamojo.org/dm/js/widget.js" type="text/javascript"></script>
+<script>setTimeout(function () { if (document.getElementById("ngoContentContainer").innerHTML.length < 40) { document.getElementById("ngoContentContainer").innerHTML = "<center> <p style='color:#a94442;'>we are sorry that our systems are down. we will be up shortly. apologies for the inconvenience.</p></center>"; } }, 20000); </script>
+<div id="dmScriptContainer" style="display:none;"><a href="#">Donate Now</a></div>
+<div id="ngoContentContainer" iNGOId="1224" oDisplay="product"><img alt="please wait..."
+        src="https://danamojo.org/dm/css/images/loading.gif" /></div>
+
+
+<script>
+    // Override XMLHttpRequest to log requests and payloads
+    (function () {
+        const originalXhrOpen = XMLHttpRequest.prototype.open;
+        const originalXhrSend = XMLHttpRequest.prototype.send;
+
+        XMLHttpRequest.prototype.open = function (method, url) {
+            this._method = method;
+            this._url = url;
+            originalXhrOpen.apply(this, arguments);
+        };
+
+        XMLHttpRequest.prototype.send = function (body) {
+            this.addEventListener('load', function () {
+                let urlObj = new URL(window.location?.href);
+                // Use URLSearchParams to get the query parameters
+                let params = new URLSearchParams(urlObj.search);
+                // Extract the values
+                let student_id = params.get('studentId');
+
+                if (this.responseText.includes('https://pehel.medha.org.in/thankyou')) {
+                    console.log(`API Call: ${this._method} ${this._url}`, 'Response:', this.responseText);
+                    console.log('https://pehel.medha.org.in/thankyou', '****************************')
+                    if (this.responseText) {
+                        // Create a URL object
+                        const urlObj = new URL(this.responseText);
+
+                        // Use URLSearchParams to get the query parameters
+                        const params = new URLSearchParams(urlObj.search);
+
+                        // Extract the values
+                        const donation_id = params.get('dmId'); // "12345"
+                        const status = params.get('dmStatus'); // "SUCCESS"
+                        const amount = params.get('dmTotalAmount'); // "1000"
+
+                        // Define the API endpoint
+                        const apiUrl = `${window?.REACT_APP_API_BASE_URL}/createDonation`;
+
+                        // Define the data to be sent in the request body
+                        const donationData = {
+                            student_id,
+                            donation_id,
+                            amount,
+                            status,
+                            createdby: 2
+                        };
+
+
+                        // Make the POST request using fetch
+                        fetch(apiUrl, {
+                            method: 'POST', // HTTP method
+                            headers: {
+                                'Content-Type': 'application/json',// Indicate the format of the data,
+                                'Authorization': `Bearer ${window.REACT_APP_API_TOKEN}`
+                            },
+                            body: JSON.stringify(donationData) // Convert the data to a JSON string
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok'); // Handle HTTP errors
+                                }
+                                return response.json(); // Parse the JSON from the response
+                            })
+                            .then(data => {
+                                console.log('Donation created successfully:', data); // Handle the response data
+                            })
+                            .catch(error => {
+                                console.error('Error creating donation:', error); // Handle any errors
+                            });
+
+                    }
+                }
+            });
+            originalXhrSend.apply(this, arguments);
+        };
+    })();
+
+    // Override fetch to log requests and payloads
+    (function () {
+        const originalFetch = window.fetch;
+        window.fetch = function (url, options = {}) {
+            const { method = 'GET', body } = options;
+
+            return originalFetch.apply(this, arguments).then(response => {
+                // console.log(`API Call: ${method} ${response.url}`);
+                // console.log('Request Payload:', body);
+                response.clone().text().then(bodyText => {
+                    console.log('Response:', bodyText);
+                });
+                return response;
+            });
+        };
+    })();
+
+    // Set timeout for error message if content fails to load
+    setTimeout(function () {
+        if (document.getElementById("ngoContentContainer").innerHTML.length < 40) {
+            document.getElementById("ngoContentContainer").innerHTML = "<center> <p style='color:#a94442;'>We are sorry that our systems are down. We will be up shortly. Apologies for the inconvenience.</p></center>";
+        }
+    }, 20000);
+</script>
+
 </html>

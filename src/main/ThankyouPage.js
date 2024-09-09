@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 const ThankyouPage = () => {
     const location = useLocation();
-    // const { studentData } = location?.state;
+
     return (
         <div className='thankyou-page'>
             <div className='p-lg-5'>
