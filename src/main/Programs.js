@@ -45,7 +45,7 @@ const Program = ({ value, onSelection, nameOfLabel, isMandatory, nameOfSecondLab
             <div className='mt-1'>
                 <div className="form-check form-check-inline mt-1 mb-1">
                     <input className="form-check-input" type="radio" name="program" id="Workshop" value="23" onChange={(e) => {onProgramSelected(e)}}/>
-                    <label className="form-check-label" for="inlineRadio1">Pehli Udaan</label>
+                    <label className="form-check-label" htmlFor="inlineRadio1">Pehli Udaan</label>
                 </div>
             </div>
             {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}

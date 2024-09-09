@@ -33,7 +33,7 @@ const CourseName = ({ courseNameListOption,value, onSelection, nameOfLabel, isMa
                 aria-label="Default select example"
                 // value={selectedState}
                 onChange={(e) => handleCourseNameSelection(e)}
-                options={courseNameListOption.map(course => ({ value: course, label: course }))}
+                options={courseNameListOption?.map(course => ({ value: course, label: course }))}
             />
             {hasError === true ? <div className='error-message'> {errorMessage} </div>:<div></div>}
         </div>
