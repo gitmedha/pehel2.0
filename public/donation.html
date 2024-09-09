@@ -28,7 +28,7 @@
                 let kptrk = params.get('kptrk');
 
                 let {student_id, accessTokenAPI, apiBaseUrl } = JSON.parse(kptrk)
-                console.log(student_id, accessTokenAPI, apiBaseUrl )
+                // console.log(student_id, accessTokenAPI, apiBaseUrl )
 
                 if (this.responseText.includes('https://pehel.medha.org.in/thankyou')) {
                     // console.log(`API Call: ${this._method} ${this._url}`, 'Response:', this.responseText);
@@ -46,7 +46,7 @@
                         const amount = params.get('dmTotalAmount'); // "1000"
 
                         // Define the API endpoint
-                        const apiUrl = `${apiBaseUrl}/api/createDonation`;
+                        const apiUrl = `${apiBaseUrl}api/createDonation`;
 
                         // Define the data to be sent in the request body
                         const donationData = {
@@ -67,6 +67,7 @@
                             body: JSON.stringify(donationData) // Convert the data to a JSON string
                         })
                             .then(response => {
+                                console.log(response)
                                 if (!response.ok) {
                                     throw new Error('Network response was not ok'); // Handle HTTP errors
                                 }
