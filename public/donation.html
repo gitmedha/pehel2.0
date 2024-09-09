@@ -25,13 +25,14 @@
                 // Use URLSearchParams to get the query parameters
                 let params = new URLSearchParams(urlObj.search);
                 // Extract the values
-                let student_id = params.get('studentId');
-                let accessTokenAPI  = params.get('accessTokenAPI');
-                let apiBaseUrl = params.get('apiBaseUrl');
-                
+                let kptrk = params.get('kptrk');
+
+                let {student_id, accessTokenAPI, apiBaseUrl } = JSON.parse(kptrk)
+                console.log(student_id, accessTokenAPI, apiBaseUrl )
+
                 if (this.responseText.includes('https://pehel.medha.org.in/thankyou')) {
-                    console.log(`API Call: ${this._method} ${this._url}`, 'Response:', this.responseText);
-                    console.log('https://pehel.medha.org.in/thankyou', '****************************')
+                    // console.log(`API Call: ${this._method} ${this._url}`, 'Response:', this.responseText);
+                    // console.log('https://pehel.medha.org.in/thankyou', '****************************')
                     if (this.responseText) {
                         // Create a URL object
                         const urlObj = new URL(this.responseText);
@@ -55,7 +56,6 @@
                             status,
                             createdby: 2
                         };
-
 
                         // Make the POST request using fetch
                         fetch(apiUrl, {
