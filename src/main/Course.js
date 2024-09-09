@@ -35,7 +35,7 @@ const CourseField = ({course, value, onChange, nameOfLabel, isMandatory,nameOfSe
         onChange={(e) => {handleCourseSelection(e)}}
     >
         <option value="">Select</option>
-        {course?.map((course, index) => (
+        {courseList?.map((course, index) => (
             <option key={index} value={course.value}>{course.value}</option>
         ))}
     </select>
