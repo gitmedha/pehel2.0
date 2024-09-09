@@ -76,7 +76,6 @@ const RegistrationForm = () => {
   const [courseError, setCourseError] = useState(false);
   const [programError, setProgramError] = useState(false);
   const [aboutUsError, setAboutUsError] = useState(false);
-  const [studentData, setStudentData] = useState({});
   const [stateList, setStateList] = useState([]);
   const [district, setDistrict] = useState('');
   const [city, setCity] = useState('');

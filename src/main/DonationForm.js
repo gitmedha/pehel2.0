@@ -19,7 +19,7 @@ const DonationForm = ({ isOpen, onClose, student_id }) => {
           <button className='close-button' onClick={onClose} style={{ fontSize: '16px', padding: '8px' }}><img src={CloseIcon}></img></button>
         </div>
         <iframe
-          src={`${process.env.PUBLIC_URL}/donation.html?studentId=${student_id}&accessTokenAPI=${process?.env?.REACT_APP_API_TOKEN}&apiBaseUrl=${process?.env?.REACT_APP_API_BASE_URL}`}
+          src={`${process.env.PUBLIC_URL}/donation.html?studentId=${student_id}&accessTokenAPI=${process.env.REACT_APP_API_TOKEN}&apiBaseUrl=${process.env.REACT_APP_API_BASE_URL}`}
           title="Donation Page"
           style={{
             width: '100%',
